@@ -18,9 +18,11 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
                 <select name="reposelect" id="repo-select" class="repo-select" size="3">
                     <option value="-1" selected="">Please Select a Repository...</option>
+<!--
                     <option value="0">markdown-render</option>
                     <option value="1">arduino-esp8266fs-plugin</option>
                     <option value="2">ESP8266-config-data-V2</option>
+-->
                 </select>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -103,31 +105,45 @@
                             </tr>
                         </thead>
                         <tbody id="repo-labels-list-body">
+<!-- 1st label -->
                             <tr>
+    <!-- label text over color -->
                                 <td class="table-cell-center">
                                     <div class="label-btn-cell" style="background-color:blue;color:white;">Cell 1</div>
                                 </td>
+    <!-- ^label text over color -->
+    <!-- label description -->
                                 <td>Cell 2</td>
+    <!-- ^label description -->
+    <!-- label action icons -->
                                 <td class="table-cell-center">
                                     <div>
-                                        <span class="fas fa-edit fa-lg label-edit-icon"> </span>
-                                        <span class="fas fa-trash fa-lg label-delete-icon"> </span>
-                                        <span class="fas fa-undo fa-lg label-undo-icon"> </span>
+                                        <span data-action="edit" class="fas fa-edit fa-lg label-edit-icon"> </span>
+                                        <span data-action="delete" class="fas fa-trash fa-lg label-delete-icon"> </span>
+                                        <span data-action="undo" class="fas fa-undo fa-lg label-undo-icon icon-disabled"> </span>
                                     </div>
                                 </td>
+    <!-- ^label action icons -->
+    <!-- label state icons -->
                                 <td class="table-cell-center">
                                     <div>
-                                        <span class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
-                                        <span class="fas fa-exclamation-triangle fa-lg label-ismod-icon"> </span>
-                                        <span class="fas fa-trash-alt fa-lg label-to-delete-icon"> </span>
+                                        <span data-state="notmod" class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
+                                        <span data-state="ismod" class="fas fa-exclamation-triangle fa-lg label-ismod-icon hidden"> </span>
+                                        <span data-state="todel" class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
                                     </div>
                                 </td>
+    <!-- ^label state icons -->
                             </tr>
+<!-- ^1st label -->
                             <tr>
+
+
                                 <td class="table-cell-center">
                                     <div class="label-btn-cell" style="background-color:#cfd3d7;color:black;">duplicate</div>
                                 </td>
                                 <td>This issue or pull request already exists </td>
+
+
                                 <td class="table-cell-center">
                                     <div>
                                         <span class="fas fa-edit fa-lg label-edit-icon"> </span>
@@ -144,10 +160,14 @@
                                 </td>
                             </tr>
                             <tr>
+
+
                                 <td class="table-cell-center">
                                     <div class="label-btn-cell" style="background-color:#008672;color:white;">help wanted</div>
                                 </td>
                                 <td>i've fallen and can't get up</td>
+
+
                                 <td class="table-cell-center">
                                     <div>
                                         <span class="fas fa-edit fa-lg label-edit-icon"> </span>
