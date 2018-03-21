@@ -9,7 +9,7 @@ _*
 # won't ignore them
 /nbproject/private/
 # misc stuff i want to ignore -
-*.html
+#*.html
 *.log
 *.txt
 *.bat
