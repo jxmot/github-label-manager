@@ -1,7 +1,7 @@
 <?php
 require_once "parseHeaders.php";
 $cfgfile = "../data/_gitlabels.json";
-
+$resp = null;
 if(file_exists($cfgfile)) {
     $cfg = json_decode(file_get_contents($cfgfile));
 
@@ -26,12 +26,16 @@ if(file_exists($cfgfile)) {
     if(strpos(strtolower($pheader[0]), "200 ok")) {
         $fname = "../data/_$cfg->owner-repos.json";
         file_put_contents($fname, $resp);
-        echo "{\"error\":false, \"ret\":0, \"msg\":\"$fname\"}";
+        $resp = "{\"error\":false, \"ret\":0, \"msg\":\"$fname\"}";
     } else {
-        echo "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
+        $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
     }
 } else {
-    echo "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
+    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
 }
-
+header("HTTP/1.0 200 OK");
+header("Content-Type: application/json; charset=utf-8");
+header("Content-Encoding: text");
+echo $resp;
+exit;
 ?>
