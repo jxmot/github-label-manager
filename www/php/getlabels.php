@@ -4,6 +4,10 @@ $cfgfile = "../data/_gitlabels.json";
 
 /*
     getlabels.php?r=repo_name
+
+    for command line testing :
+
+        php-cgi getlabels.php r=repo_name
 */
 $reporeq = $_REQUEST["r"];
 $resp = null;
