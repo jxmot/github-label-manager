@@ -5,9 +5,6 @@ _*.*
 # And the following folder(s) -
 node_modules
 _*
-# apparently, if the contents have already existed this
-# won't ignore them
-/nbproject/private/
 # misc stuff i want to ignore -
 #*.html
 *.log
@@ -25,3 +22,4 @@ error_log
 *.url
 # thumbnail files
 Thumbs.db
+/www/php/nbproject/
