@@ -35,7 +35,7 @@ if(isset($reporeq)) {
                         $justrepo = $thisrepo->msg;
                         $fork = ($justrepo->fork ? 'true' : 'false');
                         $private = ($justrepo->private ? 'true' : 'false');
-                        $tmp = "{\"name\":\"$justrepo->name\",\"fullname\":\"$justrepo->full_name\",\"fork\":$fork,\"forks\":$justrepo->forks,\"private\":$private,\"open_issues\":$justrepo->open_issues}";
+                        $tmp = "{\"name\":\"$justrepo->name\",\"full_name\":\"$justrepo->full_name\",\"fork\":$fork,\"forks\":$justrepo->forks,\"private\":$private,\"open_issues\":$justrepo->open_issues}";
                         $resp = "{\"error\":false, \"ret\":0, \"msg\":$tmp}";
                     } else {
                         $resp = "{\"error\":true, \"ret\":$thisrepo->ret, \"msg\":\"$thisrepo->msg\"}";
