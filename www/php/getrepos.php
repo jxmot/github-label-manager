@@ -26,14 +26,21 @@ if(file_exists($cfgfile)) {
     if(strpos(strtolower($pheader[0]), "200 ok")) {
         $fname = "../data/_$cfg->owner-repos.json";
         file_put_contents($fname, $resp);
-        $resp = "{\"error\":false, \"ret\":0, \"msg\":\"$fname\"}";
+
+        $repodisp = array();
+        $allrepos = json_decode($resp);
+        for($ix = 0;$ix < count($allrepos);$ix += 1) {
+            $tmp = "{\"name\":\"".$allrepos[$ix]->name."\",\"full_name\":\"".$allrepos[$ix]->full_name."\"}";
+            $repodisp[$ix] = json_decode($tmp);
+        }
+        $resp = "{\"error\":false, \"ret\":0, \"msg\":". stripslashes(json_encode($repodisp)) ."}";
     } else {
         $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
     }
 } else {
     $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
 }
-header("HTTP/1.0 200 OK");
+header("HTTP/1.0 200 OKie Dokie!");
 header("Content-Type: application/json; charset=utf-8");
 header("Content-Encoding: text");
 echo $resp;
