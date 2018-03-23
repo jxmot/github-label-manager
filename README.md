@@ -44,7 +44,7 @@ Changes included -
 
 Now that I had my mock-up I could begin finalizing how the application was going to operate. It was also an opportunity at this point to make additional adjustments to the GUI.
 
-But before I started on *operations* I had to come up with some *rules*. These rules help define some of the operations and their associated *indicators*. Here are some examples - 
+But before I started on *operations* I had to come up with some *rules*. These rules help define some of the operations and their associated indicators. Here are some examples - 
 
 * Repository lists will be saved automatically and reused during run-time rather than reacquire the list from GitHub.
 * When a repository's label list is read it is saved(*backed up*) automatically *with a time stamped file name*.
@@ -122,5 +122,12 @@ But before I started on *operations* I had to come up with some *rules*. These r
     * Disable buttons - 
         * "Upload Changes", "Clear List", "Cancel / Reload", "Export Labels"
 
+# Development Status
 
-* 
+- [x] Begin development of core functions - get all repos, get labels for a repo, get info for a specific repo
+- [ ] Develop additional core functions - create label, delete label, update label
+- [ ] Additional functions - upload labels to repo, export labels to file, import labels from file
+- [x] Create page for testing functionality of core functions - *ongoing development*
+- [ ] Update README along the way - *in progress*
+
+
