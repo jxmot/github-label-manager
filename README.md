@@ -17,6 +17,12 @@ This utility will provide -
     * Import additional labels to a repository's label list
     * *TBD*
     
+This application is not intended to be deployed for *multi-user* scenarios. It is intended to assist an *individual* in the task of managing GitHub issue labels across a number of repositories. Each user(*repository owner/collaborator*) will require their own separate installation of this application. This application can be hosted either locally or on an Internet accessible web server. However the latter is *not recommended* unless sufficient security has been implemented.
+
+Label data files can be shared between users. Those files do not contain and GitHub user or repository information. However in situations where label data files are automatically saved the file names will contain a repository name.
+
+All data files are kept on the server where the application is ran from. They will be found in the `./data` folder.
+    
 ## Initial GUI Design
 
 *A wireframe is your friend....* and time is well spent making one. And *Mock ups* are a good alternative.
@@ -122,12 +128,38 @@ But before I started on *operations* I had to come up with some *rules*. These r
     * Disable buttons - 
         * "Upload Changes", "Clear List", "Cancel / Reload", "Export Labels"
 
-# Development Status
+# Task List & Development Status
 
 - [x] Begin development of core functions - get all repos, get labels for a repo, get info for a specific repo
+    - [x] Initial design, code and test
+    - [x] Design, code and debug test framework *Note: this task is ongoing during app development*
+    - [x] Integrate with test framework *Note: this task is ongoing during app development*
+    - [ ] Final design, code and test
+    - [ ] Document in source and externally
 - [ ] Develop additional core functions - create label, delete label, update label
+    - [x] Initial design, code and test - based on initial core functionality effort
+    - [ ] Integrate with test framework *Note: this task is ongoing during app development*
 - [ ] Additional functions - upload labels to repo, export labels to file, import labels from file
+    - [ ] Initial design, code and test - based on initial core functionality effort
+    - [ ] Integrate with test framework *Note: this task is ongoing during app development*
+- [ ] Develop app-state processing for enable/disable controls code
 - [x] Create page for testing functionality of core functions - *ongoing development*
-- [ ] Update README along the way - *in progress*
+- [x] Update README along the way - *in progress*
+
+Other things to do along the way - 
+
+- [ ] For all functions - 
+    - [ ] Comment
+        - [ ] Synopsis
+    - [ ] Revisit return data layout, make "`ret`" more meaningful.
+    - [ ] Revisit HTTP header, specifically status
+    - [ ] 
+- [ ] Investigate implementing "profiles" - 
+    - [ ] Method to specify a profile
+    - [ ] Security
+
+
+
+
 
 
