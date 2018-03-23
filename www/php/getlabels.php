@@ -18,7 +18,7 @@ if(isset($reporeq)) {
         $cfg = json_decode(file_get_contents($cfgfile));
         $repojson = file_get_contents("../data/_$cfg->owner-repos.json");
         if(isset($repojson)) {
-            if(strpos(strtolower($repojson), $reporeq)) {
+            if(strpos(strtolower($repojson), strtolower($reporeq))) {
                 $accept = "application/vnd.github.symmetra-preview+json";
                 $url = "https://api.github.com/repos/$cfg->owner/$reporeq/labels";
                 $opts = array(
@@ -32,12 +32,12 @@ if(isset($reporeq)) {
                     )
                 );
                 $context = stream_context_create($opts);
-                $resp = file_get_contents($url, true, $context);
+                $labels = file_get_contents($url, true, $context);
                 $pheader = parseHeaders($http_response_header);
                 if(strpos(strtolower($pheader[0]), "200 ok")) {
                     $fname = "../data/_$cfg->owner-$reporeq-labels.json";
-                    file_put_contents($fname, $resp);
-                    $resp = "{\"error\":false, \"ret\":0, \"msg\":\"$fname\"}";
+                    file_put_contents($fname, $labels);
+                    $resp = "{\"error\":false, \"ret\":0, \"msg\":$labels}";
                 } else {
                     $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
                 }
