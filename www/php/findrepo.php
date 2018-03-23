@@ -18,10 +18,8 @@ if(isset($reporeq) && isset($repofile)) {
         $repolen = count($allrepos);
         for($ix = 0; $ix < $repolen; $ix += 1) {
             if(strtolower($allrepos[$ix]->name) === strtolower($reporeq)) {
-                //$repojson = stripslashes(json_encode($allrepos[$ix]));
                 $repojson = json_encode($allrepos[$ix]);
                 $resp = "{\"error\":false, \"ret\":0, \"msg\":$repojson}";
-//error_log("resp = $resp\n", 3, "./error_log");
                 break;
             }
         }
