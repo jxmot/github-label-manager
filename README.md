@@ -65,8 +65,13 @@ But before I started on *operations* I had to come up with some *rules*. These r
         * "Upload Changes" or "Export Labels" -  
             * What ever is displayed in the list will be either(depending on user choice) uploaded to the selected repository (if one was selected) or saved to a JSON formatted file.
         * "Clear List" - list is emptied and all label references are reset
-        * "~~Cancel /~~ Reload" - 
-    
+        * "~~Cancel /~~ Reload" - list is emptied and all label references are reset, labels are reloaded from the most recent *source*.
+        * "~~Read /~~ Import" - import from file only, 
+* List of Labels - sorted by alphabetically label text
+
+
+
+
 ### Application States
 
 * Initial - 
@@ -111,7 +116,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
                 * Clear - remove previous labels from the list
                 * Keep / Merge - 
                     * Matching Criteria - 
-                        * IDs match - overwrite previous 
+                        * IDs match - overwrite previous
     * Enable buttons - 
         * "Read Labels", "Reload Repos", "Read / Import", "Create Label"
     * Disable buttons - 
