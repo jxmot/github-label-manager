@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>githublabels - TESTS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/css/ghlabelmgr.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div id="ghlabels-body" class="ghlabels-body">
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <button class="btn btn-success control-btn" type="button" id="loadrepo-btn">Load Repos</button>
+                <button class="btn btn-success control-btn" type="button" id="readlabels-btn">Read Labels</button>
+                <button class="btn btn-info control-btn" type="button" id="clr-label-list-btn">Clear List</button>
+                <button class="btn btn-danger control-btn" type="button" id="cancel_changes-btn">Cancel / Reload</button>
+                <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
+                <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
+                <button class="btn btn-success control-btn" type="button" id="create-label-btn">Create Label</button>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <h4>Command Output</h4>
+                <p id="output"></p>
+            </div>
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <h4>Controls Tests</h4>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
+                <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="3">
+                    <option value="-1" selected>Please Select a Repository...</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
+                <p id="reponame"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+        $('#loadrepo-btn').on('click', loadrepos);
+
+        $('#readlabels-btn').on('click', readlabels);
+
+        function reposelect(idx, repo) {
+            console.log('reposelect');
+            console.log('idx  = ' + idx);
+            console.log('repo = ' + repo);
+            getrepoinfo(repo, showRepoInfo);
+        };
+
+        function showRepoInfo(repoinfo) {
+            $('#output').html(JSON.stringify(repoinfo));
+            $('#reponame').html(repoinfo.msg.full_name);
+            $('#reponame').data('reponame', repoinfo.msg.name);
+        };
+
+        function loadrepos() {
+            console.log('loadrepos');
+            getrepos(listRepos);
+        };
+
+        function readlabels() {
+            console.log('readlabels');
+            getlabels($('#reponame').data('reponame'), listLabels);
+        };
+
+        function listLabels(labels) {
+            $('#output').html(JSON.stringify(labels));
+        };
+
+        function listRepos(repolist) {
+            var idx = 0;
+            if(repolist !== undefined) {
+                $('#output').html(JSON.stringify(repolist));
+                clearSelect('repo-select', '<option value="-1" selected>Please Select a Repository...</option>');
+                // create & append the options
+                var slist = document.getElementById('repo-select');
+                for(var ix = 0; ix < repolist.msg.length; ix++) {
+                    var option = document.createElement('option');
+                    option.value = ix;
+                    option.text  = repolist.msg[ix].name;
+                    slist.appendChild(option);
+                }
+            }
+        };
+
+        function clearSelect(selID, defSel = '') {
+            document.getElementById(selID).innerHTML = defSel;
+        };
+
+        function getlabels(repo, callback) {
+            _get('getlabels', `?r=${repo}`, callback);
+        };
+
+        function getrepos(callback) {
+            _get('getrepos', undefined, callback);
+        };
+
+        function getrepoinfo(repo, callback) {
+            _get('getrepoinfo', `?r=${repo}`, callback);
+        };
+
+        function _get(func, args, callback) {
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    var _resp = {};
+                    var resp = this.responseText;
+                    resp = resp.replace(/[\n\r]/g, '');
+                    console.log('_get - ' + resp);
+                    if(resp.match(/^\{/g)) 
+                        _resp = JSON.parse(resp);
+                    else {
+                        _resp.error = true;
+                        // https://httpstatuses.com/
+                        _resp.ret   = 500;
+                        _resp.msg   = resp;
+                    }
+                    callback(_resp);
+                }
+            };
+            if((args === undefined) || (args === '')) {
+                xmlhttp.open('GET', `./php/${func}.php`, true);
+            } else {
+                xmlhttp.open('GET', `./php/${func}.php${args}`, true);
+            }
+            xmlhttp.send();
+        }
+    </script>
+</body>
+
+</html>
