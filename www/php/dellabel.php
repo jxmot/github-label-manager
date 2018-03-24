@@ -60,7 +60,7 @@ if(isset($repo) && isset($label)) {
         $resp = "{\"error\":true, \"ret\":-4, \"msg\":\"$cfgfile does not exist\"}";
     }
 } else {
-    $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
+    $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"argument missing, expecting - '?r=repo_name&l=labelName'\"}";
 }
 // done!
 // To Do : make status code relevant to return state

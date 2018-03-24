@@ -38,7 +38,7 @@ if((isset($labelrepo)) && (isset($label))) {
         if(strpos(strtolower($pheader[0]), "201 created")) {
             $resp = "{\"error\":false, \"ret\":0, \"msg\":$newlabel}";
         } else {
-            $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"label not created - $label->name\"}";
+            $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"response = $pheader[0]\"}";
         }
     } else {
         $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$cfgfile does not exist\"}";
