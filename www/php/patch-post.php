@@ -1,6 +1,11 @@
 <?php
 require_once "parseHeaders.php";
+/*
+    patch-post.php - functions to accomplish HTTP PATCH and
+    POST requests.
 
+    Designed specifically for the github-label-manager
+*/
 function patch($url, $acc, $cfg, $payload)
 {
     $resp = request_pp($url, 'PATCH', $acc, $cfg, $payload);
@@ -13,6 +18,9 @@ function post($url, $acc, $cfg, $payload)
     return $resp;
 }
 
+/*
+    Code common to the HTTP PATCH and POST requests
+*/
 function request_pp($url, $method, $acc, $cfg, $payload)
 {
     $opts = array(

@@ -1,7 +1,11 @@
 <?php
-
 require_once "parseHeaders.php";
+/*
+    delete-get.php - functions to accomplish HTTP DELETE and
+    GET requests.
 
+    Designed specifically for the github-label-manager
+*/
 function del($url, $acc, $cfg)
 {
     $resp = request_dg($url, 'DELETE', $acc, $cfg);
@@ -14,6 +18,9 @@ function get($url, $acc, $cfg)
     return $resp;
 }
 
+/*
+    Code common to the HTTP DELETE and GET requests
+*/
 function request_dg($url, $method, $acc, $cfg)
 {
     $opts = array(
