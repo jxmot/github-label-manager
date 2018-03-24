@@ -5,7 +5,7 @@ $cfg = null;
 
 
 /*
-    getrepoinfo.php?r=repo_name
+    GET getrepoinfo.php?r=repo_name
 
     for command line testing :
 

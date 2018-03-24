@@ -3,7 +3,7 @@ require_once "parseHeaders.php";
 $cfgfile = "../data/_gitlabels.json";
 
 /*
-    getlabels.php?r=repo_name
+    GET getlabels.php?r=repo_name
 
     for command line testing :
 

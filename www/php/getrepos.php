@@ -1,6 +1,14 @@
 <?php
 require_once "parseHeaders.php";
 $cfgfile = "../data/_gitlabels.json";
+
+/*
+    GET getrepos.php
+
+    for command line testing :
+
+        php-cgi getrepos.php
+*/
 $resp = null;
 if(file_exists($cfgfile)) {
     $cfg = json_decode(file_get_contents($cfgfile));
