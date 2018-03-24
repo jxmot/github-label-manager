@@ -43,10 +43,10 @@ if(file_exists($cfgfile)) {
         }
         $resp = "{\"error\":false, \"ret\":0, \"msg\":". stripslashes(json_encode($repodisp)) ."}";
     } else {
-        $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
+        $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"response = $pheader[0]\"}";
     }
 } else {
-    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
+    $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$cfgfile does not exist\"}";
 }
 header("HTTP/1.0 200 OKie Dokie!");
 header("Content-Type: application/json; charset=utf-8");

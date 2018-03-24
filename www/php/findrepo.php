@@ -28,7 +28,7 @@ if(isset($reporeq) && isset($repofile)) {
         $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$repofile does not exist\"}";
     }
 } else {
-    $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"missing one or more argument(s)\"}";
+    $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"missing one or more argument(s)\"}";
 }
 header("HTTP/1.0 200 OK");
 header("Content-Type: application/json; charset=utf-8");

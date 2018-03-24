@@ -39,19 +39,19 @@ if(isset($reporeq)) {
                     file_put_contents($fname, $labels);
                     $resp = "{\"error\":false, \"ret\":0, \"msg\":$labels}";
                 } else {
-                    $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"response = $pheader[0]\"}";
+                    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"response = $pheader[0]\"}";
                 }
             } else {
-                $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"$reporeq not found in ../data/_$cfg->owner-repos.json\"}";
+                $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$reporeq not found in ../data/_$cfg->owner-repos.json\"}";
             }
         } else {
-            $resp = "{\"error\":true, \"ret\":-4, \"msg\":\"missing ../data/_$cfg->owner-repos.json\"}";
+            $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"missing ../data/_$cfg->owner-repos.json\"}";
         }
     } else {
-        $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
+        $resp = "{\"error\":true, \"ret\":-4, \"msg\":\"$cfgfile does not exist\"}";
     }
 } else {
-    $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
+    $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
 }
 header("HTTP/1.0 200 OK");
 header("Content-Type: application/json; charset=utf-8");

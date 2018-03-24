@@ -39,19 +39,19 @@ if(isset($reporeq)) {
                         $tmp = "{\"name\":\"$justrepo->name\",\"full_name\":\"$justrepo->full_name\",\"fork\":$fork,\"forks\":$justrepo->forks,\"private\":$private,\"open_issues\":$justrepo->open_issues}";
                         $resp = "{\"error\":false, \"ret\":0, \"msg\":$tmp}";
                     } else {
-                        $resp = "{\"error\":true, \"ret\":$thisrepo->ret, \"msg\":\"$thisrepo->msg\"}";
+                        $resp = "{\"error\":true, \"ret\":$thisrepo->ret, \"msg\":\"findrepo - $thisrepo->msg\"}";
                     }
                 } else {
-                    $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"$reporeq not found in $repofile\"}";
+                    $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$reporeq not found in $repofile\"}";
                 }
             } else {
-                $resp = "{\"error\":true, \"ret\":-4, \"msg\":\"missing ../data/_$cfg->owner-repos.json\"}";
+                $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"missing ../data/_$cfg->owner-repos.json\"}";
             }
         } else {
             $resp = "{\"error\":true, \"ret\":-4, \"msg\":\"missing ../data/_$cfg->owner-repos.json\"}";
         }
     } else {
-        $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"$cfgfile does not exist\"}";
+        $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"$cfgfile does not exist\"}";
     }
 } else {
     $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
