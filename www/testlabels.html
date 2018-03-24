@@ -20,7 +20,7 @@
                 <button class="btn btn-danger control-btn" type="button" id="cancel_changes-btn">Cancel / Reload</button>
                 <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
                 <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
-                <button class="btn btn-success control-btn" type="button" id="createlabel-btn">Create Label</button>
+                <button class="btn btn-success control-btn" type="button" id="uploadlabel-btn">Upload Label</button>
             </div>
         </div>
         <div class="row control-row">
@@ -36,7 +36,7 @@
         <div class="row control-row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
                 <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="3">
-                    <option value="-1" selected>Please Select a Repository...</option>
+                    <option value="-1" data-reponame="none" selected>Please Select a Repository...</option>
                 </select>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-content-center">
@@ -58,7 +58,7 @@
 
         $('#readlabels-btn').on('click', readlabels);
 
-        $('#createlabel-btn').on('click', createlabel);
+        $('#uploadlabel-btn').on('click', uploadlabel);
 
         function reposelect(idx, repo) {
             console.log('reposelect');
@@ -91,7 +91,7 @@
             var idx = 0;
             if(repolist !== undefined) {
                 $('#output').html(JSON.stringify(repolist));
-                clearSelect('repo-select', '<option value="-1" selected>Please Select a Repository...</option>');
+                $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
                 // create & append the options
                 var slist = document.getElementById('repo-select');
                 for(var ix = 0; ix < repolist.msg.length; ix++) {
@@ -103,18 +103,16 @@
             }
         };
 
-        function clearSelect(selID, defSel = '') {
-            document.getElementById(selID).innerHTML = defSel;
+        function uploadlabel() {
+            if($('#reponame').data('reponame') != "none") {
+                var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
+                // create the new label in the repository
+                _post('crelabel', data, uploadDone);
+            } else console.log('ERROR uploadlabel - no repo selected');
         };
 
-        function createlabel() {
-            var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
-            //var data = '';
-            _post('crelabel', data, createDone);
-        };
-
-        function createDone(newlabel) {
-            console.log('createDone - ' + JSON.stringify(newlabel.msg));
+        function uploadDone(newlabel) {
+            console.log('uploadDone - ' + JSON.stringify(newlabel.msg));
             $('#labelout').html(JSON.stringify(newlabel.msg));
         };
 
@@ -131,6 +129,7 @@
         };
 
         function _get(func, args, callback) {
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
@@ -149,6 +148,7 @@
                     callback(_resp);
                 }
             };
+
             if((args === undefined) || (args === '')) {
                 xmlhttp.open('GET', `./php/${func}.php`, true);
             } else {
@@ -158,6 +158,7 @@
         }
 
         function _post(func, body, callback) {
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
@@ -176,6 +177,7 @@
                     callback(_resp);
                 }
             };
+
             xmlhttp.open('POST', `./php/${func}.php`, true);
 
             if((body === undefined) || (body === '')) {
