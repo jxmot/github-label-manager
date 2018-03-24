@@ -1,7 +1,7 @@
 <?php
 // contained in "ghlabelmgr.php" - $cfgfile, $accept
 require_once "ghlabelmgr.php";
-require_once "parseHeaders.php";
+require_once "delete-get.php";
 
 /*
     DEL dellabel.php?r=repo_name&l=labelName
@@ -32,24 +32,8 @@ if(isset($repo) && isset($label)) {
             // repo list
             if(strpos(strtolower($repojson), strtolower($repo))) {
                 $url = "https://api.github.com/repos/$cfg->owner/$repo/labels/$label";
-                $opts = array(
-                    'http' => array(
-                        'method' => 'DELETE',
-                        'header' => "Accept: ".$accept['symmetra']."\r\n" .
-                        "Authorization: $cfg->token\r\n" .
-                        "user-agent: custom\r\n" .
-                        "Content-Type: application/json; charset=utf-8\r\n" .
-                        "Content-Encoding: text\r\n"
-                    )
-                );
-                $context = stream_context_create($opts);
-                $labels = file_get_contents($url, false, $context);
-                $pheader = parseHeaders($http_response_header);
-                if(strpos(strtolower($pheader[0]), "204 no content")) {
-                    $resp = "{\"error\":false, \"ret\":0, \"msg\":$label}";
-                } else {
-                    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"response = $pheader[0]\"}";
-                }
+                $acc = $accept['symmetra'];
+                $resp = del($url, $acc, $cfg);
             } else {
                 $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$repo not found in $repofile\"}";
             }

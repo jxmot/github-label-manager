@@ -1,7 +1,7 @@
 <?php
 // contained in "ghlabelmgr.php" - $cfgfile, $accept
 require_once "ghlabelmgr.php";
-require_once "parseHeaders.php";
+require_once "delete-get.php";
 
 /*
     GET getlabels.php?r=repo_name
@@ -21,25 +21,12 @@ if(isset($reporeq)) {
         if(isset($repojson)) {
             if(strpos(strtolower($repojson), strtolower($reporeq))) {
                 $url = "https://api.github.com/repos/$cfg->owner/$reporeq/labels";
-                $opts = array(
-                    'http' => array(
-                        'method' => 'GET',
-                        'header' => "Accept: ".$accept['symmetra']."\r\n" .
-                        "Authorization: $cfg->token\r\n" .
-                        "user-agent: custom\r\n" .
-                        "Content-Type: application/json; charset=utf-8\r\n" .
-                        "Content-Encoding: text\r\n"
-                    )
-                );
-                $context = stream_context_create($opts);
-                $labels = file_get_contents($url, true, $context);
-                $pheader = parseHeaders($http_response_header);
-                if(strpos(strtolower($pheader[0]), "200 ok")) {
+                $acc = $accept['symmetra'];
+                $resp = get($url, $acc, $cfg);
+                $tmp = json_decode($resp);
+                if($tmp->error === false) {
                     $fname = "../data/_$cfg->owner-$reporeq-labels.json";
-                    file_put_contents($fname, $labels);
-                    $resp = "{\"error\":false, \"ret\":0, \"msg\":$labels}";
-                } else {
-                    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"response = $pheader[0]\"}";
+                    file_put_contents($fname, json_encode($tmp->msg));
                 }
             } else {
                 $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$reporeq not found in ../data/_$cfg->owner-repos.json\"}";
