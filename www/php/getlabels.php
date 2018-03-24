@@ -1,6 +1,7 @@
 <?php
+// contained in "ghlabelmgr.php" - $cfgfile, $accept
+require_once "ghlabelmgr.php";
 require_once "parseHeaders.php";
-$cfgfile = "../data/_gitlabels.json";
 
 /*
     GET getlabels.php?r=repo_name
@@ -19,12 +20,11 @@ if(isset($reporeq)) {
         $repojson = file_get_contents("../data/_$cfg->owner-repos.json");
         if(isset($repojson)) {
             if(strpos(strtolower($repojson), strtolower($reporeq))) {
-                $accept = "application/vnd.github.symmetra-preview+json";
                 $url = "https://api.github.com/repos/$cfg->owner/$reporeq/labels";
                 $opts = array(
                     'http' => array(
                         'method' => 'GET',
-                        'header' => "Accept: $accept\r\n" .
+                        'header' => "Accept: ".$accept['symmetra']."\r\n" .
                         "Authorization: $cfg->token\r\n" .
                         "user-agent: custom\r\n" .
                         "Content-Type: application/json; charset=utf-8\r\n" .

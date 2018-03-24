@@ -1,6 +1,7 @@
 <?php
+// contained in "ghlabelmgr.php" - $cfgfile, $accept
+require_once "ghlabelmgr.php";
 require_once "parseHeaders.php";
-$cfgfile = "../data/_gitlabels.json";
 
 /*
     GET getrepos.php
@@ -15,12 +16,11 @@ if(file_exists($cfgfile)) {
 
     // https://developer.github.com/v3/guides/traversing-with-pagination/
     $url = "https://api.github.com/users/$cfg->owner/repos?per_page=100";
-    $accept = "application/vnd.github.mercy-preview+json";
     
     $opts = array(
         'http' => array(
             'method' => 'GET',
-            'header' => "Accept: $accept\r\n" .
+            'header' => "Accept: ".$accept['mercy']."\r\n" .
             "user-agent: custom\r\n" .
             "Content-Type: application/json; charset=utf-8\r\n" .
             "Content-Encoding: text\r\n"

@@ -1,9 +1,10 @@
 <?php
+// contained in "ghlabelmgr.php" - $cfgfile, $accept
+require_once "ghlabelmgr.php";
 require_once "parseHeaders.php";
-$cfgfile = "../data/_gitlabels.json";
 
 /*
-    crelabel.php
+    POST crelabel.php
     body: {"repo":"repo name", "label":{"name":"labelName", "color":"7f7fff", "description":"test label, CREATED"}}
 */
 $resp = null;
@@ -19,13 +20,11 @@ $label = json_encode($body['label']);
 if((isset($labelrepo)) && (isset($label))) {
     if(file_exists($cfgfile)) {
         $cfg = json_decode(file_get_contents($cfgfile));
-
-        $accept = "application/vnd.github.symmetra-preview+json";
         $url = "https://api.github.com/repos/$cfg->owner/$labelrepo/labels";
         $opts = array(
             'http' => array(
                 'method' => 'POST',
-                'header' => "Accept: $accept\r\n" .
+                'header' => "Accept: ".$accept['symmetra']."\r\n" .
                 "Authorization: $cfg->token\r\n" .
                 "user-agent: custom\r\n" .
                 "Content-Type: application/json; charset=utf-8\r\n" .

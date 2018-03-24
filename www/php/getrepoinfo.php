@@ -1,8 +1,7 @@
 <?php
+// contained in "ghlabelmgr.php" - $cfgfile, $accept
+require_once "ghlabelmgr.php";
 require_once "parseHeaders.php";
-$cfgfile = "../data/_gitlabels.json";
-$cfg = null;
-
 
 /*
     GET getrepoinfo.php?r=repo_name
