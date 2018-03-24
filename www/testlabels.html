@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
 </head>
-
 <body>
-
     <div id="ghlabels-body" class="ghlabels-body">
         <div class="row control-row">
             <div class="col-md-12 col-content-center">
@@ -23,12 +20,12 @@
                 <button class="btn btn-danger control-btn" type="button" id="cancel_changes-btn">Cancel / Reload</button>
                 <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
                 <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
-                <button class="btn btn-success control-btn" type="button" id="create-label-btn">Create Label</button>
+                <button class="btn btn-success control-btn" type="button" id="createlabel-btn">Create Label</button>
             </div>
         </div>
         <div class="row control-row">
             <div class="col-md-12 col-content-center">
-                <h4>Command Output</h4>
+                <h4>Command Response</h4>
                 <p id="output"></p>
             </div>
         <div class="row control-row">
@@ -42,8 +39,13 @@
                     <option value="-1" selected>Please Select a Repository...</option>
                 </select>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-content-center">
                 <p id="reponame"></p>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-content-center">
+                <p id="labelout"></p>
             </div>
         </div>
     </div>
@@ -56,11 +58,13 @@
 
         $('#readlabels-btn').on('click', readlabels);
 
+        $('#createlabel-btn').on('click', createlabel);
+
         function reposelect(idx, repo) {
             console.log('reposelect');
             console.log('idx  = ' + idx);
             console.log('repo = ' + repo);
-            getrepoinfo(repo, showRepoInfo);
+            if(idx != -1) getrepoinfo(repo, showRepoInfo);
         };
 
         function showRepoInfo(repoinfo) {
@@ -103,6 +107,17 @@
             document.getElementById(selID).innerHTML = defSel;
         };
 
+        function createlabel() {
+            var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
+            //var data = '';
+            _post('crelabel', data, createDone);
+        };
+
+        function createDone(newlabel) {
+            console.log('createDone - ' + JSON.stringify(newlabel.msg));
+            $('#labelout').html(JSON.stringify(newlabel.msg));
+        };
+
         function getlabels(repo, callback) {
             _get('getlabels', `?r=${repo}`, callback);
         };
@@ -116,7 +131,6 @@
         };
 
         function _get(func, args, callback) {
-
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
@@ -142,7 +156,38 @@
             }
             xmlhttp.send();
         }
+
+        function _post(func, body, callback) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    var _resp = {};
+                    var resp = this.responseText;
+                    resp = resp.replace(/[\n\r]/g, '');
+                    console.log('_post - ' + resp);
+                    if(resp.match(/^\{/g)) 
+                        _resp = JSON.parse(resp);
+                    else {
+                        _resp.error = true;
+                        // https://httpstatuses.com/
+                        _resp.ret   = 500;
+                        _resp.msg   = resp;
+                    }
+                    callback(_resp);
+                }
+            };
+            xmlhttp.open('POST', `./php/${func}.php`, true);
+
+            if((body === undefined) || (body === '')) {
+                xmlhttp.send();
+            } else {
+                xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlhttp.send(body);
+            }
+        }
+
+
     </script>
 </body>
-
 </html>
+
