@@ -39,7 +39,7 @@ if(isset($reporeq)) {
                         $tmp = "{\"name\":\"$justrepo->name\",\"full_name\":\"$justrepo->full_name\",\"fork\":$fork,\"forks\":$justrepo->forks,\"private\":$private,\"open_issues\":$justrepo->open_issues}";
                         $resp = "{\"error\":false, \"ret\":0, \"msg\":$tmp}";
                     } else {
-                        $resp = "{\"error\":true, \"ret\":$thisrepo->ret, \"msg\":\"findrepo - $thisrepo->msg\"}";
+                        $resp = "{\"error\":true, \"ret\":$thisrepo->ret, \"msg\":\"findrepo $reporeq - $thisrepo->msg\"}";
                     }
                 } else {
                     $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$reporeq not found in $repofile\"}";

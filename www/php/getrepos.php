@@ -20,7 +20,7 @@ if(file_exists($cfgfile)) {
     $tmp = json_decode($resp);
     if($tmp->error === false) {
         $fname = "../data/_$cfg->owner-repos.json";
-        file_put_contents($fname, $resp);
+        file_put_contents($fname, json_encode($tmp->msg));
         $repodisp = array();
         $allrepos = $tmp->msg;
         for($ix = 0;$ix < count($allrepos);$ix += 1) {
