@@ -48,11 +48,128 @@
                 <p id="labelout"></p>
             </div>
         </div>
+
+<!-- Label List -->
+        <div class="row output-row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" max-height="10%">
+                <div class="table-responsive">
+                    <table class="table" id="repo-labels-list">
+                        <thead>
+                            <tr id="repo-labels-list-header-row">
+                                <th class="table-cell-center">Label</th>
+                                <th class="table-cell-center">Description</th>
+                                <th class="table-cell-center">Edit/Delete/Undo</th>
+                                <th class="table-cell-center">State </th>
+                            </tr>
+                        </thead>
+                        <tbody id="repo-labels-list-body">
+<!-- 1st label -->
+                            <tr id="row_0" data-label="{label JSON}" data-state="{state JSON}" data-enact="{enabled actions JSON}" onmouseover="labelRowOver(this.id)">
+    <!-- label text over color -->
+                                <td class="table-cell-center">
+                                    <div class="label-btn-cell" style="background-color:blue;color:white;">Cell 1</div>
+                                </td>
+    <!-- ^label text over color -->
+    <!-- label description -->
+                                <td>Cell 2</td>
+    <!-- ^label description -->
+    <!-- label action icons -->
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="edit" class="fas fa-edit fa-lg label-edit-icon"> </span>
+                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="delete" class="fas fa-trash fa-lg label-delete-icon"> </span>
+                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="undo" class="fas fa-undo fa-lg label-undo-icon"> </span>
+                                    </div>
+                                </td>
+    <!-- ^label action icons -->
+    <!-- label state icons -->
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span data-state="notmod" class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
+                                        <span data-state="ismod" class="fas fa-exclamation-triangle fa-lg label-ismod-icon hidden"> </span>
+                                        <span data-state="todel" class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
+                                    </div>
+                                </td>
+    <!-- ^label state icons -->
+                            </tr>
+<!-- ^1st label -->
+
+                            <tr>
+
+
+                                <td class="table-cell-center">
+                                    <div class="label-btn-cell" style="background-color:#cfd3d7;color:black;">duplicate</div>
+                                </td>
+                                <td>This issue or pull request already exists </td>
+
+
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span class="fas fa-edit fa-lg label-edit-icon"> </span>
+                                        <span class="fas fa-trash fa-lg label-delete-icon"> </span>
+                                        <span class="fas fa-undo fa-lg label-undo-icon icon-disabled"> </span>
+                                    </div>
+                                </td>
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
+                                        <span class="fas fa-exclamation-triangle fa-lg label-ismod-icon hidden"> </span>
+                                        <span class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+
+
+                                <td class="table-cell-center">
+                                    <div class="label-btn-cell" style="background-color:#008672;color:white;">help wanted</div>
+                                </td>
+                                <td>i've fallen and can't get up</td>
+
+
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span class="fas fa-edit fa-lg label-edit-icon"> </span>
+                                        <span class="fas fa-trash fa-lg label-delete-icon"> </span>
+                                        <span class="fas fa-undo fa-lg label-undo-icon"> </span>
+                                    </div>
+                                </td>
+                                <td class="table-cell-center">
+                                    <div>
+                                        <span class="fas fa-check-circle fa-lg label-notmod-icon hidden"> </span>
+                                        <span class="fas fa-exclamation-triangle fa-lg label-ismod-icon"> </span>
+                                        <span class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!-- Label List -->
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- miscellaneous utility functions -->
+    <script type="text/javascript" src="./assets/js/utils.js"></script>
     <script>
+
+        function tableInit() {
+            $('#repo-labels-list-body').empty();
+        }
+
+        function labelRowOver(id) {
+            console.log('id = '+id);
+            console.log('label = '+document.getElementById(id).dataset.label);
+        }
+
+        function labelAction(id) {
+            console.log('id = '+id);
+            console.log('action = '+document.getElementById(id).dataset.action);
+        }
 
         $('#loadrepo-btn').on('click', loadrepos);
 
@@ -85,12 +202,81 @@
 
         function listLabels(labels) {
             $('#output').html(JSON.stringify(labels));
+            if(labels.error === false) {
+                for(var ix = 0;ix < labels.msg.length;ix += 1) {
+                    var name = labels.msg[ix].name.replace(/ /g, '_');
+                    var nameix = name+'-'+ix;
+
+                    var row = $('<tr>');
+                    $(row).attr('id', nameix);
+                    $(row).attr('data-label', JSON.stringify(labels.msg[ix]));
+                    $(row).attr('data-enact', '{"edit":true,"del":true,"undo":false}');
+                    // states: 1 = unchgd  2 = chgd  4 = del
+                    // multi states: 
+                    //      1 + 4 = unchgd and del
+                    //      2 + 4 = chgd and del
+                    // unmarking del subs 4
+                    $(row).attr('data-state', '{"state":1}');
+                    $(row).attr('onmouseover', 'labelRowOver(this.id)');
+
+                    var cell = $('<td>').addClass('table-cell-center');
+                    var label = $('<div>').addClass('label-btn-cell');
+                    $(label).text(labels.msg[ix].name);
+                    $(label).attr('style', 'background-color:#'+labels.msg[ix].color+';color:#'+_adaptColor(labels.msg[ix].color)+';');
+                    $(cell).append(label);
+                    //$(cell).
+                    $(row).append(cell);
+
+                    cell = $('<td>').text(labels.msg[ix].description);
+                    $(row).append(cell);
+
+                    cell = $('<td>').addClass('table-cell-center');
+                    var actions = $('<div>');
+                    var edit = $('<span>').addClass('fas fa-edit fa-lg label-edit-icon');
+                    var del = $('<span>').addClass('fas fa-trash fa-lg label-delete-icon');
+                    var undo = $('<span>').addClass('fas fa-undo fa-lg label-undo-icon icon-disabled');
+                    $(edit).attr('data-action','edit'); 
+                    $(del). attr('data-action','delete');
+                    $(undo).attr('data-action','undo');
+                    $(edit).attr('id', nameix+'-'+'edit');
+                    $(del).attr('id', nameix+'-'+'del');
+                    $(undo).attr('id', nameix+'-'+'undo');
+                    $(edit).attr('onclick','labelAction(this.id)'); 
+                    $(del). attr('onclick','labelAction(this.id)');
+                    $(undo).attr('onclick','labelAction(this.id)');
+                    $(actions).append(edit);
+                    $(actions).append(del);
+                    $(actions).append(undo);
+                    $(cell).append(actions);
+                    $(row).append(cell);
+
+
+                    cell = $('<td>').addClass('table-cell-center');
+                    var states = $('<div>');
+                    var notmod = $('<span>').addClass('fas fa-check-circle fa-lg label-notmod-icon');
+                    var tomod  = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
+                    var todel  = $('<span>').addClass('fas fa-trash-alt fa-lg label-to-delete-icon hidden');
+                    $(notmod).attr('data-state','notmod'); 
+                    $(tomod).attr('data-state','tomod');
+                    $(todel).attr('data-state','todel');
+                    $(notmod).attr('id', nameix+'-'+'notmod');
+                    $(tomod).attr('id', nameix+'-'+'tomod');
+                    $(todel).attr('id', nameix+'-'+'todel');
+                    $(states).append(notmod);
+                    $(states).append(tomod);
+                    $(states).append(todel);
+                    $(cell).append(states);
+                    $(row).append(cell);
+
+                    $('#repo-labels-list-body').append(row);
+                }
+            }
         };
 
         function listRepos(repolist) {
             var idx = 0;
             if(repolist !== undefined) {
-                $('#output').html(JSON.stringify(repolist));
+                //$('#output').html(JSON.stringify(repolist));
                 $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
                 // create & append the options
                 var slist = document.getElementById('repo-select');
