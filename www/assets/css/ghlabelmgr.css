@@ -1,0 +1,162 @@
+.ghlabels-nocopy {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+
+.ghlabels-body {
+  margin-left:5%;
+  margin-right:5%;
+  margin-top:5%;
+}
+
+.control-row {
+  margin-bottom:2.5%;
+  height:120px;
+}
+
+.output-row {
+  padding-top:5%;
+  margin-bottom:2.5%;
+}
+
+.table-cell-center {
+  text-align:center;
+}
+
+.label-btn-cell {
+  margin-left:5%;
+  margin-right:5%;
+  font-weight:bolder;
+  text-align:center;
+}
+
+.col-content-center {
+  text-align:center;
+}
+
+.control-btn {
+  margin-left:2%;
+  margin-right:2%;
+}
+
+.heading-center {
+  text-align:center;
+}
+
+.repo-private {
+  padding-left:5%;
+  color:red;
+}
+
+.repo-public {
+  padding-left:5%;
+  color:green;
+}
+
+.open-issues {
+  padding-left:5%;
+}
+
+.is-forked {
+  padding-left:5%;
+  color:green;
+}
+
+.not-forked {
+  padding-left:5%;
+  color:red;
+}
+
+.repo-forks {
+  padding-left:5%;
+}
+
+.repo-stats {
+  text-align:center;
+  margin-top:5%;
+  border:1px solid black;
+}
+
+.repo-text {
+  border:none;
+  padding-top:1.5%;
+  font-weight:bold;
+}
+
+.repo-select-col {
+  text-align:right;
+}
+
+.label-edit-icon {
+  padding-right:2%;
+  color:blue;
+}
+
+.label-delete-icon {
+  padding-left:2%;
+  padding-right:2%;
+  color:red;
+}
+
+.repo-select {
+  height:115px;
+  resize:both;
+  max-width:95%;
+  min-width:50%;
+  max-height:230px;
+  min-height:60px;
+}
+
+.label-undo-icon {
+  padding-left:2%;
+  color:green;
+}
+
+.label-edit-icon:hover {
+  cursor:pointer;
+}
+
+.label-delete-icon:hover {
+  cursor:pointer;
+}
+
+.label-undo-icon:hover {
+  cursor:pointer;
+}
+
+.label-notmod-icon {
+  color:green;
+}
+
+.label-ismod-icon {
+  color:red;
+}
+
+.label-to-delete-icon {
+  color:orange;
+}
+
+.not-forked-ban {
+  margin-left:12%;
+  margin-top:-1.5%;
+}
+
+.curr-repo-controls {
+  text-align:center;
+  padding-top:3%;
+}
+
+.icon-disabled {
+  opacity:0.2;
+}
+
+.icon-disabled:hover {
+  cursor:initial;
+}
+
+.btn-enabled {
+  font-weight:bolder;
+}
+

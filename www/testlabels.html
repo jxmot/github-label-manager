@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>githublabels - TESTS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/css/ghlabelmgr.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+</head>
+<body>
+    <div id="ghlabels-body" class="ghlabels-body">
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <button class="btn btn-success control-btn" type="button" id="loadrepo-btn">Load Repos</button>
+                <button class="btn btn-success control-btn" type="button" id="readlabels-btn">Read Labels</button>
+                <button class="btn btn-info control-btn" type="button" id="clr-label-list-btn">Clear List</button>
+                <button class="btn btn-danger control-btn" type="button" id="cancel_changes-btn">Cancel / Reload</button>
+                <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
+                <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
+                <button class="btn btn-success control-btn" type="button" id="uploadlabel-btn">Upload Label</button>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <h4>Command Response</h4>
+                <p id="output"></p>
+            </div>
+        <div class="row control-row">
+            <div class="col-md-12 col-content-center">
+                <h4>Controls Tests</h4>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
+                <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="3">
+                    <option value="-1" data-reponame="none" selected>Please Select a Repository...</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-content-center">
+                <p id="reponame"></p>
+            </div>
+        </div>
+        <div class="row control-row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-content-center">
+                <p id="labelout"></p>
+            </div>
+        </div>
+
+<!-- Label List -->
+        <div class="row output-row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" max-height="10%">
+                <div class="table-responsive">
+                    <table class="table" id="repo-labels-list">
+                        <thead>
+                            <tr id="repo-labels-list-header-row">
+                                <th class="table-cell-center">Label</th>
+                                <th class="table-cell-center">Description</th>
+                                <th class="table-cell-center">Edit/Delete/Undo</th>
+                                <th class="table-cell-center">State </th>
+                            </tr>
+                        </thead>
+                        <tbody id="repo-labels-list-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!-- Label List -->
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- control over consolelog() behavior -->
+    <script type="text/javascript" src="./assets/js/consolelog.js"></script>
+    <!-- miscellaneous utility functions -->
+    <script type="text/javascript" src="./assets/js/utils.js"></script>
+    <script>
+
+        function tableInit() {
+            $('#repo-labels-list-body').empty();
+        };
+
+        function labelRowOver(id) {
+            consolelog('id = '+id);
+            consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
+        };
+
+        function labelAction(id) {
+            var rowid;
+            var elem = document.getElementById(id);
+            if(!elem.classList.contains('icon-disabled'))
+            {
+                consolelog('id = '+id);
+                consolelog('action = '+elem.dataset.action);
+                rowid = id.replace(/\-edit|\-del|\-undo/g, '');
+                consolelog('rowid = '+rowid+'  label_rw = '+document.getElementById(rowid).dataset.label_rw);
+                actOnLabel(id, rowid, elem.dataset.action);
+            }
+        };
+
+        const UNDO = -1;
+        const NOMOD = 1;
+        const ISMOD = 2;
+        const TODEL = 4;
+
+        function actOnLabel(id, rowid, action) {
+            if(action === 'delete') {
+                actionStateResult(rowid, TODEL);
+
+                var editid = id.replace(/\-del/g, '-edit');
+                var undoid = id.replace(/\-del/g, '-undo');
+                $('#'+editid).addClass('icon-disabled');
+                $('#'+id).addClass('icon-disabled');
+                $('#'+undoid).removeClass('icon-disabled');
+
+            } else if(action === 'edit') {
+                actionStateResult(rowid, ISMOD);
+
+                var undoid = id.replace(/\-edit/g, '-undo');
+                $('#'+undoid).removeClass('icon-disabled');
+
+            } else if(action === 'undo') {
+                var state = actionStateResult(rowid, UNDO);
+
+                var deleid = id.replace(/\-undo/g, '-del');
+                var editid = id.replace(/\-undo/g, '-edit');
+                $('#'+deleid).removeClass('icon-disabled');
+                $('#'+editid).removeClass('icon-disabled');
+
+                if(state === NOMOD) $('#'+id).addClass('icon-disabled');
+                else $('#'+id).removeClass('icon-disabled');
+            }
+        };
+
+/*
+    label states :
+        unchanged = 1
+        modified  = +2
+        delete    = +4
+
+    state value will be 3 if the label has been modified
+    state value will be 5 if the unchanged label is deleted
+    state value will be 7 if the label has been modified and then deleted
+
+    undo a state change :
+
+        amount to undo = current state - unchanged
+        if amount to undo >= delete then current state -= delete
+        else current state -= modified
+
+*/
+        function actionStateResult(rowid, statechg) {
+            var curr = JSON.parse(document.getElementById(rowid).dataset.state);
+            consolelog('curr state = '+curr.state);
+
+            if(statechg === UNDO) {
+                if((curr.state - NOMOD) >= TODEL) curr.state -= TODEL;
+                else curr.state -= ISMOD;
+            } else {
+                curr.state |= statechg;
+            }
+
+            consolelog('new state  = '+curr.state);
+            document.getElementById(rowid).dataset.state = JSON.stringify(curr);
+
+            $('#'+rowid+'-todel').addClass('hidden');
+            $('#'+rowid+'-tomod').addClass('hidden');
+            $('#'+rowid+'-notmod').addClass('hidden');
+            if(curr.state & TODEL) $('#'+rowid+'-todel').removeClass('hidden');
+            else if(curr.state & ISMOD) $('#'+rowid+'-tomod').removeClass('hidden');
+            else $('#'+rowid+'-notmod').removeClass('hidden');
+
+            return curr.state;
+        };
+
+        $('#loadrepo-btn').on('click', loadrepos);
+
+        $('#readlabels-btn').on('click', readlabels);
+
+        $('#uploadlabel-btn').on('click', _uploadlabel);
+
+        function reposelect(idx, repo) {
+            consolelog('reposelect');
+            consolelog('idx  = ' + idx);
+            consolelog('repo = ' + repo);
+            if(idx != -1) getrepoinfo(repo, showRepoInfo);
+        };
+
+        function showRepoInfo(repoinfo) {
+            $('#output').html(JSON.stringify(repoinfo));
+            $('#reponame').html(repoinfo.msg.full_name);
+            $('#reponame').data('reponame', repoinfo.msg.name);
+        };
+
+        function loadrepos() {
+            consolelog('loadrepos');
+            getrepos(listRepos);
+        };
+
+        function readlabels() {
+            consolelog('readlabels');
+            getlabels($('#reponame').data('reponame'), listLabels);
+        };
+
+        function listLabels(labels) {
+            $('#output').html(JSON.stringify(labels));
+            if(labels.error === false) {
+// TODO: save a separate ix for only element IDs across reads, imports, 
+// etc and manage largest allowed value
+                for(var ix = 0;ix < labels.msg.length;ix += 1) {
+                    var name = labels.msg[ix].name.replace(/ /g, '_');
+
+                    var nameix = name+'-'+ix;
+                    const lbldata = JSON.parse(JSON.stringify(labels.msg[ix]));
+
+                    var row = $('<tr>');
+                    $(row).attr('id', nameix);
+                    var label_now = {
+                        label:lbldata,
+                        chksum:checksum(JSON.stringify(lbldata))
+                    };
+                    $(row).attr('data-label_ro', JSON.stringify(label_now));
+                    $(row).attr('data-label_rw', JSON.stringify(label_now));
+                    $(row).attr('data-enact', '{"edit":true,"del":true,"undo":false}');
+                    // states: 1 = unchgd  2 = chgd  4 = del
+                    // multi states: 
+                    //      1 + 4 = unchgd and del
+                    //      2 + 4 = chgd and del
+                    // unmarking del subs 4
+                    $(row).attr('data-state', '{"state":1}');
+                    $(row).attr('onmouseover', 'labelRowOver(this.id)');
+
+                    var cell = $('<td>').addClass('table-cell-center');
+                    var label = $('<div>').addClass('label-btn-cell');
+                    $(label).text(lbldata.name);
+                    $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+_adaptColor(lbldata.color)+';');
+                    $(cell).append(label);
+                    //$(cell).
+                    $(row).append(cell);
+
+                    cell = $('<td>').text((lbldata.description === null ? '' : lbldata.description));
+                    $(row).append(cell);
+
+                    cell = $('<td>').addClass('table-cell-center');
+                    var actions = $('<div>');
+                    var edit = $('<span>').addClass('fas fa-edit fa-lg label-edit-icon');
+                    var del = $('<span>').addClass('fas fa-trash fa-lg label-delete-icon');
+                    var undo = $('<span>').addClass('fas fa-undo fa-lg label-undo-icon icon-disabled');
+                    $(edit).attr('data-action','edit'); 
+                    $(del). attr('data-action','delete');
+                    $(undo).attr('data-action','undo');
+                    $(edit).attr('id', nameix+'-'+'edit');
+                    $(del).attr('id', nameix+'-'+'del');
+                    $(undo).attr('id', nameix+'-'+'undo');
+                    $(edit).attr('onclick','labelAction(this.id)'); 
+                    $(del). attr('onclick','labelAction(this.id)');
+                    $(undo).attr('onclick','labelAction(this.id)');
+                    $(actions).append(edit);
+                    $(actions).append(del);
+                    $(actions).append(undo);
+                    $(cell).append(actions);
+                    $(row).append(cell);
+
+
+                    cell = $('<td>').addClass('table-cell-center');
+                    var states = $('<div>');
+                    var notmod = $('<span>').addClass('fas fa-check-circle fa-lg label-notmod-icon');
+                    var tomod  = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
+                    var todel  = $('<span>').addClass('fas fa-trash-alt fa-lg label-to-delete-icon hidden');
+                    $(notmod).attr('data-state','notmod'); 
+                    $(tomod).attr('data-state','tomod');
+                    $(todel).attr('data-state','todel');
+                    $(notmod).attr('id', nameix+'-'+'notmod');
+                    $(tomod).attr('id', nameix+'-'+'tomod');
+                    $(todel).attr('id', nameix+'-'+'todel');
+                    $(states).append(notmod);
+                    $(states).append(tomod);
+                    $(states).append(todel);
+                    $(cell).append(states);
+                    $(row).append(cell);
+
+                    $('#repo-labels-list-body').append(row);
+                }
+            }
+        };
+
+        function listRepos(repolist) {
+            var idx = 0;
+            if(repolist !== undefined) {
+                //$('#output').html(JSON.stringify(repolist));
+                $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
+                // create & append the options
+                var slist = document.getElementById('repo-select');
+                for(var ix = 0; ix < repolist.msg.length; ix++) {
+                    var option = document.createElement('option');
+                    option.value = ix;
+                    option.text  = repolist.msg[ix].name;
+                    slist.appendChild(option);
+                }
+            }
+        };
+
+        function _uploadlabel() {
+            if($('#reponame').data('reponame') != "none") {
+                var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
+                createlabel(data, uploadDone);
+            } else consolelog('ERROR uploadlabel - no repo selected');
+        };
+
+        function uploadDone(newlabel) {
+            consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
+            $('#labelout').html(JSON.stringify(newlabel.msg));
+        };
+
+
+        function createlabel(label, callback) {
+            // create the new label in the repository
+            _post('crelabel', label, callback);
+        };
+
+        function getlabels(repo, callback) {
+            _get('getlabels', `?r=${repo}`, callback);
+        };
+
+        function getrepos(callback) {
+            _get('getrepos', undefined, callback);
+        };
+
+        function getrepoinfo(repo, callback) {
+            _get('getrepoinfo', `?r=${repo}`, callback);
+        };
+
+        function _get(func, args, callback) {
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    var _resp = {};
+                    var resp = this.responseText;
+                    resp = resp.replace(/[\n\r]/g, '');
+                    consolelog('_get - ' + resp);
+                    if(resp.match(/^\{/g)) 
+                        _resp = JSON.parse(resp);
+                    else {
+                        _resp.error = true;
+                        // https://httpstatuses.com/
+                        _resp.ret   = 500;
+                        _resp.msg   = resp;
+                    }
+                    callback(_resp);
+                }
+            };
+
+            if((args === undefined) || (args === '')) {
+                xmlhttp.open('GET', `./php/${func}.php`, true);
+            } else {
+                xmlhttp.open('GET', `./php/${func}.php${args}`, true);
+            }
+            xmlhttp.send();
+        };
+
+        function _post(func, body, callback) {
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    var _resp = {};
+                    var resp = this.responseText;
+                    resp = resp.replace(/[\n\r]/g, '');
+                    consolelog('_post - ' + resp);
+                    if(resp.match(/^\{/g)) 
+                        _resp = JSON.parse(resp);
+                    else {
+                        _resp.error = true;
+                        // https://httpstatuses.com/
+                        _resp.ret   = 500;
+                        _resp.msg   = resp;
+                    }
+                    callback(_resp);
+                }
+            };
+
+            xmlhttp.open('POST', `./php/${func}.php`, true);
+
+            if((body === undefined) || (body === '')) {
+                xmlhttp.send();
+            } else {
+                xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xmlhttp.send(body);
+            }
+        };
+    </script>
+</body>
+</html>
+
