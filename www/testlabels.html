@@ -209,6 +209,8 @@
         function listLabels(labels) {
             $('#output').html(JSON.stringify(labels));
             if(labels.error === false) {
+// TODO: save a separate ix for only element IDs across reads, imports, 
+// etc and manage largest allowed value
                 for(var ix = 0;ix < labels.msg.length;ix += 1) {
                     var name = labels.msg[ix].name.replace(/ /g, '_');
 
