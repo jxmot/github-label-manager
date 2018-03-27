@@ -17,12 +17,12 @@
 <!-- Repo list & reload button -->
         <div class="row control-row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
-                <select name="reposelect" id="repo-select" class="repo-select" size="3">
-                    <option value="-1" selected="">Please Select a Repository...</option>
+                <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="3">
+                    <option value="-1" data-reponame="none" selected>Please Select a Repository...</option>
                 </select>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <button class="btn btn-primary active control-btn" type="button" id="reload_repos-btn">Reload Repos</button>
+                <button class="btn btn-success control-btn" type="button" id="loadrepo-btn">Load Repos</button>
             </div>
         </div>
 <!-- ^Repo list & reload button -->
@@ -84,7 +84,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="curr-repo-controls">
-                            <button class="btn btn-success active control-btn" type="button" id="repo_read-btn">Read Labels</button>
+                            <button class="btn btn-success control-btn" type="button" id="readlabels-btn">Read Labels</button>
                         </div>
                     </div>
                 </div>
@@ -114,8 +114,12 @@
 <!-- Buttons -->
         <div class="row control-row">
             <div class="col-md-12 col-content-center">
+<!--
                 <button class="btn btn-success control-btn" type="button" id="upload-btn">Upload Changes</button>
-                <button class="btn btn-info control-btn" type="button" id="clr-label-list-btn">Clear List</button>
+-->
+                <button class="btn btn-success control-btn" type="button" id="uploadlabel-btn">Upload Label</button>
+
+                <button class="btn btn-info control-btn" type="button" id="clrlist-btn">Clear List</button>
                 <button class="btn btn-danger control-btn" type="button" id="cancel-changes-btn">Cancel / Reload</button>
                 <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
                 <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
@@ -126,6 +130,18 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- control over consolelog() behavior -->
+    <script type="text/javascript" src="./assets/js/consolelog.js"></script>
+    <!-- miscellaneous utility functions -->
+    <script type="text/javascript" src="./assets/js/utils.js"></script>
+    <!--  -->
+    <script type="text/javascript" src="./assets/js/glmapi.js"></script>
+    <!--  -->
+    <script type="text/javascript" src="./assets/js/repos.js"></script>
+    <!--  -->
+    <script type="text/javascript" src="./assets/js/labels.js"></script>
+    <!--  -->
+    <script type="text/javascript" src="./assets/js/actions.js"></script>
 </body>
 
 </html>
