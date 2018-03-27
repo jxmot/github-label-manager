@@ -4,7 +4,7 @@ A web based utility to manage GitHub labels.
 
 # History
 
-GitHub is a great tool, and I appreciate all the work that has gone into it. But lately I've been using *issues* on my repositories to note bugs, enhancements, etc. And I like the fact that I can use *labels*. However, it would have been *really nice* to make the labels global in respect to the repositories. For example there is a group of 4 or 5 labels that I like to use *everywhere*. And getting them to each of the desired repositories is no effortless task! So, this is what I came up with....
+GitHub is a great tool, and I appreciate all the work that has gone into it. But lately I've been using *issues* on my repositories to note bugs, enhancements, etc. And I like the fact that I can use *labels*. However, it would have been *really nice* to make the labels global in respect to the repositories. For example there is a group of 4 or 5 labels that I would like to use *everywhere*. And getting them to each of the desired repositories is no effortless task! So, this is what I came up with....
 
 # Overview
 
@@ -14,7 +14,7 @@ This utility will provide -
     * Edit labels in a fashion similar to how it's done on GitHub
     * Save a repository's labels to a JSON file
     * Load labels from JSON files and upload the labels to a repository
-    * Import additional labels to a repository's label list
+    * Import additional labels to a label list
     * *TBD*
     
 This application is not intended to be deployed for *multi-user* scenarios. It is intended to assist an *individual* in the task of managing GitHub issue labels across a number of repositories. Each user(*repository owner/collaborator*) will require their own separate installation of this application. This application can be hosted either locally or on an Internet accessible web server. However the latter is *not recommended* unless sufficient security has been implemented.
