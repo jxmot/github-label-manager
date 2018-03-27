@@ -4,6 +4,20 @@
     (c) 2017 Jim Motyl - https://github.com/jxmot/
 */
 /*
+    Checksum - creates a checksum for a string and returns
+    the checksum value in a string.
+
+    Originally found at - https://stackoverflow.com/a/3276730/6768046
+*/
+function checksum(s)
+{
+    //var chk = 0x12345678;
+    var chk = 0x5F378EA8;
+    var len = s.length;
+    for (var i = 0; i < len; i++) chk += (s.charCodeAt(i) * (i + 1));
+    return (chk & 0xffffffff).toString(16);
+}
+/*
     Change the color of an element to either "dark" or "light" (black or
     white) depending on it's background color.
 
