@@ -1,5 +1,7 @@
 # github-label-manager
 
+**NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
+
 A web based utility to manage GitHub labels.
 
 # History
