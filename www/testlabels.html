@@ -80,10 +80,6 @@
     <script type="text/javascript" src="./assets/js/utils.js"></script>
     <script>
 
-        function tableInit() {
-            $('#repo-labels-list-body').empty();
-        };
-
         function labelRowOver(id) {
             consolelog('id = '+id);
             consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
@@ -118,6 +114,10 @@
                 $('#'+undoid).removeClass('icon-disabled');
 
             } else if(action === 'edit') {
+// TO DO: Implement a label editing "form" (could be modal) and
+// implemented an "edited" check by comparing the original ("ro")
+// label's checksum against what the "rw" label has. The checksum
+// wouldhave been updated when the editing "form" was closed-confirm
                 actionStateResult(rowid, ISMOD);
 
                 var undoid = id.replace(/\-edit/g, '-undo');
@@ -177,11 +177,11 @@
             return curr.state;
         };
 
+
+
+
+
         $('#loadrepo-btn').on('click', loadrepos);
-
-        $('#readlabels-btn').on('click', readlabels);
-
-        $('#uploadlabel-btn').on('click', _uploadlabel);
 
         function reposelect(idx, repo) {
             consolelog('reposelect');
@@ -201,8 +201,38 @@
             getrepos(listRepos);
         };
 
-        function readlabels() {
+        function listRepos(repolist) {
+            var idx = 0;
+            if(repolist !== undefined) {
+                //$('#output').html(JSON.stringify(repolist));
+                $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
+                // create & append the options
+                var slist = document.getElementById('repo-select');
+                for(var ix = 0; ix < repolist.msg.length; ix++) {
+                    var option = document.createElement('option');
+                    option.value = ix;
+                    option.text  = repolist.msg[ix].name;
+                    slist.appendChild(option);
+                }
+            }
+        };
+
+
+
+        $('#readlabels-btn').on('click', readlabels);
+
+        $('#uploadlabel-btn').on('click', _uploadlabel);
+
+        function _uploadlabel() {
+            if($('#reponame').data('reponame') != "none") {
+                var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
+                createlabel(data, uploadDone);
+            } else consolelog('ERROR uploadlabel - no repo selected');
+        };
+
+        function readlabels(clrtable = true) {
             consolelog('readlabels');
+            if(clrtable) $('#repo-labels-list-body').empty();
             getlabels($('#reponame').data('reponame'), listLabels);
         };
 
@@ -288,26 +318,12 @@
             }
         };
 
-        function listRepos(repolist) {
-            var idx = 0;
-            if(repolist !== undefined) {
-                //$('#output').html(JSON.stringify(repolist));
-                $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
-                // create & append the options
-                var slist = document.getElementById('repo-select');
-                for(var ix = 0; ix < repolist.msg.length; ix++) {
-                    var option = document.createElement('option');
-                    option.value = ix;
-                    option.text  = repolist.msg[ix].name;
-                    slist.appendChild(option);
-                }
-            }
-        };
-
-        function _uploadlabel() {
+        function uploadlabel(label, callback) {
             if($('#reponame').data('reponame') != "none") {
-                var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
-                createlabel(data, uploadDone);
+                if(typeof label === "string") {
+                    var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":' + label + '}';
+                    createlabel(data, uploadDone);
+                } else consolelog('ERROR uploadlabel - label is not a string');
             } else consolelog('ERROR uploadlabel - no repo selected');
         };
 
@@ -315,6 +331,12 @@
             consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
             $('#labelout').html(JSON.stringify(newlabel.msg));
         };
+
+
+
+
+
+
 
 
         function createlabel(label, callback) {
@@ -335,7 +357,6 @@
         };
 
         function _get(func, args, callback) {
-
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
