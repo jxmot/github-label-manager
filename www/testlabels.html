@@ -63,85 +63,6 @@
                             </tr>
                         </thead>
                         <tbody id="repo-labels-list-body">
-<!-- 1st label -->
-                            <tr id="row_0" data-label="{label JSON}" data-state="{state JSON}" data-enact="{enabled actions JSON}" onmouseover="labelRowOver(this.id)">
-    <!-- label text over color -->
-                                <td class="table-cell-center">
-                                    <div class="label-btn-cell" style="background-color:blue;color:white;">Cell 1</div>
-                                </td>
-    <!-- ^label text over color -->
-    <!-- label description -->
-                                <td>Cell 2</td>
-    <!-- ^label description -->
-    <!-- label action icons -->
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="edit" class="fas fa-edit fa-lg label-edit-icon"> </span>
-                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="delete" class="fas fa-trash fa-lg label-delete-icon"> </span>
-                                        <span onclick="labelAction(document.getElementById(this.id).dataset)", data-action="undo" class="fas fa-undo fa-lg label-undo-icon"> </span>
-                                    </div>
-                                </td>
-    <!-- ^label action icons -->
-    <!-- label state icons -->
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span data-state="notmod" class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
-                                        <span data-state="ismod" class="fas fa-exclamation-triangle fa-lg label-ismod-icon hidden"> </span>
-                                        <span data-state="todel" class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
-                                    </div>
-                                </td>
-    <!-- ^label state icons -->
-                            </tr>
-<!-- ^1st label -->
-
-                            <tr>
-
-
-                                <td class="table-cell-center">
-                                    <div class="label-btn-cell" style="background-color:#cfd3d7;color:black;">duplicate</div>
-                                </td>
-                                <td>This issue or pull request already exists </td>
-
-
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span class="fas fa-edit fa-lg label-edit-icon"> </span>
-                                        <span class="fas fa-trash fa-lg label-delete-icon"> </span>
-                                        <span class="fas fa-undo fa-lg label-undo-icon icon-disabled"> </span>
-                                    </div>
-                                </td>
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span class="fas fa-check-circle fa-lg label-notmod-icon"> </span>
-                                        <span class="fas fa-exclamation-triangle fa-lg label-ismod-icon hidden"> </span>
-                                        <span class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-
-
-                                <td class="table-cell-center">
-                                    <div class="label-btn-cell" style="background-color:#008672;color:white;">help wanted</div>
-                                </td>
-                                <td>i've fallen and can't get up</td>
-
-
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span class="fas fa-edit fa-lg label-edit-icon"> </span>
-                                        <span class="fas fa-trash fa-lg label-delete-icon"> </span>
-                                        <span class="fas fa-undo fa-lg label-undo-icon"> </span>
-                                    </div>
-                                </td>
-                                <td class="table-cell-center">
-                                    <div>
-                                        <span class="fas fa-check-circle fa-lg label-notmod-icon hidden"> </span>
-                                        <span class="fas fa-exclamation-triangle fa-lg label-ismod-icon"> </span>
-                                        <span class="fas fa-trash-alt fa-lg label-to-delete-icon hidden"> </span>
-                                    </div>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -159,17 +80,46 @@
 
         function tableInit() {
             $('#repo-labels-list-body').empty();
-        }
+        };
 
         function labelRowOver(id) {
             console.log('id = '+id);
-            console.log('label = '+document.getElementById(id).dataset.label);
-        }
+            console.log('label_rw = '+document.getElementById(id).dataset.label_rw);
+        };
 
         function labelAction(id) {
-            console.log('id = '+id);
-            console.log('action = '+document.getElementById(id).dataset.action);
-        }
+            var rowid;
+            var elem = document.getElementById(id);
+            if(!elem.classList.contains('icon-disabled'))
+            {
+                console.log('id = '+id);
+                console.log('action = '+elem.dataset.action);
+                rowid = id.replace(/\-edit|\-del|\-undo/g, '');
+                console.log('rowid = '+rowid+'  label_rw = '+document.getElementById(rowid).dataset.label_rw);
+                actOnLabel(id, rowid, elem.dataset.action);
+            }
+        };
+
+        function actOnLabel(id, rowid, action) {
+            if(action === 'delete') {
+                var editid = id.replace(/\-del/g, '-edit');
+                var undoid = id.replace(/\-del/g, '-undo');
+                $('#'+editid).addClass('icon-disabled');
+                $('#'+id).addClass('icon-disabled');
+                $('#'+undoid).removeClass('icon-disabled');
+            } else if(action === 'edit') {
+                var undoid = id.replace(/\-edit/g, '-undo');
+                $('#'+undoid).removeClass('icon-disabled');
+            } else if(action === 'undo') {
+                var deleid = id.replace(/\-undo/g, '-del');
+                var editid = id.replace(/\-undo/g, '-edit');
+                $('#'+deleid).removeClass('icon-disabled');
+                $('#'+editid).removeClass('icon-disabled');
+                $('#'+id).addClass('icon-disabled');
+            }
+        };
+
+        
 
         $('#loadrepo-btn').on('click', loadrepos);
 
@@ -205,11 +155,18 @@
             if(labels.error === false) {
                 for(var ix = 0;ix < labels.msg.length;ix += 1) {
                     var name = labels.msg[ix].name.replace(/ /g, '_');
+
                     var nameix = name+'-'+ix;
+                    const lbldata = JSON.parse(JSON.stringify(labels.msg[ix]));
 
                     var row = $('<tr>');
                     $(row).attr('id', nameix);
-                    $(row).attr('data-label', JSON.stringify(labels.msg[ix]));
+                    $(row).attr('data-label_ro', JSON.stringify(lbldata));
+                    var label_rw = {
+                        label:lbldata,
+                        chksum:checksum(JSON.stringify(lbldata))
+                    };
+                    $(row).attr('data-label_rw', JSON.stringify(label_rw));
                     $(row).attr('data-enact', '{"edit":true,"del":true,"undo":false}');
                     // states: 1 = unchgd  2 = chgd  4 = del
                     // multi states: 
@@ -221,13 +178,13 @@
 
                     var cell = $('<td>').addClass('table-cell-center');
                     var label = $('<div>').addClass('label-btn-cell');
-                    $(label).text(labels.msg[ix].name);
-                    $(label).attr('style', 'background-color:#'+labels.msg[ix].color+';color:#'+_adaptColor(labels.msg[ix].color)+';');
+                    $(label).text(lbldata.name);
+                    $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+_adaptColor(lbldata.color)+';');
                     $(cell).append(label);
                     //$(cell).
                     $(row).append(cell);
 
-                    cell = $('<td>').text(labels.msg[ix].description);
+                    cell = $('<td>').text((lbldata.description === null ? '' : lbldata.description));
                     $(row).append(cell);
 
                     cell = $('<td>').addClass('table-cell-center');
@@ -341,7 +298,7 @@
                 xmlhttp.open('GET', `./php/${func}.php${args}`, true);
             }
             xmlhttp.send();
-        }
+        };
 
         function _post(func, body, callback) {
 
@@ -372,9 +329,7 @@
                 xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                 xmlhttp.send(body);
             }
-        }
-
-
+        };
     </script>
 </body>
 </html>
