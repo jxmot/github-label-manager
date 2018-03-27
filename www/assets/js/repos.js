@@ -10,13 +10,10 @@ function reposelect(idx, repo) {
 };
 
 function showRepoInfo(repoinfo) {
-//    $('#output').html(JSON.stringify(repoinfo));
     $('#full_name').val(repoinfo.msg.full_name);
     $('#full_name').data('reponame', repoinfo.msg.name);
-
-    // {"error":false,"ret":0,"msg":
-    //      {"name":"Basic-Portfolio","full_name":"jxmot/Basic-Portfolio","fork":false,"forks":0,"private":false,"open_issues":0}}
     $('#description').val(repoinfo.msg.description);
+    $('#topics').val(repoinfo.msg.topics);
 };
 
 function loadrepos() {
