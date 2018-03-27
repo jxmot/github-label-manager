@@ -74,7 +74,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <!-- miscellaneous utility functions -->
+    <!-- control over consolelog() behavior -->
+    <script type="text/javascript" src="./assets/js/consolelog.js"></script>
+    <!-- miscellaneous utility functions -->
     <script type="text/javascript" src="./assets/js/utils.js"></script>
     <script>
 
@@ -83,8 +85,8 @@
         };
 
         function labelRowOver(id) {
-            console.log('id = '+id);
-            console.log('label_rw = '+document.getElementById(id).dataset.label_rw);
+            consolelog('id = '+id);
+            consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
         };
 
         function labelAction(id) {
@@ -92,10 +94,10 @@
             var elem = document.getElementById(id);
             if(!elem.classList.contains('icon-disabled'))
             {
-                console.log('id = '+id);
-                console.log('action = '+elem.dataset.action);
+                consolelog('id = '+id);
+                consolelog('action = '+elem.dataset.action);
                 rowid = id.replace(/\-edit|\-del|\-undo/g, '');
-                console.log('rowid = '+rowid+'  label_rw = '+document.getElementById(rowid).dataset.label_rw);
+                consolelog('rowid = '+rowid+'  label_rw = '+document.getElementById(rowid).dataset.label_rw);
                 actOnLabel(id, rowid, elem.dataset.action);
             }
         };
@@ -114,11 +116,13 @@
                 $('#'+editid).addClass('icon-disabled');
                 $('#'+id).addClass('icon-disabled');
                 $('#'+undoid).removeClass('icon-disabled');
+
             } else if(action === 'edit') {
                 actionStateResult(rowid, ISMOD);
 
                 var undoid = id.replace(/\-edit/g, '-undo');
                 $('#'+undoid).removeClass('icon-disabled');
+
             } else if(action === 'undo') {
                 var state = actionStateResult(rowid, UNDO);
 
@@ -126,6 +130,7 @@
                 var editid = id.replace(/\-undo/g, '-edit');
                 $('#'+deleid).removeClass('icon-disabled');
                 $('#'+editid).removeClass('icon-disabled');
+
                 if(state === NOMOD) $('#'+id).addClass('icon-disabled');
                 else $('#'+id).removeClass('icon-disabled');
             }
@@ -150,7 +155,7 @@
 */
         function actionStateResult(rowid, statechg) {
             var curr = JSON.parse(document.getElementById(rowid).dataset.state);
-            console.log('curr state = '+curr.state);
+            consolelog('curr state = '+curr.state);
 
             if(statechg === UNDO) {
                 if((curr.state - NOMOD) >= TODEL) curr.state -= TODEL;
@@ -159,7 +164,7 @@
                 curr.state |= statechg;
             }
 
-            console.log('new state  = '+curr.state);
+            consolelog('new state  = '+curr.state);
             document.getElementById(rowid).dataset.state = JSON.stringify(curr);
 
             $('#'+rowid+'-todel').addClass('hidden');
@@ -176,12 +181,12 @@
 
         $('#readlabels-btn').on('click', readlabels);
 
-        $('#uploadlabel-btn').on('click', uploadlabel);
+        $('#uploadlabel-btn').on('click', _uploadlabel);
 
         function reposelect(idx, repo) {
-            console.log('reposelect');
-            console.log('idx  = ' + idx);
-            console.log('repo = ' + repo);
+            consolelog('reposelect');
+            consolelog('idx  = ' + idx);
+            consolelog('repo = ' + repo);
             if(idx != -1) getrepoinfo(repo, showRepoInfo);
         };
 
@@ -192,12 +197,12 @@
         };
 
         function loadrepos() {
-            console.log('loadrepos');
+            consolelog('loadrepos');
             getrepos(listRepos);
         };
 
         function readlabels() {
-            console.log('readlabels');
+            consolelog('readlabels');
             getlabels($('#reponame').data('reponame'), listLabels);
         };
 
@@ -297,17 +302,22 @@
             }
         };
 
-        function uploadlabel() {
+        function _uploadlabel() {
             if($('#reponame').data('reponame') != "none") {
                 var data = '{"repo":"' + $('#reponame').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
-                // create the new label in the repository
-                _post('crelabel', data, uploadDone);
-            } else console.log('ERROR uploadlabel - no repo selected');
+                createlabel(data, uploadDone);
+            } else consolelog('ERROR uploadlabel - no repo selected');
         };
 
         function uploadDone(newlabel) {
-            console.log('uploadDone - ' + JSON.stringify(newlabel.msg));
+            consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
             $('#labelout').html(JSON.stringify(newlabel.msg));
+        };
+
+
+        function createlabel(label, callback) {
+            // create the new label in the repository
+            _post('crelabel', label, callback);
         };
 
         function getlabels(repo, callback) {
@@ -330,7 +340,7 @@
                     var _resp = {};
                     var resp = this.responseText;
                     resp = resp.replace(/[\n\r]/g, '');
-                    console.log('_get - ' + resp);
+                    consolelog('_get - ' + resp);
                     if(resp.match(/^\{/g)) 
                         _resp = JSON.parse(resp);
                     else {
@@ -359,7 +369,7 @@
                     var _resp = {};
                     var resp = this.responseText;
                     resp = resp.replace(/[\n\r]/g, '');
-                    console.log('_post - ' + resp);
+                    consolelog('_post - ' + resp);
                     if(resp.match(/^\{/g)) 
                         _resp = JSON.parse(resp);
                     else {
