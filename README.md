@@ -73,7 +73,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
         * "Clear List" - list is emptied and all label references are reset
         * "~~Cancel /~~ Reload" - list is emptied and all label references are reset, labels are reloaded from the most recent *source*.
         * "~~Read /~~ Import" - import from file only, 
-* List of Labels - sorted by alphabetically label text
+* List of Labels - sorted alphabetically by label text (*GitHub returns them already sorted*)
 
 
 
@@ -127,18 +127,32 @@ But before I started on *operations* I had to come up with some *rules*. These r
         * "Read Labels", "Reload Repos", "Read / Import", "Create Label"
     * Disable buttons - 
         * "Upload Changes", "Clear List", "Cancel / Reload", "Export Labels"
+        
+# JSON Data 
+
+## Configuration `_gitlabels.json`
+
+## Repository Information
+
+## Label List
+
+
 
 # Task List & Development Status
+
+**x** - complete<br>
+**i** - in progress<br>
+**b** - blocked<br>
 
 - [x] Begin development of core functions - get all repos, get labels for a repo, get info for a specific repo
     - [x] Initial design, code and test
     - [x] Design, code and debug test framework *Note: this task is ongoing during app development*
     - [x] Integrate with test framework *Note: this task is ongoing during app development*
-    - [ ] Final design, code and test
+    - [i] Final design, code and test
     - [ ] Document in source and externally
-- [ ] Develop additional core functions - create label, delete label, update label
+- [x] Develop additional core functions - create label, delete label, update label
     - [x] Initial design, code and test - based on initial core functionality effort
-    - [ ] Integrate with test framework *Note: this task is ongoing during app development*
+    - [i] Integrate with test framework *Note: this task is ongoing during app development*
 - [ ] Additional functions - upload labels to repo, export labels to file, import labels from file
     - [ ] Initial design, code and test - based on initial core functionality effort
     - [ ] Integrate with test framework *Note: this task is ongoing during app development*
@@ -149,7 +163,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
 Other things to do along the way - 
 
 - [ ] For all functions - 
-    - [ ] Comment
+    - [i] Comment
         - [ ] Synopsis
     - [ ] Revisit return data layout, make "`ret`" more meaningful.
     - [ ] Revisit HTTP header, specifically status
