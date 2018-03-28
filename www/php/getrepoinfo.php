@@ -58,12 +58,13 @@ if(isset($reporeq)) {
         $resp = "{\"error\":true, \"ret\":-5, \"msg\":\"$cfgfile does not exist\"}";
     }
 } else {
-    $resp = "{\"error\":true, \"ret\":-3, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
+    $resp = "{\"error\":true, \"ret\":-6, \"msg\":\"argument missing, expecting - '?r=repo_name'\"}";
 }
 header("HTTP/1.0 200 OK");
 header("Content-Type: application/json; charset=utf-8");
 header("Content-Encoding: text");
-echo stripslashes($resp);;
+//echo stripslashes($resp);
+echo $resp;
 exit;
 
 ?>
