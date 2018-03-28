@@ -14,6 +14,30 @@ function showRepoInfo(repoinfo) {
     $('#full_name').data('reponame', repoinfo.msg.name);
     $('#description').val(repoinfo.msg.description);
     $('#topics').val(repoinfo.msg.topics);
+    $('#open-issues').html(repoinfo.msg.open_issues);
+    $('#repo-forks').html(repoinfo.msg.forks);
+    repoPrivacy(repoinfo.msg.private);
+    repoFork(repoinfo.msg.fork);
+};
+
+function repoPrivacy(priv) {
+    if(priv) {
+        $('#repo-private').removeClass('hidden');
+        $('#repo-public').addClass('hidden');
+    } else {
+        $('#repo-public').removeClass('hidden');
+        $('#repo-private').addClass('hidden');
+    }
+};
+
+function repoFork(fork) {
+    if(fork) {
+        $('#is-a-fork').removeClass('hidden');
+        $('#not-a-fork').addClass('hidden');
+    } else {
+        $('#not-a-fork').removeClass('hidden');
+        $('#is-a-fork').addClass('hidden');
+    }
 };
 
 function loadrepos() {
