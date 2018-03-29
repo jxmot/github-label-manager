@@ -25,16 +25,13 @@
     text-align:center;
 }
 
-.label-btn-cell {
-    margin-left:5%;
-    margin-right:5%;
-    font-weight:bolder;
-    text-align:center;
-/*
-To Do: adjust width for screen
-*/
-    width:45%;
-    margin:auto;
+td, tr {
+    vertical-align: middle !important;
+}
+
+.label-header {
+    margin-top: 2% !important;
+    margin-bottom: 2% !important;
 }
 
 .col-content-center {

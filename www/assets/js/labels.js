@@ -54,11 +54,10 @@ function listLabels(labels) {
             $(row).attr('onmouseover', 'labelRowOver(this.id)');
 
             var cell = $('<td>').addClass('table-cell-center');
-            var label = $('<div>').addClass('label-btn-cell');
+            var label = $('<span>').addClass('label label-default');
             $(label).text(lbldata.name);
             $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+_adaptColor(lbldata.color)+';');
-            $(cell).append(label);
-            //$(cell).
+            $(cell).append($('<h4>').addClass('label-header').append(label));
             $(row).append(cell);
 
             cell = $('<td>').text((lbldata.description === null ? '' : lbldata.description));
@@ -83,7 +82,6 @@ function listLabels(labels) {
             $(actions).append(undo);
             $(cell).append(actions);
             $(row).append(cell);
-
 
             cell = $('<td>').addClass('table-cell-center');
             var states = $('<div>');
