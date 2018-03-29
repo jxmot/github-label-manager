@@ -1,18 +1,6 @@
-
-function fillEdit(rowid) {
-
-    var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
-
-    $('#labeledit').empty();
-    var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
-    $(label).text(edit.label.name);
-    $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
-    $('#labeledit').append($('<h4>').addClass('label-header').append(label));
-
-    $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
-
-    $('#coloredit').data('color', edit.label.color);
+$(function () {
     $('#coloredit').colorpicker({
+        color: false,
         inline: true,
         container: true,
         useAlpha: false,
@@ -37,13 +25,27 @@ function fillEdit(rowid) {
                     '#bfd4f2': '#bfd4f2',
                     '#d4c5f9': '#d4c5f9'
                 },
-                namesAsValues: true
+                namesAsValues: false
             }
         ]
     })
     .on('colorpickerChange colorpickerCreate', function (e) {
-        consolelog('color = '+e.color.toString());
+        //consolelog('color = '+e.color.toString());
         $('#templabel').attr('style', 'background-color:'+e.color.toString()+';color:#'+adaptColor(e.color.toString())+';');
     });
+});
+
+function fillEdit(rowid) {
+
+    var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
+
+    $('#labeledit').empty();
+    var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
+    $(label).text(edit.label.name);
+    $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
+    $('#labeledit').append($('<h4>').addClass('label-header').append(label));
+    $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
+
+    $('#coloredit').colorpicker('setValue', '#'+edit.label.color);
 };
 
