@@ -33,10 +33,16 @@ function actOnLabel(id, rowid, action) {
         $('#'+undoid).removeClass('icon-disabled');
 
     } else if(action === 'edit') {
+// load up the modal with the current label
+        fillEdit(rowid);
+
+// show the modal
+        $('#labelEditModal').modal('show');
+
 // TO DO: Implement a label editing "form" (could be modal) and
 // implemented an "edited" check by comparing the original ("ro")
 // label's checksum against what the "rw" label has. The checksum
-// wouldhave been updated when the editing "form" was closed-confirm
+// would have been updated when the editing "form" was closed-confirm
         actionStateResult(rowid, ISMOD);
 
         var undoid = id.replace(/\-edit/g, '-undo');

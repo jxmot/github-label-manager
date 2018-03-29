@@ -7,7 +7,10 @@
     <title>githublabels</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="assets/css/ghlabelmgr.css">
+
+    <link rel="stylesheet" href="./assets/css/ghlabelmgr.css">
+    <link rel="stylesheet" href="./assets/bootstrap-colorpicker/css/bootstrap-colorpicker.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
 </head>
@@ -127,9 +130,51 @@
             </div>
         </div>
 <!-- ^Buttons -->
+<!-- Modal Dialog -->
+        <div id="labelEditModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title center">Label Editor</h4>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div id="labeledit" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <!-- add dynamically -->
+                                <h4 class="label-header">
+                                    <span class="label label-default">
+                                        empty
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input id="labeldesc" name="labeldesc" type="text" class="form-control" placeholder="Description"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <div id="coloredit" data-color="primary">
+                                <input type="text" class="form-control" style="width:auto"/> <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ^Modal content -->
+            </div>
+        </div>
+<!-- ^Modal Dialog -->
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- TinyColor https://github.com/bgrins/TinyColor -->
+    <script type="text/javascript" src="./assets/TinyColor/js/tinycolor-min.js"></script>
+    <!-- bootstrap-colorpicker https://github.com/farbelous/bootstrap-colorpicker -->
+    <script type="text/javascript" src="./assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+
     <!-- control over consolelog() behavior -->
     <script type="text/javascript" src="./assets/js/consolelog.js"></script>
     <!-- miscellaneous utility functions -->
@@ -138,6 +183,8 @@
     <script type="text/javascript" src="./assets/js/glmapi.js"></script>
     <!--  -->
     <script type="text/javascript" src="./assets/js/repos.js"></script>
+    <!--  -->
+    <script type="text/javascript" src="./assets/js/modal-edit.js"></script>
     <!--  -->
     <script type="text/javascript" src="./assets/js/labels.js"></script>
     <!--  -->
