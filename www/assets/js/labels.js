@@ -51,12 +51,12 @@ function listLabels(labels) {
             //      2 + 4 = chgd and del
             // unmarking del subs 4
             $(row).attr('data-state', '{"state":1}');
-            $(row).attr('onmouseover', 'labelRowOver(this.id)');
+            //$(row).attr('onmouseover', 'labelRowOver(this.id)');
 
             var cell = $('<td>').addClass('table-cell-center');
             var label = $('<span>').addClass('label label-default');
             $(label).text(lbldata.name);
-            $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+_adaptColor(lbldata.color)+';');
+            $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
             $(cell).append($('<h4>').addClass('label-header').append(label));
             $(row).append(cell);
 
