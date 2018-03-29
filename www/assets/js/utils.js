@@ -28,7 +28,7 @@ function checksum(s)
         Jim Motyl - https://github.com/jxmot/
 
 */
-function adaptColor(selector, parent) {
+function adaptElementColor(selector, parent) {
     // make sure the element actually exists
     if($(selector).length > 0) {
         // get the background color (RGBA) of the chosen selector,
@@ -68,13 +68,16 @@ function adaptColor(selector, parent) {
     } else consolelog('adaptColor() - selector not found : ' + selector);
 };
 
-function _adaptColor(bgcolor) {
+function adaptColor(bgcolor) {
     var r, g, b;
     var color = '000000';
+    var offset = 0;
 
-    r = parseInt(bgcolor.substring(0,2),16);
-    g = parseInt(bgcolor.substring(2,4),16);
-    b = parseInt(bgcolor.substring(4,6),16);
+    if(bgcolor.charAt(0) === '#') offset = 1;
+
+    r = parseInt(bgcolor.substring(0+offset,2+offset),16);
+    g = parseInt(bgcolor.substring(2+offset,4+offset),16);
+    b = parseInt(bgcolor.substring(4+offset,6+offset),16);
 
     // convert color to greyscale, for info see 
     // http://alienryderflex.com/hsp.html
