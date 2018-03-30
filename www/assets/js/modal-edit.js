@@ -69,7 +69,15 @@ $('#labelEditModal').on('show.bs.modal', function (event) {
 
 /*
     When the page is loaded go ahead and set up the color
-    picker.
+    picker inside of the label edit modal.
+
+    As of 2018-03-28 using the "master" branch - 
+
+    https://github.com/farbelous/bootstrap-colorpicker/
+
+    Documentation (not updated) - 
+
+    https://farbelous.github.io/bootstrap-colorpicker/v2/
 */
 $(function () {
     $('#coloredit').colorpicker({
