@@ -162,31 +162,14 @@ td, tr {
     font-weight:bolder;
 }
 
-
-
-
 .modal-dialog { 
     width: 550px; 
     max-width: 100%; 
 }
 
-/*
-    Center Text Horizontally
-*/
 .center {
     text-align: center;
 }
 
-/*
-    Element Hide/Show - The class is either added or 
-    removed via jQuery as needed.
-*/
-.element-hide {
-    display: none;
-    visibility: hidden;
-}
 
-.element-show {
-    display: block;
-    visibility: visible;
-}
+
