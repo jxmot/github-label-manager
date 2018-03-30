@@ -7,6 +7,7 @@
     <title>githublabels</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.3/csshake.min.css" />
 
     <link rel="stylesheet" href="./assets/css/ghlabelmgr.css">
     <link rel="stylesheet" href="./assets/bootstrap-colorpicker/css/bootstrap-colorpicker.css">
@@ -154,10 +155,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                                <div id="coloredit" data-color="primary">
-                                <input type="text" class="form-control" style="width:auto"/> <br>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <div id="coloredit" class="input-group colorpicker-component"> 
+                                    <input type="text" value="" class="form-control" /> 
+                                    <span class="input-group-addon"><i></i></span> 
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <button class="btn btn-success control-btn" type="button" id="save-edit-btn">Save Changes</button>
+                                <button class="btn btn-danger control-btn" type="button" id="cancel-edit-btn">Cancel</button>
                             </div>
                         </div>
                     </div>
