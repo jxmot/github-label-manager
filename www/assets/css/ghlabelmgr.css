@@ -167,6 +167,10 @@ td, tr {
     max-width: 100%; 
 }
 
+.modal-label-row, .modal-color-row, .modal-button-row {
+    margin-bottom: 2%;
+}
+
 .center {
     text-align: center;
 }
