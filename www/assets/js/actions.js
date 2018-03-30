@@ -33,10 +33,9 @@ function actOnLabel(id, rowid, action) {
         $('#'+undoid).removeClass('icon-disabled');
 
     } else if(action === 'edit') {
-// load up the modal with the current label
+        // load up the modal with the current label
         fillEdit(rowid);
-
-// show the modal
+        // show the modal
         $('#labelEditModal').modal('show');
 
 // TO DO: Implement a label editing "form" (could be modal) and
