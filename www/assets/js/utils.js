@@ -95,3 +95,36 @@ function adaptColor(bgcolor) {
     return color;
 };
 
+/*
+    Start a timed shaking of the specified target element
+*/
+function startShake(target, focusTarget) {
+    if((target != undefined) && (target != '')) {
+        if($(target).hasClass('shake-horizontal') == false) {
+            $(target).addClass('shake-horizontal');
+            if((focusTarget != undefined) && (focusTarget != '')) {
+                setTimeout(stopShake, 1500, target, focusTarget);
+            } else {
+                setTimeout(stopShake, 1500, target);
+            }
+        }
+    } else {
+        console.log('startShake() - ERROR - bad argument');
+    }
+}
+
+/*
+    Stop the shaking of the specified target element
+*/
+function stopShake(target, focusTarget) {
+    if((target != undefined) && (target != '')) {
+        $(target).removeClass('shake-horizontal');
+        if((focusTarget != undefined) && (focusTarget != '')) {
+            // move the focus to the input box
+            $(focusTarget).focus();
+        }
+    } else {
+        console.log('stopShake() - ERROR - bad argument');
+    }
+}
+
