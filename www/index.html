@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>githublabels</title>
+    <title>GitHub Label Manager</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.3/csshake.min.css" />
@@ -21,7 +21,7 @@
 <!-- Repo list & reload button -->
         <div class="row control-row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
-                <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="3">
+                <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="8">
                     <option value="-1" data-reponame="none" selected>Please Select a Repository...</option>
                 </select>
             </div>
@@ -30,6 +30,7 @@
             </div>
         </div>
 <!-- ^Repo list & reload button -->
+        <hr>
 <!-- Selected repo info -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -137,7 +138,7 @@
                 <!-- Modal content -->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
                         <h4 class="modal-title center">Label Editor</h4>
                     </div>
                     <div class="container-fluid">
@@ -187,16 +188,15 @@
     <script type="text/javascript" src="./assets/js/consolelog.js"></script>
     <!-- miscellaneous utility functions -->
     <script type="text/javascript" src="./assets/js/utils.js"></script>
-    <!--  -->
+    <!-- GitHub Lable Manager API -->
     <script type="text/javascript" src="./assets/js/glmapi.js"></script>
-    <!--  -->
+    <!-- repository API functions -->
     <script type="text/javascript" src="./assets/js/repos.js"></script>
-    <!--  -->
+    <!-- Label Edit Modal -->
     <script type="text/javascript" src="./assets/js/modal-edit.js"></script>
-    <!--  -->
+    <!-- Label API functions -->
     <script type="text/javascript" src="./assets/js/labels.js"></script>
-    <!--  -->
+    <!-- Edit,Save and Undo actions -->
     <script type="text/javascript" src="./assets/js/actions.js"></script>
 </body>
-
 </html>
