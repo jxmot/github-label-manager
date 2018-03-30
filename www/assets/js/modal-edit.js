@@ -1,7 +1,80 @@
+/* ************************************************************************ */
+/*
+
+    Label Edit Modal - Edit a single label at a time.
+
+    2018 (c) Jim Motyl
+
+    modal-edit.js
+
+*/
+// flags checked when the modal form is hidden
+var     labelSave = false;
+var     labelCanc = false;
+
+// modal button events
+$('#save-edit-btn').on('click', saveLabel);
+$('#cancel-edit-btn').on('click', cancLabel);
+
+/*
+    The button assigned to the "save" functionality is handled here.
+*/
+function saveLabel() {
+    labelSave = true;
+    labelCanc = false;
+    $('#labelEditModal').modal('hide');
+};
+
+/*
+    The button assigned to the "cancel" functionality is handled here.
+*/
+function cancLabel() {
+    labelSave = false;
+    labelCanc = true;
+    $('#labelEditModal').modal('hide');
+};
+
+/*
+    On the "modal about hide" event determine if the action was either
+    "save" or "cancel". 
+*/
+$('#labelEditModal').on('hide.bs.modal', function (event) {
+    // Typical modal behavior is to dismiss the modal if a click occurs
+    // outside of it. This check of the validation flags and the call to 
+    // event.preventDefault() will keep it from closing.
+    if((labelSave === false) && (labelCanc === false)) {
+        // mute console.log('#labelEditModal .on(hide.bs.modal) - missing validation, preventing close');
+        event.preventDefault();
+        // let's shake the label edit modal so that it gets noticed
+        // by the user.
+        startShake('#labelEditModal');
+    } else {
+        if((labelSave === true) && (labelCanc === false)) {
+        } else {
+            if((labelSave === false) && (labelCanc === true)) {
+            }
+        }
+    }
+});
+
+/*
+    On the "modal about show" event clear the "save" 
+    and "cancel" flags. 
+*/
+$('#labelEditModal').on('show.bs.modal', function (event) {
+    // mute console.log('#labelEditModal .on(show.bs.modal) - The modal is about to be shown.');
+    labelSave = false;
+    labelCanc = false;
+});
+
+/*
+    When the page is loaded go ahead and set up the color
+    picker.
+*/
 $(function () {
     $('#coloredit').colorpicker({
         color: false,
-        inline: true,
+        inline: false,
         container: true,
         useAlpha: false,
         extensions: [
@@ -30,13 +103,15 @@ $(function () {
         ]
     })
     .on('colorpickerChange colorpickerCreate', function (e) {
-        //consolelog('color = '+e.color.toString());
         $('#templabel').attr('style', 'background-color:'+e.color.toString()+';color:#'+adaptColor(e.color.toString())+';');
     });
 });
 
+/*
+    Pre-fill the label fields (color, and description) before
+    showing the modal.
+*/
 function fillEdit(rowid) {
-
     var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
 
     $('#labeledit').empty();
@@ -48,4 +123,5 @@ function fillEdit(rowid) {
 
     $('#coloredit').colorpicker('setValue', '#'+edit.label.color);
 };
+
 
