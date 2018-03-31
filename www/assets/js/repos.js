@@ -1,4 +1,7 @@
 
+$(function () {
+    loadrepos();
+});
 
 $('#loadrepo-btn').on('click', loadrepos);
 
@@ -48,7 +51,6 @@ function loadrepos() {
 function listRepos(repolist) {
     var idx = 0;
     if(repolist !== undefined) {
-        //$('#output').html(JSON.stringify(repolist));
         $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
         // create & append the options
         var slist = document.getElementById('repo-select');
