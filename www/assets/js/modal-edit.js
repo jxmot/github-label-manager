@@ -49,9 +49,24 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
         // by the user.
         startShake('#labelEditModal');
     } else {
+        var rowid = $('#labeledit').data('rowid');
         if((labelSave === true) && (labelCanc === false)) {
+            var prelabel = $('#'+rowid).data('label_rw');
+            var newlabel = JSON.parse(JSON.stringify(prelabel));
+            newlabel.label.color = $('#coloredit').colorpicker('getValue');
+            if(newlabel.label.color.charAt(0) === '#') {
+                newlabel.label.color = newlabel.label.color.substring(1);
+            }
+            newlabel.label.description = $('#labeldesc').val();
+            newlabel.chksum = checksum(JSON.stringify(newlabel.label));
+            if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
+            else {
+                consolelog('label IS changed');
+                $('#'+rowid).data('label_rw', JSON.stringify(newlabel));
+            }
         } else {
             if((labelSave === false) && (labelCanc === true)) {
+                consolelog('label cancelled');
             }
         }
     }
@@ -123,12 +138,14 @@ function fillEdit(rowid) {
     var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
 
     $('#labeledit').empty();
+    $('#labeledit').data('rowid', rowid);
+    
     var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
     $(label).text(edit.label.name);
     $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
     $('#labeledit').append($('<h4>').addClass('label-header').append(label));
-    $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
 
+    $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
     $('#coloredit').colorpicker('setValue', '#'+edit.label.color);
 };
 
