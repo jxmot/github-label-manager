@@ -30,6 +30,14 @@
 
 ### Dynamic Element Events
 
+## Label Editing
+
+### Modal
+
+### Data Storage
+
+### Detecting Change
+
 ## Styling
 
 
