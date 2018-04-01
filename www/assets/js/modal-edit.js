@@ -43,7 +43,6 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
     // outside of it. This check of the validation flags and the call to 
     // event.preventDefault() will keep it from closing.
     if((labelSave === false) && (labelCanc === false)) {
-        // mute console.log('#labelEditModal .on(hide.bs.modal) - missing validation, preventing close');
         event.preventDefault();
         // let's shake the label edit modal so that it gets noticed
         // by the user.
@@ -51,8 +50,6 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
     } else {
         var rowid = $('#labeledit').data('rowid');
         if((labelSave === true) && (labelCanc === false)) {
-
-            //var prelabel = $('#'+rowid).data('label_rw');
             var _prelabel = document.getElementById(rowid).dataset.label_rw;
             var prelabel = JSON.parse(_prelabel);
             var _newlabel = _prelabel;
@@ -73,7 +70,6 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
             if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
             else {
                 consolelog('label IS changed');
-                //$('#'+rowid).data('label_rw', JSON.stringify(newlabel));
                 document.getElementById(rowid).dataset.label_rw = JSON.stringify(newlabel);
                 actionStateResult(rowid, ISMOD);
                 $('#'+rowid+'-undo').removeClass('icon-disabled');
