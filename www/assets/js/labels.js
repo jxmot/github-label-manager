@@ -2,13 +2,13 @@
 
 $('#readlabels-btn').on('click', readlabels);
 
-$('#uploadlabel-btn').on('click', _uploadlabel);
+$('#uploadlabel-btn').on('click', test_uploadlabel);
 
 $('#clrlist-btn').on('click', cleartable);
 
 
 
-function _uploadlabel() {
+function test_uploadlabel() {
     if($('#full_name').data('reponame') != "none") {
         var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
         createlabel(data, uploadDone);
@@ -28,6 +28,11 @@ function cleartable() {
 function listLabels(labels) {
     $('#output').html(JSON.stringify(labels));
     if(labels.error === false) {
+        
+        if(labels.msg.length > 1) $('#table-label-col').text(labels.msg.length + ' Labels');
+        else if(labels.msg.length > 0) $('#table-label-col').text(labels.msg.length + ' Label');
+        else $('#table-label-col').text('Label');
+
 // TODO: save a separate ix for only element IDs across reads, imports, 
 // etc and manage largest allowed value
         for(var ix = 0;ix < labels.msg.length;ix += 1) {
@@ -56,7 +61,7 @@ function listLabels(labels) {
             var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
             $(label).text(lbldata.name);
             $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
-            $(cell).append($('<h4>').addClass('label-header').append(label));
+            $(cell).append($('<h3>').addClass('label-header').append(label));
             $(row).append(cell);
 
             cell = $('<td>').attr('id', nameix+'-desc').text((lbldata.description === null ? '' : lbldata.description));
@@ -115,7 +120,7 @@ function uploadlabel(label, callback) {
 
 function uploadDone(newlabel) {
     consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
-    $('#labelout').html(JSON.stringify(newlabel.msg));
+    //$('#labelout').html(JSON.stringify(newlabel.msg));
 };
 
 function renderLabel(rowid) {
