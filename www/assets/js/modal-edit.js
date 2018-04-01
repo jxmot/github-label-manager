@@ -154,7 +154,7 @@ function fillEdit(rowid) {
     var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
     $(label).text(edit.label.name);
     $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
-    $('#labeledit').append($('<h4>').addClass('label-header').append(label));
+    $('#labeledit').append($('<h3>').addClass('label-header').append(label));
 
     $('#labelname').empty();
     $('#labelname').val(edit.label.name);
