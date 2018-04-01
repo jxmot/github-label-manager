@@ -4,9 +4,21 @@
 
 # Back End
 
+The back end of this application provides the endpoints for the application. They have been tailored to this application in regards to how the data is formatted and its contents in *both* directions.
+
 ## PHP Endpoints
 
+All of the endpoints have been implemented with PHP (*5.6*) and behave as *commands*. And all GitHub specific details are also kept there. Those details are - 
+
+* repository owner's ID
+* access token
+* GitHub endpoint paths
+
 ### API Synopses
+
+#### Repository Functions
+
+#### Label Functions
 
 ## JSON Data Files
 
@@ -16,19 +28,21 @@
 
 ## API Usage
 
+Access to the API is provided in `glmapi.js`. 
+
 ## DOM Usage
 
 ### Data Storage
-
-#### Notes
-
-* When storing JSON formatted *strings* in `data-????` attributes you need to be conisistent in regards to the method used for saving **and** retrieving the JSON string. I have found that everything works best when using `document.getElementById('someID').dataset.item` *instead of* the JQuery form `$('#someID').data('item')`. That's because JQuery will parse the JSON string and `$('#someID').data('item')` will actually return an object. 
 
 #### Label Data
 
 #### Label State
 
 #### Label Appearance
+
+#### Notes
+
+* When storing JSON formatted *strings* in `data-????` attributes you need to be conisistent in regards to the method used for saving **and** retrieving the JSON string. I have found that everything works best when using `document.getElementById('someID').dataset.item` *instead of* the JQuery form `$('#someID').data('item')`. That's because JQuery will parse the JSON string and `$('#someID').data('item')` will actually return an object. 
 
 ### Dynamic Element IDs
 
