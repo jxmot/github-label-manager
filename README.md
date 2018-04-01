@@ -2,6 +2,10 @@
 
 **NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
 
+**2013-03-31 : Basic label retrieval from a repo, label edit, undo, and mark for deletion are working.**
+
+**Major To Do's : file I/O, label deletion from repo, label upload to repo**
+
 A web based utility to manage GitHub labels.
 
 # History
@@ -152,13 +156,20 @@ But before I started on *operations* I had to come up with some *rules*. These r
     - [x] Integrate with test framework *Note: this task is ongoing during app development*
     - [i] Final design, code and test
     - [ ] Document in source and externally
-- [x] Develop additional core functions - create label, delete label, update label
+- [i] Develop additional core functions - create label, edit label, delete label, update label
     - [x] Initial design, code and test - based on initial core functionality effort
-    - [i] Integrate with test framework *Note: this task is ongoing during app development*
+    - [x] Integrate with test framework *Note: this task is ongoing during app development*
+    - [i] Label Functions - 
+        - [x] edit
+        - [x] undo
+        - [i] mark for deletion
+        - [i] create
 - [ ] Additional functions - upload labels to repo, export labels to file, import labels from file
     - [ ] Initial design, code and test - based on initial core functionality effort
+        - [ ] Save/Load non-repo related label files from an alternative location
+        - [ ] Create API function to retrieve label file names an info (date, size, ???)
     - [ ] Integrate with test framework *Note: this task is ongoing during app development*
-- [ ] Develop app-state processing for enable/disable controls code
+- [i] Develop app-state processing for enable/disable controls code
 - [x] Create page for testing functionality of core functions - *ongoing development*
 - [x] Update README along the way - *in progress*
 
