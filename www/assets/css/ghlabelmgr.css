@@ -8,7 +8,11 @@
 .ghlabels-body {
     margin-left:5%;
     margin-right:5%;
-    margin-top:5%;
+}
+
+.title-row {
+    margin-top:2.5%;
+    margin-bottom:3%;
 }
 
 .control-row {
@@ -179,5 +183,7 @@ td, tr {
     text-align: center;
 }
 
-
+.size-to-content {
+    display: inline-block;
+}
 
