@@ -62,6 +62,7 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
             if(newlabel.label.color.charAt(0) === '#') {
                 newlabel.label.color = newlabel.label.color.substring(1);
             }
+            newlabel.label.name = $('#labelname').val();
             newlabel.label.description = $('#labeldesc').val();
             newlabel.chksum = checksum(JSON.stringify(newlabel.label));
             if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
@@ -153,6 +154,9 @@ function fillEdit(rowid) {
     $(label).text(edit.label.name);
     $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
     $('#labeledit').append($('<h4>').addClass('label-header').append(label));
+
+    $('#labelname').empty();
+    $('#labelname').val(edit.label.name);
 
     $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
     $('#coloredit').colorpicker('setValue', '#'+edit.label.color);
