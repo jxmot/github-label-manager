@@ -10,7 +10,7 @@ $('#clrlist-btn').on('click', cleartable);
 
 function test_uploadlabel() {
     if($('#full_name').data('reponame') != "none") {
-        var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":{"name": "test","description":"test label, ignore","color": "cfd2d4"}}';
+        var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":{"name": "test1234","description":"test label, ignore","color": "cfd2d4"}}';
         createlabel(data, uploadDone);
     } else consolelog('ERROR uploadlabel - no repo selected');
 };
