@@ -51,7 +51,6 @@ function listLabels(labels) {
             //      2 + 4 = chgd and del
             // unmarking del subs 4
             $(row).attr('data-state', '{"state":1}');
-            //$(row).attr('onmouseover', 'labelRowOver(this.id)');
 
             var cell = $('<td>').addClass('table-cell-center');
             var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
@@ -120,7 +119,6 @@ function uploadDone(newlabel) {
 };
 
 function renderLabel(rowid) {
-    //var lbldata = JSON.parse($('#'+rowid).data('label_rw')).label;
     var lbldata = JSON.parse(document.getElementById(rowid).dataset.label_rw).label;
     $('#'+rowid+'-color').text(lbldata.name);
     $('#'+rowid+'-color').attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');

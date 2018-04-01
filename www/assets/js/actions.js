@@ -47,7 +47,6 @@ function actOnLabel(id, rowid, action) {
 
         if(state === NOMOD) {
             document.getElementById(rowid).dataset.label_rw = document.getElementById(rowid).dataset.label_ro;
-
             $('#'+id).addClass('icon-disabled');
             renderLabel(rowid);
         } else $('#'+id).removeClass('icon-disabled');
