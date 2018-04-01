@@ -54,13 +54,13 @@ function listLabels(labels) {
             //$(row).attr('onmouseover', 'labelRowOver(this.id)');
 
             var cell = $('<td>').addClass('table-cell-center');
-            var label = $('<span>').addClass('label label-default');
+            var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
             $(label).text(lbldata.name);
             $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
             $(cell).append($('<h4>').addClass('label-header').append(label));
             $(row).append(cell);
 
-            cell = $('<td>').text((lbldata.description === null ? '' : lbldata.description));
+            cell = $('<td>').attr('id', nameix+'-desc').text((lbldata.description === null ? '' : lbldata.description));
             $(row).append(cell);
 
             cell = $('<td>').addClass('table-cell-center');
@@ -118,3 +118,12 @@ function uploadDone(newlabel) {
     consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
     $('#labelout').html(JSON.stringify(newlabel.msg));
 };
+
+function renderLabel(rowid) {
+    //var lbldata = JSON.parse($('#'+rowid).data('label_rw')).label;
+    var lbldata = JSON.parse(document.getElementById(rowid).dataset.label_rw).label;
+    $('#'+rowid+'-color').text(lbldata.name);
+    $('#'+rowid+'-color').attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
+    $('#'+rowid+'-desc').text((lbldata.description === null ? '' : lbldata.description));
+};
+

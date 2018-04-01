@@ -51,9 +51,14 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
     } else {
         var rowid = $('#labeledit').data('rowid');
         if((labelSave === true) && (labelCanc === false)) {
-            var prelabel = $('#'+rowid).data('label_rw');
-            var newlabel = JSON.parse(JSON.stringify(prelabel));
+
+            //var prelabel = $('#'+rowid).data('label_rw');
+            var _prelabel = document.getElementById(rowid).dataset.label_rw;
+            var prelabel = JSON.parse(_prelabel);
+            var _newlabel = _prelabel;
+            var newlabel = JSON.parse(_newlabel);
             newlabel.label.color = $('#coloredit').colorpicker('getValue');
+
             if(newlabel.label.color.charAt(0) === '#') {
                 newlabel.label.color = newlabel.label.color.substring(1);
             }
@@ -62,7 +67,11 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
             if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
             else {
                 consolelog('label IS changed');
-                $('#'+rowid).data('label_rw', JSON.stringify(newlabel));
+                //$('#'+rowid).data('label_rw', JSON.stringify(newlabel));
+                document.getElementById(rowid).dataset.label_rw = JSON.stringify(newlabel);
+                actionStateResult(rowid, ISMOD);
+                $('#'+rowid+'-undo').removeClass('icon-disabled');
+                renderLabel(rowid);
             }
         } else {
             if((labelSave === false) && (labelCanc === true)) {

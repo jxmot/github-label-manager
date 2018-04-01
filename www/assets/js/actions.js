@@ -37,16 +37,6 @@ function actOnLabel(id, rowid, action) {
         fillEdit(rowid);
         // show the modal
         $('#labelEditModal').modal('show');
-
-// TO DO: Implement a label editing "form" (could be modal) and
-// implemented an "edited" check by comparing the original ("ro")
-// label's checksum against what the "rw" label has. The checksum
-// would have been updated when the editing "form" was closed-confirm
-        actionStateResult(rowid, ISMOD);
-
-        var undoid = id.replace(/\-edit/g, '-undo');
-        $('#'+undoid).removeClass('icon-disabled');
-
     } else if(action === 'undo') {
         var state = actionStateResult(rowid, UNDO);
 
@@ -55,8 +45,12 @@ function actOnLabel(id, rowid, action) {
         $('#'+deleid).removeClass('icon-disabled');
         $('#'+editid).removeClass('icon-disabled');
 
-        if(state === NOMOD) $('#'+id).addClass('icon-disabled');
-        else $('#'+id).removeClass('icon-disabled');
+        if(state === NOMOD) {
+            document.getElementById(rowid).dataset.label_rw = document.getElementById(rowid).dataset.label_ro;
+
+            $('#'+id).addClass('icon-disabled');
+            renderLabel(rowid);
+        } else $('#'+id).removeClass('icon-disabled');
     }
 };
 
