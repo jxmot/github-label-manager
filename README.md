@@ -187,6 +187,9 @@ Other things to do along the way -
 
 
 
-
+* Miscellaneous "nice to haves" :
+    - [ ] Add issue counts to individual labels in list
+        - [ ] Restrict label actions based on use count. **Run a test with current code and labels that are attached to issues**
+    - [ ] Add "stars" to repo info box
 
 
