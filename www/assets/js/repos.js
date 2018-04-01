@@ -63,7 +63,8 @@ function listRepos(repolist) {
     }
 };
 
-function getRepoName() {
-    return $('#full_name').data('reponame');
-};
+
+//function getRepoName() {
+//    return $('#full_name').data('reponame');
+//};
 
