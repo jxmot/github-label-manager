@@ -62,8 +62,13 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
             if(newlabel.label.color.charAt(0) === '#') {
                 newlabel.label.color = newlabel.label.color.substring(1);
             }
+
             newlabel.label.name = $('#labelname').val();
-            newlabel.label.description = $('#labeldesc').val();
+
+            if($('#labeldesc').val() !== '')
+                newlabel.label.description = $('#labeldesc').val();
+            else newlabel.label.description = null;
+
             newlabel.chksum = checksum(JSON.stringify(newlabel.label));
             if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
             else {
