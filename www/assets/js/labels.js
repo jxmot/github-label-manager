@@ -44,7 +44,7 @@ function exportlabels() {
         if(labels.length > 0) {
             var data = {
                 data: labels,
-                file: `_export-labels-${Date.now()}.json`
+                file: `_export-labels-${timestamp()}.json`
             }
             var labelsout = JSON.stringify(data);
             exportdata(labelsout, exportdone);
@@ -52,10 +52,31 @@ function exportlabels() {
     }
 };
 
+function timestamp() {
+    var today = new Date();
+
+    var mon = today.getMonth()+1;
+    if(mon < 10) mon = '0'+mon;
+
+    var day = today.getDate();
+    if(day < 10) day = '0'+day;
+
+    var hrs = today.getHours();
+    if(hrs < 10) hrs = '0'+hrs;
+
+    var min = today.getMinutes();
+    if(min < 10) min = '0'+min;
+
+    var sec = today.getSeconds();
+    if(sec < 10) sec = '0'+sec;
+
+    return `${today.getFullYear()}${mon}${day}-${hrs}${min}${sec}`;
+};
+
 function exportdone(resp) {
     consolelog('export done');
     if(resp.error === false) 
-        timedDlg('Label Export', `Success, wrote ${resp.msg.len} bytes to ${resp.msg.file}`, 3000);
+        timedDlg('Label Export', `Success, wrote ${resp.msg.len} bytes to ${resp.msg.file}`, 5000);
     else errorDlg('Label Export', `ERROR - ${resp.msg}`);
 };
 
