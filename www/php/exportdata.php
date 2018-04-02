@@ -1,10 +1,9 @@
 <?php
-// contained in "ghlabelmgr.php" - $cfgfile, $accept
+// contained in "ghlabelmgr.php" - $cfgfile, $accept, $maxout
 require_once "ghlabelmgr.php";
-require_once "patch-post.php";
 
 /*
-    POST exportlabels.php - typically used for exporting label data
+    POST exportdata.php - typically used for exporting label data
     but can be used for any string
 
     body: {"file":"filename.ext", "data":"[{...},{...},...]"}
@@ -26,10 +25,12 @@ $outfile = $body['file'];
 $data = json_encode($body['data']);
 $datalen = strlen($data);
 
-if(($datalen > 0) && ($datalen < 20480)) {
-    file_put_contents("../data/$outfile", $data);
-    $resp = "{\"error\":false, \"ret\":0, \"msg\":$data}";
-} else $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"data length error, datalen = $datalen\"}";
+if(strpos($outfile, '/') === false) {
+    if(($datalen > 0) && ($datalen < $maxout)) {
+        file_put_contents("../data/$outfile", $data);
+        $resp = "{\"error\":false, \"ret\":0, \"msg\":$data}";
+    } else $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"data length error, datalen = $datalen\"}";
+} else $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"bad file name - $outfile\"}";
 
 header("HTTP/1.0 200 OK");
 header("Content-Type: application/json; charset=utf-8");
