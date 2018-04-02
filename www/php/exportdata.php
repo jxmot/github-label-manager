@@ -1,5 +1,5 @@
 <?php
-// contained in "ghlabelmgr.php" - $cfgfile, $accept, $maxout
+// contained in "ghlabelmgr.php" - $cfgfile, $accept, $maxoutsize
 require_once "ghlabelmgr.php";
 
 /*
@@ -26,7 +26,7 @@ $data = json_encode($body['data']);
 $datalen = strlen($data);
 
 if(strpos($outfile, '/') === false) {
-    if(($datalen > 0) && ($datalen < $maxout)) {
+    if(($datalen > 0) && ($datalen < $maxoutsize)) {
         file_put_contents("../data/$outfile", $data);
         $resp = "{\"error\":false, \"ret\":0, \"msg\":$data}";
     } else $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"data length error, datalen = $datalen\"}";
