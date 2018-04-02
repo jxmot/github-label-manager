@@ -20,15 +20,16 @@ $postbody = file_get_contents('php://input');
 // JSON -> associative array
 $body = json_decode($postbody, true);
 // get the file path+name+extension
-$outfile = $body['file'];
+$file = $body['file'];
 // label associative array -> JSON
 $data = json_encode($body['data']);
 $datalen = strlen($data);
 
-if(strpos($outfile, '/') === false) {
+if(strpos($file, '/') === false) {
+    $outfile = "../data/$file";
     if(($datalen > 0) && ($datalen < $maxoutsize)) {
-        file_put_contents("../data/$outfile", $data);
-        $resp = "{\"error\":false, \"ret\":0, \"msg\":$data}";
+        file_put_contents($outfile, $data);
+        $resp = "{\"error\":false, \"ret\":0, \"msg\":{\"file\":\"$outfile\",\"len\":$datalen}}";
     } else $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"data length error, datalen = $datalen\"}";
 } else $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"bad file name - $outfile\"}";
 
