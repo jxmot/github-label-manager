@@ -24,7 +24,7 @@ $body = json_decode($postbody, true);
 $outfile = $body['file'];
 // label associative array -> JSON
 $data = json_encode($body['data']);
-$datalen = strlen($data)
+$datalen = strlen($data);
 
 if(($datalen > 0) && ($datalen < 20480)) {
     file_put_contents("../data/$outfile", $data);
