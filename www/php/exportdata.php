@@ -26,7 +26,7 @@ $data = json_encode($body['data']);
 $datalen = strlen($data);
 
 if(strpos($file, '/') === false) {
-    $outfile = "../data/$file";
+    $outfile = "../data/labels/$file";
     if(($datalen > 0) && ($datalen < $maxoutsize)) {
         file_put_contents($outfile, $data);
         $resp = "{\"error\":false, \"ret\":0, \"msg\":{\"file\":\"$outfile\",\"len\":$datalen}}";
