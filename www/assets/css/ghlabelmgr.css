@@ -168,7 +168,11 @@ td, tr {
 
 .modal-dialog { 
     width: 550px; 
-    max-width: 100%; 
+    max-width: 100%;
+}
+
+.modal-content {
+    border: 1px solid black;
 }
 
 .modal-label-row {
