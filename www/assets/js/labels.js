@@ -2,11 +2,13 @@
 
 $('#readlabels-btn').on('click', readlabels);
 
-$('#uploadlabel-btn').on('click', test_uploadlabel);
-
 $('#clrlist-btn').on('click', cleartable);
 
+$('#export-labels-btn').on('click', exportlabels);
 
+
+
+$('#uploadlabel-btn').on('click', test_uploadlabel);
 
 function test_uploadlabel() {
     if($('#full_name').data('reponame') != "none") {
@@ -25,8 +27,37 @@ function cleartable() {
     $('#repo-labels-list-body').empty();
 };
 
+
+function exportlabels() {
+    var table = document.getElementById('repo-labels-list-body');
+    if(table.rows.length > 0) {
+        var labels = [];
+    
+        for(var ix = 0;ix < table.rows.length;ix++) {
+            var data = JSON.parse(table.rows[ix].dataset.label_rw);
+            delete data.label.id;
+            delete data.label.url;
+            delete data.label.default;
+            labels.push(data.label);
+        }
+
+        if(labels.length > 0) {
+            var data = {
+                data: labels,
+                file: `_export-labels-${Date.now()}.json`
+            }
+            var labelsout = JSON.stringify(data);
+            exportdata(labelsout, exportdone);
+        }
+    }
+};
+
+function exportdone(resp) {
+    consolelog('export done');
+};
+
+
 function listLabels(labels) {
-    $('#output').html(JSON.stringify(labels));
     if(labels.error === false) {
         
         if(labels.msg.length > 1) $('#table-label-col').text(labels.msg.length + ' Labels');

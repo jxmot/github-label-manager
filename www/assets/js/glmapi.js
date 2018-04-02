@@ -6,6 +6,13 @@ function createlabel(label, callback) {
     _post('crelabel', label, callback);
 };
 
+// NOTE: extra label data such as ID, URL, and default are
+// NOT passed along by this point.
+function exportdata(data, callback) {
+    // {"file":"/path/to/filename.ext", "data":"[{...},{...},...]"}
+    _post('exportdata', data, callback);
+};
+
 function getlabels(repo, callback) {
     _get('getlabels', `?r=${repo}`, callback);
 };
