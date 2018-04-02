@@ -54,6 +54,9 @@ function exportlabels() {
 
 function exportdone(resp) {
     consolelog('export done');
+    if(resp.error === false) 
+        timedDlg('Label Export', `Success, wrote ${resp.msg.len} bytes to ${resp.msg.file}`, 3000);
+    else errorDlg('Label Export', `ERROR - ${resp.msg}`);
 };
 
 
@@ -151,7 +154,6 @@ function uploadlabel(label, callback) {
 
 function uploadDone(newlabel) {
     consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
-    //$('#labelout').html(JSON.stringify(newlabel.msg));
 };
 
 function renderLabel(rowid) {
