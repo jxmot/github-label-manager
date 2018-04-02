@@ -184,7 +184,8 @@ Other things to do along the way -
 - [ ] Investigate implementing "profiles" - 
     - [ ] Method to specify a profile
     - [ ] Security
-
+- [ ] Cosmetic - 
+    - [ ] Adjust label text color vs background
 
 
 * Miscellaneous "nice to haves" :
