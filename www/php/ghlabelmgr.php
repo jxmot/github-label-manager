@@ -5,4 +5,5 @@ $accept = array(
     'mercy' => 'application/vnd.github.mercy-preview+json'
 );
 $maxoutsize = 20480;
+$imexportpath = "../data/labels";
 ?>
