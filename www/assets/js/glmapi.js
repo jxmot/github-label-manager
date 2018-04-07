@@ -13,6 +13,10 @@ function exportdata(data, callback) {
     _post('exportdata', data, callback);
 };
 
+function importlist(callback) {
+    _get('getlabelfiles', undefined, callback);
+};
+
 function getlabels(repo, callback) {
     _get('getlabels', `?r=${repo}`, callback);
 };
