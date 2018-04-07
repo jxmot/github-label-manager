@@ -18,18 +18,15 @@ function errorDlg(title, msg) {
             type: 'red',
             typeAnimated: true,
             buttons: {
-                btnClass: 'btn-red',
-                close: function () {
+                close: {
+                    btnClass: 'btn-red',
+                    action: function () {
+                    }
                 }
             }
         });
     }
 }
-
-var infoDlgState = false;
-var infoDlgStack = [];
-
-// convert to object
 
 function infoDlg(title, msg) {
     if(dlgControl === true) {
@@ -39,8 +36,10 @@ function infoDlg(title, msg) {
             type: 'blue',
             typeAnimated: true,
             buttons: {
-                btnClass: 'btn-blue',
-                close: function () {
+                close: {
+                    btnClass: 'btn-red',
+                    action: function () {
+                    }
                 }
             }
         });
@@ -54,12 +53,8 @@ var timedDlgLast;
 function timedDlg(title, msg, dur) {
 
     if(dlgControl === true) {
-        // mute console.log('timedDlg() - title = '+title);
-        
         if(timedDlgState === false) {
-    
             timedDlgState = true;
-        
             var timeout = 0;
             if(dur === undefined) {
                 timeout = 5000;
@@ -97,8 +92,6 @@ function timedDlg(title, msg, dur) {
         } else {
             timedDlgStack.push({t: title, m: msg, d: dur});
         }
-        // mute console.log('timedDlg() - stack length  = '+timedDlgStack.length);
-        // mute console.log('timedDlg() - timedDlgState = '+timedDlgState);
     }
     return timedDlgState;
 }
