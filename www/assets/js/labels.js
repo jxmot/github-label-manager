@@ -50,6 +50,8 @@ function exportlabels() {
             }
             var labelsout = JSON.stringify(data);
             exportdata(labelsout, exportdone);
+        } else {
+            errorDlg('Label Export', 'No labels to export!');
         }
     }
 };
