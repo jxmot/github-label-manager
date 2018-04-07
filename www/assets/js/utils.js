@@ -11,7 +11,6 @@
 */
 function checksum(s)
 {
-    //var chk = 0x12345678;
     var chk = 0x5F378EA8;
     var len = s.length;
     for (var i = 0; i < len; i++) chk += (s.charCodeAt(i) * (i + 1));
@@ -87,6 +86,7 @@ function adaptColor(bgcolor) {
     
     // see just how light or dark it is...
     //if(hsp > 127.5) {
+    // may require adjustment, store in a config
     if(hsp > 129) {
         color = '000000';
     } else {
@@ -109,7 +109,7 @@ function startShake(target, focusTarget) {
             }
         }
     } else {
-        console.log('startShake() - ERROR - bad argument');
+        consolelog('startShake() - ERROR - bad argument');
     }
 }
 
@@ -124,7 +124,7 @@ function stopShake(target, focusTarget) {
             $(focusTarget).focus();
         }
     } else {
-        console.log('stopShake() - ERROR - bad argument');
+        consolelog('stopShake() - ERROR - bad argument');
     }
 }
 

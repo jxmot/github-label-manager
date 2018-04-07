@@ -88,7 +88,6 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
     and "cancel" flags. 
 */
 $('#labelEditModal').on('show.bs.modal', function (event) {
-    // mute console.log('#labelEditModal .on(show.bs.modal) - The modal is about to be shown.');
     labelSave = false;
     labelCanc = false;
 });
