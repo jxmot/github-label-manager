@@ -32,13 +32,15 @@ function exportlabels() {
     var table = document.getElementById('repo-labels-list-body');
     if(table.rows.length > 0) {
         var labels = [];
-    
+        var ix = 0;
         for(var ix = 0;ix < table.rows.length;ix++) {
-            var data = JSON.parse(table.rows[ix].dataset.label_rw);
-            delete data.label.id;
-            delete data.label.url;
-            delete data.label.default;
-            labels.push(data.label);
+            if(isLabelDel(JSON.parse(table.rows[ix].dataset.state)) === false) {
+                var data = JSON.parse(table.rows[ix].dataset.label_rw);
+                delete data.label.id;
+                delete data.label.url;
+                delete data.label.default;
+                labels.push(data.label);
+            }
         }
 
         if(labels.length > 0) {
@@ -50,6 +52,11 @@ function exportlabels() {
             exportdata(labelsout, exportdone);
         }
     }
+};
+
+function isLabelDel(label) {
+    if((label.state - NOMOD) >= TODEL) return true;
+    else return false;
 };
 
 function timestamp() {
