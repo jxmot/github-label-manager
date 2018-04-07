@@ -49,6 +49,7 @@ function infoDlg(title, msg) {
 
 var timedDlgState = false;
 var timedDlgStack = [];
+var timedDlgLast;
 
 function timedDlg(title, msg, dur) {
 
@@ -68,7 +69,14 @@ function timedDlg(title, msg, dur) {
     
             $.confirm({
                 title: title,
-                closeIcon: true,
+                theme: 'bootstrap',
+                columnClass: 'medium',
+                closeIcon: function() {
+                    if(window.timedDlgStack.length === 0) {
+                        window.timedDlgState = false;
+                    }
+                    clearTimeout(window.timedDlgLast);
+                },
                 autoClose: 'close|'+timeout.toString(),
                 content: msg,
                 type: 'dark',
@@ -80,7 +88,7 @@ function timedDlg(title, msg, dur) {
                             window.timedDlgState = false;
                             if(window.timedDlgStack.length > 0) {
                                 var nextDlg = window.timedDlgStack.shift();
-                                setTimeout(window.timedDlg, 500, nextDlg.t, nextDlg.m, nextDlg.d);
+                                window.timedDlgLast = setTimeout(window.timedDlg, 500, nextDlg.t, nextDlg.m, nextDlg.d);
                             }
                         }
                     }
