@@ -76,7 +76,7 @@ function timestamp() {
 function exportdone(resp) {
     consolelog('export done');
     if(resp.error === false) 
-        timedDlg('Label Export', `Success, wrote ${resp.msg.len} bytes to ${resp.msg.file}`, 5000);
+        timedDlg('Label Export', `Success, wrote <strong>${resp.msg.len}</strong> bytes to <strong>${resp.msg.file}</strong>`, 5000);
     else errorDlg('Label Export', `ERROR - ${resp.msg}`);
 };
 
