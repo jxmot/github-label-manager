@@ -6,6 +6,7 @@ $('#clrlist-btn').on('click', cleartable);
 
 $('#export-labels-btn').on('click', exportlabels);
 
+$('#label-import-btn').on('click', importlabels);
 
 
 $('#uploadlabel-btn').on('click', test_uploadlabel);
@@ -56,6 +57,10 @@ function exportlabels() {
     }
 };
 
+function importlabels() {
+    importlist(filesdone);
+}
+
 function isLabelDel(label) {
     if((label.state - NOMOD) >= TODEL) return true;
     else return false;
@@ -89,6 +94,13 @@ function exportdone(resp) {
     else errorDlg('Label Export', `ERROR - ${resp.msg}`);
 };
 
+function filesdone(resp) {
+    consolelog('label files done');
+    if(resp.error === false) {
+        fillImport(resp);
+        $('#labelImportModal').modal('show');
+    } else errorDlg('Label Files', `ERROR - ${resp.msg}`);
+};
 
 function listLabels(labels) {
     if(labels.error === false) {
