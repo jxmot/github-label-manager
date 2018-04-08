@@ -191,3 +191,33 @@ td, tr {
     display: inline-block;
 }
 
+/*
+    Label File Import
+*/
+.import-file-list {
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    list-style-type: none;
+}
+
+.import-file-list-columns
+{   
+    -moz-column-width: 11.5em; /* Firefox */
+    -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
+    column-width: 11.5em;
+}
+/*remove standard list and bullet formatting from ul*/
+.import-file-list-columns ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+/* correct webkit/chrome uneven margin on the first column*/
+.import-file-list-columns ul li:first-child
+{
+    margin-top:0px;
+}
+
