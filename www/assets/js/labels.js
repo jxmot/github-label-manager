@@ -20,14 +20,13 @@ function test_uploadlabel() {
 
 function readlabels(clrtable = true) {
     consolelog('readlabels');
-    if(clrtable) cleartable()
+    if(clrtable) cleartable();
     getlabels($('#full_name').data('reponame'), listLabels);
 };
 
 function cleartable() {
     $('#repo-labels-list-body').empty();
 };
-
 
 function exportlabels() {
     var table = document.getElementById('repo-labels-list-body');
