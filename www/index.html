@@ -187,7 +187,7 @@
 <!-- ^Modal Dialog - Label Edit -->
 <!-- Label Import Modal Dialog -->
         <div id="labelImportModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog import-modal-dialog">
                 <!-- Modal content -->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -197,36 +197,17 @@
                     <div class="container-fluid">
                         <div class="row modal-text-row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <!-- file list is added dynamically -->
-                                <ul id="filelist" class="list-group import-file-list import-file-list-columns">
-                                    <li id="fileitem_0" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_1" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_2" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_3" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_4" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_5" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_6" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_7" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
-                                    <li id="fileitem_8" class="list-group-item" onclick="fileListClick(this.id)" data-file="_export-labels-20180402-135830.json">
-                                        <strong>_export-labels-20180402-135830.json</strong>
-                                    </li>
+                                <ul id="filelist" class="import-file-list import-file-list-columns">
+                                    <!-- file list is added dynamically -->
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="row modal-text-row">
+                            <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-3 col-sm-offset-0 col-xs-3 col-xs-offset-0">
+                                <h5 class="text-right">Selected File :</h5>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <input value="_export-labels-20180402-135830.json" id="import-file-name" type="text" readonly class="repo-text" size="32">
                             </div>
                         </div>
                         <div class="row modal-label-row">
