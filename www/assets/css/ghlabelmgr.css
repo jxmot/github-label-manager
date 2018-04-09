@@ -194,8 +194,17 @@ td, tr {
 /*
     Label File Import
 */
+.import-modal-dialog { 
+    width: 80%; 
+}
+
+/*
+    Multi-column list
+
+    originally obtained from : https://codepen.io/ThiefMaster/pen/afGbB
+*/
 .import-file-list {
-    max-height: 300px;
+    max-height: 35%;
     margin-bottom: 10px;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
@@ -204,20 +213,24 @@ td, tr {
 
 .import-file-list-columns
 {   
-    -moz-column-width: 11.5em; /* Firefox */
-    -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
-    column-width: 11.5em;
+    -moz-column-width: 20em;
+    -webkit-column-width: 20em;
+    column-width: 20em;
 }
-/*remove standard list and bullet formatting from ul*/
+
 .import-file-list-columns ul
 {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
-/* correct webkit/chrome uneven margin on the first column*/
+
 .import-file-list-columns ul li:first-child
 {
     margin-top:0px;
 }
 
+.import-file-item:hover {
+    cursor:pointer;
+    background-color: #B0E0E6;
+}
