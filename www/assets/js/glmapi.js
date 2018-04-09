@@ -17,6 +17,10 @@ function importlist(callback) {
     _get('getlabelfiles', undefined, callback);
 };
 
+function getimportlabels(file, callback) {
+    _get('getimportlabels', `?f=${file}`, callback);
+};
+
 function getlabels(repo, callback) {
     _get('getlabels', `?r=${repo}`, callback);
 };
