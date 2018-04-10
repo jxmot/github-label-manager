@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Web Page Dimension Viewer</title>
+</head>
+<!--
+    To cause a page to update local storage with its view
+    size use the `onresize` attribute as shown below.
+
+    Then browse the viewsize.html file in its own browser
+    window. And the browse the sendsize.html file in its
+    own window.
+
+    When the sendsize.html file is reloaded, resized, or
+    if the mouse moves over it that data will be seen in
+    the viewsize.html window.
+
+    NOTE: The localStorage events will only work if both
+    files are delivered from an actual server. The use of
+    "file://" will not work. 
+
+
+-->
+<body>
+    <h2 id="page"></h2>
+
+    <h3>Load</h3>
+    <!-- this <p> can be used for displaying the raw 
+         storage data. Just uncomment the line that
+         contains - 
+            load.innerHTML = event.newValue;
+    -->
+    <p id="load"></p>
+    <br>
+    <ul>
+        <li id="l_width"></li>
+        <li id="l_height"></li>
+    </ul>
+
+    <h3>Resize</h3>
+    <!-- this <p> can be used for displaying the raw 
+         storage data. Just uncomment the line that
+         contains - 
+            resize.innerHTML = event.newValue;
+    -->
+    <p id="resize"></p>
+    <br>
+    <ul>
+        <li id="r_width"></li>
+        <li id="r_height"></li>
+    </ul>
+
+    <h3>Mouse</h3>
+    <!-- this <p> can be used for displaying the raw 
+         storage data. Just uncomment the line that
+         contains - 
+            mouse.innerHTML = event.newValue;
+    -->
+    <p id="mouse"></p>
+    <br>
+    <ul>
+        <li id="m_x"></li>
+        <li id="m_y"></li>
+    </ul>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="assets/js/viewsize.js"></script>
+</body>
+</html>
+
