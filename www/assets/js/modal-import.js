@@ -13,6 +13,8 @@
 var     importLabels = false;
 var     importCancel = false;
 
+var     currimport = {};
+
 // modal button events
 $('#import-labels-btn').on('click', confirmImport);
 $('#import-cancel-btn').on('click', cancelImport);
@@ -57,6 +59,8 @@ $('#labelImportModal').on('hide.bs.modal', function (event) {
         startShake('#labelImportModal');
     } else {
         if((importLabels === true) && (importCancel === false)) {
+            consolelog('import confirmed');
+            _listLabels(currimport, importLabels);
         } else {
             if((importLabels === false) && (importCancel === true)) {
                 consolelog('import cancelled');
@@ -80,6 +84,7 @@ $('#labelImportModal').on('show.bs.modal', function (event) {
 function fillImport(files) {
     $('#filelist').empty();
     $('#import-labels-list-body').empty();
+    currimport = {};
     $('#import-file-name').val('None Selected');
 
     if((files.error === false) && (files.ret > 0)) {
@@ -100,11 +105,14 @@ function fillImport(files) {
 
 function showImportLabels(labels) {
     $('#import-labels-list-body').empty();
+    currimport = {};
 
     if((labels.error === false) && (labels.ret >= 0)) {
         if(labels.msg.length > 1) $('#import-label-col').text(labels.msg.length + ' Labels');
         else if(labels.msg.length > 0) $('#import-label-col').text(labels.msg.length + ' Label');
         else $('#import-label-col').text('Label');
+
+        currimport = JSON.parse(JSON.stringify(labels.msg));
 
         for(var ix = 0;ix < labels.msg.length;ix += 1) {
             var row = $('<tr>');
