@@ -64,6 +64,10 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
 
             newlabel.label.name = $('#labelname').val();
 
+// NOTE: An empty `description` will be written as `null`. I've tested label 
+// creation on GitHub via the API and `null` is OK. In fact, if a label is 
+// created without a `description` member it will return as `null` when read 
+// afterwards.
             if($('#labeldesc').val() !== '')
                 newlabel.label.description = $('#labeldesc').val();
             else newlabel.label.description = null;
