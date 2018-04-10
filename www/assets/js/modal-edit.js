@@ -52,6 +52,8 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
         if((labelSave === true) && (labelCanc === false)) {
             var _prelabel = document.getElementById(rowid).dataset.label_rw;
             var prelabel = JSON.parse(_prelabel);
+            if(prelabel.label.descrption === '') prelabel.label.descrption = null;
+
             var _newlabel = _prelabel;
             var newlabel = JSON.parse(_newlabel);
             newlabel.label.color = $('#coloredit').colorpicker('getValue');

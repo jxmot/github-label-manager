@@ -122,6 +122,9 @@ function _listLabels(labels, labelimport = false) {
         var nameix = name+'-'+ix;
         const lbldata = JSON.parse(JSON.stringify(labels[ix]));
 
+        // needed for correct determination if a label has been edited
+        if(lbldata.description === '') lbldata.description = null;
+
         var row = $('<tr>');
         $(row).attr('id', nameix);
         var label_now = {
