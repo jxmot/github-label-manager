@@ -17,7 +17,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
 </head>
 
-<body>
+<!-- 
+    Browser viewport size & mouse position viewer 
+
+    Remove the `onresize="showsize()` portion to disable
+-->
+<body onresize="showsize()">
     <div id="ghlabels-body" class="ghlabels-body">
 <!-- page heading -->
         <div class="row title-row">
@@ -140,6 +145,11 @@
             </div>
         </div>
 <!-- ^Buttons -->
+<!-- browser viewsize -->
+        <div id="viewsize-auto">
+            <!-- If browser viewsize is loaded it will automatically place a link here -->
+        </div>
+<!-- ^browser viewsize -->
 <!-- Modal Dialog - Label Edit -->
         <div id="labelEditModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -271,5 +281,8 @@
     <script type="text/javascript" src="./assets/js/labels.js"></script>
     <!-- Edit,Save and Undo actions -->
     <script type="text/javascript" src="./assets/js/actions.js"></script>
+    <!-- Browser viewport size & mouse position viewer -->
+    <script type="text/javascript" src="./assets/bsv/assets/js/viewsize.js"></script>
+    <script type="text/javascript" src="./assets/bsv/assets/js/viewsize-auto.js"></script>
 </body>
 </html>
