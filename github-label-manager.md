@@ -6,6 +6,8 @@
 
 The back end of this application provides the endpoints for the application. They have been tailored to this application in regards to how the data is formatted and its contents in *both* directions.
 
+In addition all JSON file creation and storage is also on the back end.
+
 ## PHP Endpoints
 
 All of the endpoints have been implemented with PHP (*5.6*) and behave as *commands*. And all GitHub specific details are also kept there. Those details are - 
@@ -28,7 +30,21 @@ All of the endpoints have been implemented with PHP (*5.6*) and behave as *comma
 
 ## API Usage
 
-Access to the API is provided in `glmapi.js`. 
+Access to the API is provided in `glmapi.js` - 
+
+**`createlabel(label, callback)`**
+Create a *new* label
+
+**`getlabels(repo, callback)`**
+
+**`getrepos(callback)`**
+
+**`getrepoinfo(repo, callback)`** 
+
+Depending upon the desired HTTP method the functions above will call - 
+
+* `_get(func, args, callback)` - 
+* `_post(func, body, callback)` - 
 
 ## DOM Usage
 

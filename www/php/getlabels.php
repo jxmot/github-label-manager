@@ -25,7 +25,7 @@ if(isset($reporeq)) {
                 $resp = get($url, $acc, $cfg);
                 $tmp = json_decode($resp);
                 if($tmp->error === false) {
-                    $fname = "../data/_$cfg->owner-$reporeq-labels.json";
+                    $fname = "../data/repolabels/_$cfg->owner-$reporeq-labels.json";
                     file_put_contents($fname, json_encode($tmp->msg));
                 }
             } else {

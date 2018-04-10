@@ -52,6 +52,8 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
         if((labelSave === true) && (labelCanc === false)) {
             var _prelabel = document.getElementById(rowid).dataset.label_rw;
             var prelabel = JSON.parse(_prelabel);
+            if(prelabel.label.descrption === '') prelabel.label.descrption = null;
+
             var _newlabel = _prelabel;
             var newlabel = JSON.parse(_newlabel);
             newlabel.label.color = $('#coloredit').colorpicker('getValue');
@@ -62,6 +64,10 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
 
             newlabel.label.name = $('#labelname').val();
 
+// NOTE: An empty `description` will be written as `null`. I've tested label 
+// creation on GitHub via the API and `null` is OK. In fact, if a label is 
+// created without a `description` member it will return as `null` when read 
+// afterwards.
             if($('#labeldesc').val() !== '')
                 newlabel.label.description = $('#labeldesc').val();
             else newlabel.label.description = null;
@@ -88,7 +94,6 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
     and "cancel" flags. 
 */
 $('#labelEditModal').on('show.bs.modal', function (event) {
-    // mute console.log('#labelEditModal .on(show.bs.modal) - The modal is about to be shown.');
     labelSave = false;
     labelCanc = false;
 });

@@ -35,9 +35,11 @@ function repoPrivacy(priv) {
 
 function repoFork(fork) {
     if(fork) {
+        $('#be-a-fork').addClass('repo-forks');
         $('#is-a-fork').removeClass('hidden');
         $('#not-a-fork').addClass('hidden');
     } else {
+        $('#be-a-fork').removeClass('repo-forks');
         $('#not-a-fork').removeClass('hidden');
         $('#is-a-fork').addClass('hidden');
     }

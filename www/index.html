@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./assets/css/ghlabelmgr.css">
     <link rel="stylesheet" href="./assets/bootstrap-colorpicker/css/bootstrap-colorpicker.css">
+    <link rel="stylesheet" href="./assets/jquery-confirm/css/jquery-confirm.min.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
@@ -18,10 +19,11 @@
 
 <body>
     <div id="ghlabels-body" class="ghlabels-body">
-<!-- Repo list & reload button -->
+<!-- page heading -->
         <div class="row title-row">
             <h2 class="center">GitHub Label Manager</h2>
         </div>
+<!-- Repo list & reload button -->
         <div class="row control-row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 repo-select-col">
                 <select onchange="reposelect(this.value, this.selectedOptions[0].text)" name="reposelect" id="repo-select" class="repo-select" size="8">
@@ -69,24 +71,24 @@
                 <div class="row repo-stats" id="repo-stats">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <h5 class="text-left">Private :
-                            <span id="repo-public" class="fas fa-lock-open fa-lg repo-public"> </span>
-                            <span id="repo-private" class="fas fa-lock fa-lg repo-private hidden"> </span>
+                            <span id="repo-public" class="fas fa-lock-open fa-lg repo-public"></span>
+                            <span id="repo-private" class="fas fa-lock fa-lg repo-private hidden"></span>
                         </h5>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <h5>Open Issues :<span id="open-issues" class="open-issues">0 </span></h5>
+                        <h5 class="open-issues">Open Issues :<span id="open-issues">0</span></h5>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <h5>Is a Fork : 
+                        <h5 id="be-a-fork" class="repo-forks">Is a Fork : 
                             <span id="is-a-fork" class="fas fa-code-branch fa-lg is-forked hidden"> </span>
-                            <span id="not-a-fork" class="fa-stack-1x not-forked-ban">
-                                <em class="fas fa-code-branch fa-lg is-forked fa-stack-1x"> </em>
-                                <span class="fas fa-ban fa-lg not-forked fa-stack-2x"> </span>
+                            <span id="not-a-fork" class="fa-stack">
+                                <i class="fas fa-code-branch fa-lg is-forked fa-stack-1x"></i>
+                                <i class="fas fa-ban fa-2x not-forked fa-stack-1x"></i>
                             </span>
                         </h5>
                         </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <h5>Forks : <span id="repo-forks" class="repo-forks">0 </span></h5>
+                        <h5 class="repo-forks">Forks : <span id="repo-forks">0</span></h5>
                     </div>
                 </div>
                 <div class="row">
@@ -115,6 +117,7 @@
                             </tr>
                         </thead>
                         <tbody id="repo-labels-list-body">
+                            <!-- labels are added dynamically -->
                         </tbody>
                     </table>
                 </div>
@@ -123,7 +126,7 @@
 <!-- ^Label List -->
 <!-- Buttons -->
         <div class="row control-row">
-            <div class="col-md-12 col-content-center">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-content-center">
 <!--
                 <button class="btn btn-success control-btn" type="button" id="upload-btn">Upload Changes</button>
 -->
@@ -131,13 +134,13 @@
 
                 <button class="btn btn-info control-btn" type="button" id="clrlist-btn">Clear List</button>
                 <button class="btn btn-danger control-btn" type="button" id="cancel-changes-btn">Cancel / Reload</button>
-                <button class="btn btn-warning control-btn" type="button" id="read-import-btn">Read / Import</button>
+                <button class="btn btn-warning control-btn" type="button" id="label-import-btn">Read / Import</button>
                 <button class="btn btn-primary control-btn" type="button" id="export-labels-btn">Export Labels</button>
                 <button class="btn btn-success control-btn" type="button" id="create-label-btn">Create Label</button>
             </div>
         </div>
 <!-- ^Buttons -->
-<!-- Modal Dialog -->
+<!-- Modal Dialog - Label Edit -->
         <div id="labelEditModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content -->
@@ -181,18 +184,79 @@
                 <!-- ^Modal content -->
             </div>
         </div>
-<!-- ^Modal Dialog -->
+<!-- ^Modal Dialog - Label Edit -->
+<!-- Label Import Modal Dialog -->
+        <div id="labelImportModal" class="modal fade" role="dialog">
+            <div class="modal-dialog import-modal-dialog">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                        <h4 class="modal-title center">Label Import</h4>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row modal-text-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <ul id="filelist" class="import-file-list import-file-list-columns">
+                                    <!-- file list is added dynamically -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row modal-text-row">
+                            <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-3 col-sm-offset-0 col-xs-3 col-xs-offset-0">
+                                <h5 class="text-right">Selected File :</h5>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <input value="_export-labels-20180402-135830.json" id="import-file-name" type="text" readonly class="repo-text" size="32">
+                            </div>
+                        </div>
+                        <div class="row modal-label-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table" id="import-labels-list">
+                                        <thead>
+                                            <tr id="import-labels-list-header-row">
+                                                <th id="import-label-col" class="table-cell-center">Label</th>
+                                                <th class="table-cell-center">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="import-labels-list-body">
+                                            <!-- labels are added dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row modal-button-row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                                <button class="btn btn-success control-btn" type="button" id="import-labels-btn">Import Labels</button>
+                                <button class="btn btn-danger control-btn" type="button" id="import-cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ^Modal content -->
+            </div>
+        </div>
+<!-- ^Label Import Modal Dialog -->
     </div>
+    <!-- JQuery & Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- TinyColor https://github.com/bgrins/TinyColor -->
+    <!-- TinyColor - https://github.com/bgrins/TinyColor -->
     <script type="text/javascript" src="./assets/TinyColor/js/tinycolor-min.js"></script>
-    <!-- bootstrap-colorpicker https://github.com/farbelous/bootstrap-colorpicker -->
+    <!-- bootstrap-colorpicker - https://github.com/farbelous/bootstrap-colorpicker -->
     <script type="text/javascript" src="./assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+    <!-- jQuery Confirm - http://craftpip.github.io/jquery-confirm/ -->
+    <script type="text/javascript" src="./assets/jquery-confirm/js/jquery-confirm.min.js"></script>
 
+    <!-- constants -->
+    <script type="text/javascript" src="./assets/js/constants.js"></script>
     <!-- control over consolelog() behavior -->
     <script type="text/javascript" src="./assets/js/consolelog.js"></script>
+    <!-- jquery-confirm dialog box functions -->
+    <script type="text/javascript" src="./assets/js/dialog.js"></script>
     <!-- miscellaneous utility functions -->
     <script type="text/javascript" src="./assets/js/utils.js"></script>
     <!-- GitHub Lable Manager API -->
@@ -201,6 +265,8 @@
     <script type="text/javascript" src="./assets/js/repos.js"></script>
     <!-- Label Edit Modal -->
     <script type="text/javascript" src="./assets/js/modal-edit.js"></script>
+    <!-- Label Import Modal -->
+    <script type="text/javascript" src="./assets/js/modal-import.js"></script>
     <!-- Label API functions -->
     <script type="text/javascript" src="./assets/js/labels.js"></script>
     <!-- Edit,Save and Undo actions -->
