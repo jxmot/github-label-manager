@@ -159,13 +159,13 @@ function _listLabels(labels, labelimport = false) {
         var del = $('<span>').addClass('fas fa-trash fa-lg label-delete-icon');
         var undo = $('<span>').addClass('fas fa-undo fa-lg label-undo-icon icon-disabled');
         $(edit).attr('data-action','edit'); 
-        $(del). attr('data-action','delete');
+        $(del).attr('data-action','delete');
         $(undo).attr('data-action','undo');
         $(edit).attr('id', nameix+'-'+'edit');
         $(del).attr('id', nameix+'-'+'del');
         $(undo).attr('id', nameix+'-'+'undo');
         $(edit).attr('onclick','labelAction(this.id)'); 
-        $(del). attr('onclick','labelAction(this.id)');
+        $(del).attr('onclick','labelAction(this.id)');
         $(undo).attr('onclick','labelAction(this.id)');
         $(actions).append(edit);
         $(actions).append(del);
