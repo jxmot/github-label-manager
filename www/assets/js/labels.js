@@ -26,6 +26,7 @@ function readlabels(clrtable = true) {
 
 function cleartable() {
     $('#repo-labels-list-body').empty();
+    $('#table-label-col').text('Label');
 };
 
 function exportlabels() {
@@ -131,6 +132,7 @@ function _listLabels(labels, labelimport = false) {
             label:lbldata,
             chksum:checksum(JSON.stringify(lbldata))
         };
+        $(row).attr('data-import', labelimport);
         $(row).attr('data-label_ro', JSON.stringify(label_now));
         $(row).attr('data-label_rw', JSON.stringify(label_now));
         $(row).attr('data-enact', '{"edit":true,"del":true,"undo":false}');
@@ -181,7 +183,20 @@ function _listLabels(labels, labelimport = false) {
         }
 
         var tomod  = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
-        var todel  = $('<span>').addClass('fas fa-trash-alt fa-lg label-to-delete-icon hidden');
+
+//        var todel  = $('<span>').addClass('fas fa-trash-alt fa-lg label-to-delete-icon hidden');
+        var todel = $('<span>').addClass('hidden');
+
+        if(labelimport === true) {
+            $(todel).addClass('fa-stack');
+            var i1 = $('<i>').addClass('fas fa-trash fa-lg fa-stack-1x label-to-delete-icon');
+            var i2 = $('<i>').addClass('fas fa-info fa-xs fa-stack-1x');
+            $(todel).append(i1);
+            $(todel).append(i2);
+        } else {
+            $(todel).addClass('fas fa-trash-alt fa-lg label-to-delete-icon');
+        }
+
         $(notmod).attr('data-state','notmod'); 
         $(tomod).attr('data-state','tomod');
         $(todel).attr('data-state','todel');
