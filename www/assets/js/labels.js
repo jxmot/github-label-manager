@@ -128,11 +128,11 @@ function _listLabels(labels, labelimport = false) {
 
         var row = $('<tr>');
         $(row).attr('id', nameix);
+        $(row).attr('data-import', labelimport);
         var label_now = {
             label:lbldata,
             chksum:checksum(JSON.stringify(lbldata))
         };
-        $(row).attr('data-import', labelimport);
         $(row).attr('data-label_ro', JSON.stringify(label_now));
         $(row).attr('data-label_rw', JSON.stringify(label_now));
         $(row).attr('data-enact', '{"edit":true,"del":true,"undo":false}');
@@ -181,12 +181,8 @@ function _listLabels(labels, labelimport = false) {
         } else {
             $(notmod).addClass('fas fa-check-circle fa-lg label-notmod-icon');
         }
-
-        var tomod  = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
-
-//        var todel  = $('<span>').addClass('fas fa-trash-alt fa-lg label-to-delete-icon hidden');
+        var tomod = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
         var todel = $('<span>').addClass('hidden');
-
         if(labelimport === true) {
             $(todel).addClass('fa-stack');
             var i1 = $('<i>').addClass('fas fa-trash fa-lg fa-stack-1x label-to-delete-icon');
