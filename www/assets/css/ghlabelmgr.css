@@ -52,31 +52,29 @@ td, tr {
 }
 
 .repo-private {
-    padding-left:5%;
+    padding-top: 2.5%;
     color:red;
 }
 
 .repo-public {
-    padding-left:5%;
+    padding-top: 2.5%;
     color:green;
 }
 
 .open-issues {
-    padding-left:5%;
+    padding-top: 2.5%;
 }
 
 .is-forked {
-    padding-left:5%;
     color:green;
 }
 
 .not-forked {
-    padding-left:5%;
     color:red;
 }
 
 .repo-forks {
-    padding-left:5%;
+    padding-top: 2.5%;
 }
 
 .repo-stats {
