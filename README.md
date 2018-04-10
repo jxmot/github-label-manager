@@ -149,10 +149,10 @@ But before I started on *operations* I had to come up with some *rules*. These r
 
 # Task List & Development Status
 
-**x** - complete<br>
-**i** - in progress<br>
-**b** - blocked<br>
-**n** - no further work is needed<br>
+**[x]** - complete<br>
+**[i]** - in progress<br>
+**[b]** - blocked<br>
+**[n]** - no further work is needed<br>
 
 - [x] Begin development of core functions - get all repos, get labels for a repo, get info for a specific repo
     - [x] Initial design, code and test
