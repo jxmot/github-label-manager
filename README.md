@@ -2,9 +2,12 @@
 
 **NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
 
+**2013-04-10 : Label file export/import and row marking (as imported) is working, needs additional testing and
+integration of imported labels into other operations.**
+
 **2013-03-31 : Basic label retrieval from a repo, label edit, undo, and mark for deletion are working.**
 
-**Major To Do's : file I/O, label deletion from repo, label upload to repo**
+**Major To Do's : label deletion from repo, label upload to repo, new label creation**
 
 A web based utility to manage GitHub labels.
 
@@ -149,6 +152,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
 **x** - complete<br>
 **i** - in progress<br>
 **b** - blocked<br>
+**n** - no further work is needed<br>
 
 - [x] Begin development of core functions - get all repos, get labels for a repo, get info for a specific repo
     - [x] Initial design, code and test
@@ -162,13 +166,13 @@ But before I started on *operations* I had to come up with some *rules*. These r
     - [i] Label Functions - 
         - [x] edit
         - [x] undo
-        - [i] mark for deletion
+        - [x] mark for deletion
         - [i] create
-- [ ] Additional functions - upload labels to repo, export labels to file, import labels from file
+- [i] Additional functions - upload labels to repo, export labels to file, import labels from file
     - [ ] Initial design, code and test - based on initial core functionality effort
-        - [ ] Save/Load non-repo related label files from an alternative location
-        - [ ] Create API function to retrieve label file names an info (date, size, ???)
-    - [ ] Integrate with test framework *Note: this task is ongoing during app development*
+        - [i] Save/Load non-repo related label files from an alternative location
+        - [i] Create API function to retrieve label file names and info (date, size, ???)
+    - [n] Integrate with test framework *Note: this task is ongoing during app development*
 - [i] Develop app-state processing for enable/disable controls code
 - [x] Create page for testing functionality of core functions - *ongoing development*
 - [x] Update README along the way - *in progress*
@@ -178,14 +182,14 @@ Other things to do along the way -
 - [ ] For all functions - 
     - [i] Comment
         - [ ] Synopsis
-    - [ ] Revisit return data layout, make "`ret`" more meaningful.
+    - [i] Revisit return data layout, make "`ret`" more meaningful.
     - [ ] Revisit HTTP header, specifically status
     - [ ] 
 - [ ] Investigate implementing "profiles" - 
     - [ ] Method to specify a profile
     - [ ] Security
-- [ ] Cosmetic - 
-    - [ ] Adjust label text color vs background
+- [i] Cosmetic - 
+    - [x] Adjust label text color vs background
 
 
 * Miscellaneous "nice to haves" :
