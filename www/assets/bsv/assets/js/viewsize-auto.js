@@ -29,8 +29,8 @@ function vspopup() {
     // to the correct location for your use.
     // 
     // Here's the correct path for running in the same folder - 
-    // $(link). attr('onclick',"window.open('./viewsize.html'./assets/bsv/viewsize.html','pagename','width=300,height=450')");
-    $(link). attr('onclick',"window.open('./assets/bsv/viewsize.html'./assets/bsv/viewsize.html','pagename','width=300,height=450')");
+    // $(link). attr('onclick',"window.open('./viewsize.html','pagename','width=300,height=450')");
+    $(link). attr('onclick',"window.open('./assets/bsv/viewsize.html','pagename','width=300,height=450')");
     $(target).append(wrap.append(link.text('click to open a pop-up')));
     $(target).append($('<br>')).append($('<br>'));
 };
