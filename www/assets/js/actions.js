@@ -17,11 +17,6 @@ function labelAction(id) {
     }
 };
 
-//const UNDO = -1;
-//const NOMOD = 1;
-//const ISMOD = 2;
-//const TODEL = 4;
-
 function actOnLabel(id, rowid, action) {
     if(action === 'delete') {
         actionStateResult(rowid, TODEL);
