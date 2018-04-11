@@ -64,7 +64,7 @@ function adaptElementColor(selector, parent) {
             // and choose the opposite
             $(selector).addClass('sensornet_label-light-color');
         }
-    } else consolelog('adaptColor() - selector not found : ' + selector);
+    } else consolelog('adaptElementColor() - selector not found : ' + selector);
 };
 
 function adaptColor(bgcolor) {
@@ -87,11 +87,17 @@ function adaptColor(bgcolor) {
     // see just how light or dark it is...
     //if(hsp > 127.5) {
     // may require adjustment, store in a config
-    if(hsp > 129) {
+
+    consolelog('adaptColor() - color = '+bgcolor);
+    consolelog(' hsp = '+hsp);
+
+//    if(hsp > 129) {
+    if(hsp > 131) {
         color = '000000';
     } else {
         color = 'ffffff';
     }
+    consolelog(' color = '+color);
     return color;
 };
 
