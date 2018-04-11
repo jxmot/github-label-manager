@@ -75,7 +75,7 @@ if($('body').attr('onresize') === undefined) {
     var file = ''+location.pathname.split('/').slice(-1);
     var page = file.substring(0, file.lastIndexOf('.'));
 
-    // capture mouse movments...
+    // capture mouse movements...
     $("body").mousemove(function(e) {
         storeView({
             page:   page,
@@ -87,6 +87,9 @@ if($('body').attr('onresize') === undefined) {
 
     // on document ready...
     $(function() {
+        // Create the link to the viewer...
+        if($('#viewsize-link').length > 0) popupLinkBootstrap();
+
         // send the current dimensions and describe 
         // them as 'load'
         storeView({
@@ -111,4 +114,29 @@ if($('body').attr('onresize') === undefined) {
     function storeView(view) {
         localStorage.setItem(view.event, JSON.stringify(view));
     };
+
+    // create a link to the viewer
+    function popupLink() {
+        var target = $('#viewsize-link');
+        var para = $('<p>');
+        var link = $('<a>').attr('href', '#');
+        $(link).attr('onclick',"window.open('./assets/bsv/viewsize.html','pagename','width=300,height=500')");
+        $(para).append($(link).text('click to open a pop-up'));
+        $(target).append($(para)).append($('<br>')).append($('<br>'));
+    };
+
+    // click to open a pop-up 
+    function popupLinkBootstrap() { 
+        var target = $('#viewsize-link').addClass('row'); 
+        var wrap = $('<div>').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12 col-content-center'); 
+        var link = $('<a>').attr('href', '#').attr('target','popup'); 
+        // change the path - ./assets/bsv/viewsize.html  
+        // to the correct location for your use. 
+        //  
+        // Here's the correct path for running in the same folder -  
+        // $(link). attr('onclick',"window.open('./viewsize.html','pagename','width=300,height=450')"); 
+        $(link). attr('onclick',"window.open('./assets/bsv/viewsize.html','pagename','width=300,height=450')"); 
+        $(target).append(wrap.append(link.text('click to open a pop-up'))); 
+        $(target).append($('<br>')).append($('<br>')); 
+    }; 
 }
