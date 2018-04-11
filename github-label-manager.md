@@ -55,6 +55,36 @@ Depending upon the desired HTTP method the functions above will call -
 * `_get(func, args, callback)` - 
 * `_post(func, body, callback)` - 
 
+### API Responses
+
+An API response is returned as a JSON string and contains - 
+
+```
+{
+    "error": true OR false,
+    "ret": 0 = no error, >0 = meaning depends on function, <0 = error level,
+    "msg": Textual messages for errors, otherwise a JSON string
+}
+```
+
+For example, a successful `GET getlabelfiles` might respond with - 
+
+```
+{"error":false, "ret":4, "msg":["file_1.json","file_2.json","file_3.json","file_4.json"]}
+```
+
+An error from `GET getimportlabels.php?f=no-file.json` where `no-file.json` does not exist would appear as -
+
+```
+{"error":true, "ret":-1, "msg":"no-file.json does not exist"}
+```
+
+#### Error Levels
+
+Error levels are contained in `ret` and can range from -1 to any reasonable negative number. The exact values and their meanings are related to the API call. However the proximity of value to zero indicates how close to success the API call was.
+
+**NOTE :** All API calls respond with `HTTP/1.0 200 OK` in the header regardless of the sucess or failure of the API call.
+
 ## DOM Usage
 
 Within this application the DOM is quite dynamic. It is altered when ever a repository and/or its labels are rendered on the page. 
