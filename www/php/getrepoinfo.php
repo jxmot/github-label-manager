@@ -63,7 +63,6 @@ if(isset($reporeq)) {
 header("HTTP/1.0 200 OK");
 header("Content-Type: application/json; charset=utf-8");
 header("Content-Encoding: text");
-//echo stripslashes($resp);
 echo $resp;
 exit;
 
