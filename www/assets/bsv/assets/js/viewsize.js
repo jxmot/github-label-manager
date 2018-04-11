@@ -115,7 +115,7 @@ if($('body').attr('onresize') === undefined) {
         localStorage.setItem(view.event, JSON.stringify(view));
     };
 
-    // create a link to the viewer
+    // click to open a pop-up 
     function popupLink() {
         var target = $('#viewsize-link');
         var para = $('<p>');
@@ -128,7 +128,7 @@ if($('body').attr('onresize') === undefined) {
     // click to open a pop-up 
     function popupLinkBootstrap() { 
         var target = $('#viewsize-link').addClass('row'); 
-        var wrap = $('<div>').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12 col-content-center'); 
+        var wrap = $('<div>').addClass('col-lg-12 col-md-12 col-sm-12 col-xs-12').attr('style','text-align:center;'); 
         var link = $('<a>').attr('href', '#').attr('target','popup'); 
         // change the path - ./assets/bsv/viewsize.html  
         // to the correct location for your use. 
