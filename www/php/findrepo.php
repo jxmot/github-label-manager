@@ -1,6 +1,6 @@
 <?php
 /*
-    getrepoinfo.php?r=repo_name&f=../data/_owner-repos.json
+    findrepo.php?r=repo_name&f=../data/_owner-repos.json
 
     for command line testing :
 
