@@ -1,38 +1,71 @@
+/*
+    GitHub Label Manager API 
 
+    Wrapper for PHP endpoints.
 
+    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager
+*/
 
+/*
+    
+*/
 function createlabel(label, callback) {
     // create the new label in the repository
     _post('crelabel', label, callback);
 };
 
-// NOTE: extra label data such as ID, URL, and default are
-// NOT passed along by this point.
+/*
+    Export data (typically a JSON formatted string) to a 
+    client-side specified file name.
+
+    NOTE: Do not specify a path, it is managed server-side.
+*/
 function exportdata(data, callback) {
+    // NOTE: extra label data such as ID, URL, and default are
+    // NOT passed along by this point.
     // {"file":"/path/to/filename.ext", "data":"[{...},{...},...]"}
     _post('exportdata', data, callback);
 };
 
+/*
+    Retrieve a list of previously exported label files. 
+*/
 function importlist(callback) {
     _get('getlabelfiles', undefined, callback);
 };
 
+/*
+    Retrieve the labels from a specified file.
+*/
 function getimportlabels(file, callback) {
     _get('getimportlabels', `?f=${file}`, callback);
 };
 
+/*
+    Retrieve the labels from a specified repository.
+*/
 function getlabels(repo, callback) {
     _get('getlabels', `?r=${repo}`, callback);
 };
 
+/*
+    Retrieve a list of repositories for a specified GitHub user.
+*/
 function getrepos(callback) {
     _get('getrepos', undefined, callback);
 };
 
+/*
+    Retrieve information for a specific repository. 
+*/
 function getrepoinfo(repo, callback) {
     _get('getrepoinfo', `?r=${repo}`, callback);
 };
 
+/*
+    Send a GET request with arguments(optional) and
+    invoke a callback function when completed.
+*/
 function _get(func, args, callback) {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -61,6 +94,10 @@ function _get(func, args, callback) {
     xmlhttp.send();
 };
 
+/*
+    Send a POST request with a body(optional) and
+    invoke a callback function when completed.
+*/
 function _post(func, body, callback) {
 
     var xmlhttp = new XMLHttpRequest();
