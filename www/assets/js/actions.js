@@ -1,8 +1,8 @@
 
-function labelRowOver(id) {
-    consolelog('id = '+id);
-    consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
-};
+//function labelRowOver(id) {
+//    consolelog('id = '+id);
+//    consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
+//};
 
 function labelAction(id) {
     var rowid;
