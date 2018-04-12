@@ -2,35 +2,21 @@
 
 # Design Overview
 
-# Back End
-
-The back end of this application provides the endpoints for the application. They have been tailored to this application in regards to how the data is formatted and its contents in *both* directions.
-
-In addition all JSON file creation and storage is also on the back end.
-
-## PHP Endpoints
-
-All of the endpoints have been implemented with PHP (*5.6*) and behave as *commands*. And all GitHub specific details are also kept there. Those details are - 
-
-* repository owner's ID
-* access token
-* GitHub endpoint paths
-
-### API Synopses
-
-#### Repository Functions
-
-#### Label Functions
-
-## JSON Data Files
-
-## Configuration
+<p align="center">
+  <img src="./mdimg/overview-769x757.png" alt="Design Overview" txt="Design Overview" width="50%">
+</p>
 
 # Front End
 
-## API Usage
+## API Groups
 
-Access to the API is provided in `glmapi.js` - 
+* GitHub Label Manager Client API
+* GUI - Repository API
+* GUI - Labels API
+
+### Web Client API
+
+Access to the Web Client API is provided in `glmapi.js` - 
 
 **`createlabel(label, callback)`**<br>
 Create a *new* label in the currently selected repository.
@@ -45,15 +31,22 @@ Retrieve a list of previously exported label files. The path is configured in `g
 Retrieve the labels from a specified file.
 
 **`getlabels(repo, callback)`**<br>
+Retrieve the labels from a specified repository.
 
 **`getrepos(callback)`**<br>
+Retrieve a list of repositories for a specified GitHub user. Also saves the list in the file `/data/_username-repos.json`. Currently a maximum of 100 repositories can be returned. A modification to allow for all of a user's repostories will need to be made. See <https://developer.github.com/v3/guides/traversing-with-pagination/>
 
 **`getrepoinfo(repo, callback)`**<br>
+Retrieve information for a specific repository. 
 
 Depending upon the desired HTTP method the functions above will call - 
 
 * `_get(func, args, callback)` - 
 * `_post(func, body, callback)` - 
+
+### Server API
+
+The functions above request either GET or POST methods from the server. 
 
 ### API Responses
 
@@ -124,5 +117,30 @@ Although it would be possible to attach events to the *dynamic element IDs*, it 
 ### Detecting Change
 
 ## Styling
+
+
+# Back End
+
+The back end of this application provides the endpoints for the application. They have been tailored to this application in regards to how the data is formatted and its contents in *both* directions.
+
+In addition all JSON file creation and storage is also on the back end.
+
+## PHP Endpoints
+
+All of the endpoints have been implemented with PHP (*5.6*) and behave as *commands*. And all GitHub specific details are also kept there. Those details are - 
+
+* repository owner's ID
+* access token
+* GitHub endpoint paths
+
+### API Synopses
+
+#### Repository Functions
+
+#### Label Functions
+
+## JSON Data Files
+
+## Configuration
 
 
