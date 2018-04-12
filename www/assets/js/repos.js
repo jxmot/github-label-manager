@@ -1,10 +1,24 @@
+/*
+    GUI - Repository API 
 
+    Manage all GUI elements related to repository 
+    information and selection.
+
+    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager
+*/
+
+// Retrieve the list of repositories and populate the
+// selection list.
 $(function () {
     loadrepos();
 });
 
+// same as above
 $('#loadrepo-btn').on('click', loadrepos);
 
+/*
+    Handle a repository choice in the selection list.
+*/
 function reposelect(idx, repo) {
     consolelog('reposelect');
     consolelog('idx  = ' + idx);
@@ -13,6 +27,9 @@ function reposelect(idx, repo) {
     else clearRepoInfo();
 };
 
+/*
+    Display a selected repository's information.
+*/
 function showRepoInfo(repoinfo) {
     $('#full_name').val(repoinfo.msg.full_name);
     $('#full_name').data('reponame', repoinfo.msg.name);
@@ -24,6 +41,9 @@ function showRepoInfo(repoinfo) {
     repoFork(repoinfo.msg.fork);
 };
 
+/*
+    Display the privacy state.
+*/
 function repoPrivacy(priv) {
     if(priv) {
         $('#repo-private').removeClass('hidden');
@@ -34,6 +54,9 @@ function repoPrivacy(priv) {
     }
 };
 
+/*
+    Display the fork state.
+*/
 function repoFork(fork) {
     if(fork) {
         $('#be-a-fork').addClass('repo-forks');
@@ -46,12 +69,21 @@ function repoFork(fork) {
     }
 };
 
+/*
+    Clear the displayed repository info and retrieve
+    a fresh list of repositories. Then populate the 
+    selection list.
+*/
 function loadrepos() {
     consolelog('loadrepos');
     clearRepoInfo();
     getrepos(listRepos);
 };
 
+/*
+    Populate the selection list with a list of 
+    repository names.
+*/
 function listRepos(repolist) {
     var idx = 0;
     if(repolist !== undefined) {
@@ -67,6 +99,9 @@ function listRepos(repolist) {
     }
 };
 
+/*
+    Clear all repository specific info from the GUI
+*/
 function clearRepoInfo() {
     $('#full_name').val('');
     $('#description').val('');
@@ -76,9 +111,4 @@ function clearRepoInfo() {
     repoPrivacy(false);
     repoFork(false);
 };
-
-
-//function getRepoName() {
-//    return $('#full_name').data('reponame');
-//};
 
