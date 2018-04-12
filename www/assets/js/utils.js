@@ -32,13 +32,13 @@ function adaptElementColor(selector, parent) {
     if($(selector).length > 0) {
         // get the background color (RGBA) of the chosen selector,
         // it must start with an HTML tag (div,p,h1-6, and such). 
-        // Then follow it with any level of specifyiing the element.
+        // Then follow it with any level of specifying the element.
         // For example - 
-        //      'div.somelcass' - will access all elements that match
+        //      'div.someclass' - will access all elements that match
         //      '#someid' - a specific element only
         var rgb;
         var r, g, b;
-        // if a parent was specifed then obtain its background color
+        // if a parent was specified then obtain its background color
         // instead of the element we're going to change...
         if(parent !== undefined) {
             rgb = $(parent).css("background-color");
@@ -133,4 +133,33 @@ function stopShake(target, focusTarget) {
         consolelog('stopShake() - ERROR - bad argument');
     }
 }
+
+/*
+    Return the current date and time as a string - 
+
+        20171103-210832
+*/
+function timestamp() {
+    var today = new Date();
+    var mon = leadzero(today.getMonth()+1);
+    var day = leadzero(today.getDate());
+    var hrs = leadzero(today.getHours());
+    var min = leadzero(today.getMinutes());
+    var sec = leadzero(today.getSeconds());
+
+    return `${today.getFullYear()}${mon}${day}-${hrs}${min}${sec}`;
+};
+
+/*
+    Checks a value and if it's less than 10 it will return
+    a string containing a leading zero.
+
+    5  -> "05"
+    24 -> 24
+*/
+function leadzero(val) {
+    if(val < 10) val = '0'+val;
+    return val;
+};
+
 

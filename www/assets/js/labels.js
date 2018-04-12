@@ -66,27 +66,6 @@ function isLabelDel(label) {
     else return false;
 };
 
-function timestamp() {
-    var today = new Date();
-
-    var mon = today.getMonth()+1;
-    if(mon < 10) mon = '0'+mon;
-
-    var day = today.getDate();
-    if(day < 10) day = '0'+day;
-
-    var hrs = today.getHours();
-    if(hrs < 10) hrs = '0'+hrs;
-
-    var min = today.getMinutes();
-    if(min < 10) min = '0'+min;
-
-    var sec = today.getSeconds();
-    if(sec < 10) sec = '0'+sec;
-
-    return `${today.getFullYear()}${mon}${day}-${hrs}${min}${sec}`;
-};
-
 function exportdone(resp) {
     consolelog('export done');
     if(resp.error === false) 
