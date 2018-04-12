@@ -10,6 +10,7 @@ function reposelect(idx, repo) {
     consolelog('idx  = ' + idx);
     consolelog('repo = ' + repo);
     if(idx != -1) getrepoinfo(repo, showRepoInfo);
+    else clearRepoInfo();
 };
 
 function showRepoInfo(repoinfo) {
@@ -47,6 +48,7 @@ function repoFork(fork) {
 
 function loadrepos() {
     consolelog('loadrepos');
+    clearRepoInfo();
     getrepos(listRepos);
 };
 
@@ -63,6 +65,16 @@ function listRepos(repolist) {
             slist.appendChild(option);
         }
     }
+};
+
+function clearRepoInfo() {
+    $('#full_name').val('');
+    $('#description').val('');
+    $('#topics').val('');
+    $('#open-issues').html(0);
+    $('#repo-forks').html(0);
+    repoPrivacy(false);
+    repoFork(false);
 };
 
 
