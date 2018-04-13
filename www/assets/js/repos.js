@@ -31,14 +31,18 @@ function reposelect(idx, repo) {
     Display a selected repository's information.
 */
 function showRepoInfo(repoinfo) {
-    $('#full_name').val(repoinfo.msg.full_name);
-    $('#full_name').data('reponame', repoinfo.msg.name);
-    $('#description').val(repoinfo.msg.description);
-    $('#topics').val(repoinfo.msg.topics);
-    $('#open-issues').html(repoinfo.msg.open_issues);
-    $('#repo-forks').html(repoinfo.msg.forks);
-    repoPrivacy(repoinfo.msg.private);
-    repoFork(repoinfo.msg.fork);
+    if(repoinfo.error === false) {
+        $('#full_name').val(repoinfo.msg.full_name);
+        $('#full_name').data('reponame', repoinfo.msg.name);
+        $('#description').val(repoinfo.msg.description);
+        $('#topics').val(repoinfo.msg.topics);
+        $('#open-issues').html(repoinfo.msg.open_issues);
+        $('#repo-forks').html(repoinfo.msg.forks);
+        repoPrivacy(repoinfo.msg.private);
+        repoFork(repoinfo.msg.fork);
+    } else {
+        errorDlg('ERROR - showRepoInfo()', JSON.stringify(repoinfo.msg));
+    }
 };
 
 /*
@@ -87,15 +91,21 @@ function loadrepos() {
 function listRepos(repolist) {
     var idx = 0;
     if(repolist !== undefined) {
-        $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
-        // create & append the options
-        var slist = document.getElementById('repo-select');
-        for(var ix = 0; ix < repolist.msg.length; ix++) {
-            var option = document.createElement('option');
-            option.value = ix;
-            option.text  = repolist.msg[ix].name;
-            slist.appendChild(option);
+        if(repolist.error === false) {
+            $('#repo-select').html('<option value="-1" selected>Please Select a Repository...</option>');
+            // create & append the options
+            var slist = document.getElementById('repo-select');
+            for(var ix = 0; ix < repolist.msg.length; ix++) {
+                var option = document.createElement('option');
+                option.value = ix;
+                option.text  = repolist.msg[ix].name;
+                slist.appendChild(option);
+            }
+        } else {
+            errorDlg('ERROR - listRepos()', JSON.stringify(repolist.msg));
         }
+    } else {
+        errorDlg('ERROR - listRepos()', 'repolist is undefined');
     }
 };
 
