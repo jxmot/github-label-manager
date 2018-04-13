@@ -50,6 +50,8 @@ function cleartable() {
 function listLabels(labels) {
     if(labels.error === false) {
         _listLabels(labels.msg);
+    } else {
+        errorDlg('ERROR - listLabels()', JSON.stringify(labels.msg));
     }
 };
 
@@ -244,7 +246,8 @@ function filesdone(resp) {
 function uploadlabel(label, callback) {
     if($('#full_name').data('reponame') != "none") {
         if(typeof label === "string") {
-            var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":' + label + '}';
+            //var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":' + label + '}';
+            var data = `{"repo":"${$('#full_name').data('reponame')},"label":${label}}`;
             createlabel(data, uploadDone);
         } else consolelog('ERROR uploadlabel - label is not a string');
     } else consolelog('ERROR uploadlabel - no repo selected');
