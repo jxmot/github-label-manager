@@ -48,9 +48,11 @@ Then after some thought and making adjustments I ended up with this -
   <img src="./mdimg/wireframe-2-660x489.jpg" alt="Sort-of Wireframe" txt="Sort-of Wireframe" width="50%">
 </p>
 
+
+
 Changes included - 
 
-* Made the repository selection box *resizeable*
+* Made the repository selection box *resizable*
 * Moved a button, added more at the bottom of the page
 * Worked out how I want the repository information to be presented.
 * Reworked the label area, decided to use icons for action selection and label state indication
@@ -84,9 +86,6 @@ But before I started on *operations* I had to come up with some *rules*. These r
         * "~~Read /~~ Import" - import from file only, 
 * List of Labels - sorted alphabetically by label text (*GitHub returns them already sorted*)
 
-
-
-
 ### Application States
 
 * Initial - 
@@ -119,7 +118,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
         * 1 or more labels - 
        
 
-* "Read Labels" was clcked - 
+* "Read Labels" was clicked - 
     * Check label list - 
         * Empty - do nothing, continue
         * 1 or more labels - 
@@ -159,7 +158,7 @@ But before I started on *operations* I had to come up with some *rules*. These r
     - [x] Design, code and debug test framework *Note: this task is ongoing during app development*
     - [x] Integrate with test framework *Note: this task is ongoing during app development*
     - [i] Final design, code and test
-    - [ ] Document in source and externally
+    - [i] Document in source and externally
 - [i] Develop additional core functions - create label, edit label, delete label, update label
     - [x] Initial design, code and test - based on initial core functionality effort
     - [x] Integrate with test framework *Note: this task is ongoing during app development*
