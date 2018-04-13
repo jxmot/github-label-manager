@@ -4,7 +4,7 @@
     A utility that remotely displays the viewport size of a browser 
     window and the mouse position within the viewport.
 
-    (c) 2017 J.Motyl    https://github.com/jxmot/browser-size-view/LICENSE.md
+    (c) 2017 Jim Motyl - https://github.com/jxmot/browser-size-view/LICENSE.md
 
     This code is capable becoming either a sender or receiver of 
     window and mouse data. When loaded it will automatically select 
