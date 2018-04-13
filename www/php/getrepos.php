@@ -11,6 +11,7 @@ require_once "delete-get.php";
         php-cgi getrepos.php
 */
 $resp = null;
+//if(true === false) {
 if(file_exists($cfgfile)) {
     $cfg = json_decode(file_get_contents($cfgfile));
     // https://developer.github.com/v3/guides/traversing-with-pagination/
