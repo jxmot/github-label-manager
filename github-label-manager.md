@@ -14,7 +14,7 @@
 * GUI - Repository API
 * GUI - Labels API
 
-### Web Client API
+### Label Manager Client API
 
 Access to the Web Client API is provided in `glmapi.js` - 
 
@@ -39,16 +39,12 @@ Retrieve a list of repositories for a specified GitHub user. Also saves the list
 **`getrepoinfo(repo, callback)`**<br>
 Retrieve information for a specific repository. 
 
-Depending upon the desired HTTP method the functions above will call - 
+The functions above are wrappers around GET and POST requests. And depending on the desired request the functions above will call - 
 
 * `_get(func, args, callback)` - 
 * `_post(func, body, callback)` - 
 
-### Server API
-
-The functions above request either GET or POST methods from the server. 
-
-### API Responses
+#### Client API Responses
 
 An API response is returned as a JSON string and contains - 
 
@@ -76,11 +72,11 @@ An error from `GET getimportlabels.php?f=no-file.json` where `no-file.json` does
 
 Error levels are contained in `ret` and can range from -1 to any reasonable negative number. The exact values and their meanings are related to the API call. However the proximity of value to zero indicates how close to success the API call was.
 
-**NOTE :** All API calls respond with `HTTP/1.0 200 OK` in the header regardless of the sucess or failure of the API call.
+**NOTE :** All API calls respond with `HTTP/1.0 200 OK` in the header regardless of the sucess or failure of the API call. 
 
 ## DOM Usage
 
-Within this application the DOM is quite dynamic. It is altered when ever a repository and/or its labels are rendered on the page. 
+Within this application the DOM is quite dynamic. It is altered when ever a repository or labels are rendered on the page. 
 
 ### Dynamic Element IDs
 
@@ -88,11 +84,15 @@ The following elements will have their `id` attributes created when the element 
 
 * Table Rows - `<tr>` : when associated with a label
 * List Items - `<li>` : when associated with label export/import files
-* Some Spans - `<span>` : when associated with a label's *action icons*
+* Some Spans - `<span>` : when associated with a label's *action icons* or *state icons*
 
 ### Dynamic Element Events
 
-Although it would be possible to attach events to the *dynamic element IDs*, it would also be extremely difficult to maintain and/or debug. Instead, and where click events are needed those click-able elements use the tag's `onclick=func()` attribute.
+Although it would be possible to attach events to the *dynamic element IDs*, it would also be extremely difficult to maintain and/or debug. Instead, and where click events are needed those click-able elements use the tag's `onclick="func()"` attribute. To identifiy the specific element its `id` will be passed as an argument - 
+
+```
+  <div onclick="func(this.id)"></div>
+```
 
 ### Dynamic Data Storage
 
@@ -117,6 +117,8 @@ Although it would be possible to attach events to the *dynamic element IDs*, it 
 ### Detecting Change
 
 ## Styling
+
+
 
 
 # Back End
