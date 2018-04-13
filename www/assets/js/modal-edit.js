@@ -1,9 +1,9 @@
 /* ************************************************************************ */
 /*
 
-    Label Edit Modal - Edit a single label at a time.
+    Label Edit Modal - Edit a single label at a time. 
 
-    2018 (c) Jim Motyl
+    (c) 2018 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 
     modal-edit.js
 
@@ -48,20 +48,20 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
         // by the user.
         startShake('#labelEditModal');
     } else {
-        var rowid = $('#labeledit').data('rowid');
         if((labelSave === true) && (labelCanc === false)) {
-            var _prelabel = document.getElementById(rowid).dataset.label_rw;
-            var prelabel = JSON.parse(_prelabel);
-            if(prelabel.label.descrption === '') prelabel.label.descrption = null;
-
-            var _newlabel = _prelabel;
-            var newlabel = JSON.parse(_newlabel);
+            var rowid = $('#labeledit').data('rowid');
+            // get the last version of the label, save it for later
+            // comparison and start the new label off with the a copy
+            // of its values
+            var prelabel = JSON.parse(document.getElementById(rowid).dataset.label_rw);
+            var newlabel = JSON.parse(JSON.stringify(prelabel));
+            // retrieve the color value from the picker
             newlabel.label.color = $('#coloredit').colorpicker('getValue');
-
+            // remove the '#' if it exists in the color string
             if(newlabel.label.color.charAt(0) === '#') {
                 newlabel.label.color = newlabel.label.color.substring(1);
             }
-
+            // get the name
             newlabel.label.name = $('#labelname').val();
 
 // NOTE: An empty `description` will be written as `null`. I've tested label 
@@ -71,8 +71,9 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
             if($('#labeldesc').val() !== '')
                 newlabel.label.description = $('#labeldesc').val();
             else newlabel.label.description = null;
-
+            // calculate the checksum of the potentially modified label
             newlabel.chksum = checksum(JSON.stringify(newlabel.label));
+            // compare new vs  previous...
             if(newlabel.chksum === prelabel.chksum) consolelog('label NOT changed');
             else {
                 consolelog('label IS changed');
@@ -147,24 +148,27 @@ $(function () {
 });
 
 /*
-    Pre-fill the label fields (color, and description) before
+    Pre-fill the label fields (color, text, and description) before
     showing the modal.
 */
 function fillEdit(rowid) {
     var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
-
+    // clear out the label edit elements
     $('#labeledit').empty();
     $('#labeledit').data('rowid', rowid);
-    
+    // create the label with its text
     var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
     $(label).text(edit.label.name);
+    // apply the backround color, pick a foreground color, and display it
     $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
     $('#labeledit').append($('<h3>').addClass('label-header').append(label));
-
+    // clear the label name and copy in the label name
     $('#labelname').empty();
     $('#labelname').val(edit.label.name);
-
+    // label description
+    $('#labeldesc').empty();
     $('#labeldesc').val((edit.label.description === null ? '' : edit.label.description));
+    // set the color picker
     $('#coloredit').colorpicker('setValue', '#'+edit.label.color);
 };
 
