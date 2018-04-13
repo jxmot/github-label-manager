@@ -3,7 +3,7 @@
 
     Wrapper for PHP endpoints.
 
-    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager
+    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 */
 
 /*
@@ -30,7 +30,7 @@ function exportdata(data, callback) {
 /*
     Retrieve a list of previously exported label files. 
 */
-function importlist(callback) {
+function getlabelfiles(callback) {
     _get('getlabelfiles', undefined, callback);
 };
 
