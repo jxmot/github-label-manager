@@ -1,7 +1,7 @@
 /*
     A collection of miscellaneous utility functions.
 
-    (c) 2017 Jim Motyl - https://github.com/jxmot/
+    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 */
 /*
     Checksum - creates a checksum for a string and returns
@@ -15,7 +15,8 @@ function checksum(s)
     var len = s.length;
     for (var i = 0; i < len; i++) chk += (s.charCodeAt(i) * (i + 1));
     return (chk & 0xffffffff).toString(16);
-}
+};
+
 /*
     Change the color of an element to either "dark" or "light" (black or
     white) depending on it's background color.
@@ -67,13 +68,17 @@ function adaptElementColor(selector, parent) {
     } else consolelog('adaptElementColor() - selector not found : ' + selector);
 };
 
+/*
+    A modified version of the function above.
+*/
 function adaptColor(bgcolor) {
     var r, g, b;
     var color = '000000';
     var offset = 0;
 
+    // separate the color value (#RRGGBB) into individual
+    // R, G, and B values
     if(bgcolor.charAt(0) === '#') offset = 1;
-
     r = parseInt(bgcolor.substring(0+offset,2+offset),16);
     g = parseInt(bgcolor.substring(2+offset,4+offset),16);
     b = parseInt(bgcolor.substring(4+offset,6+offset),16);
@@ -84,13 +89,12 @@ function adaptColor(bgcolor) {
                         0.587 * (g * g) +
                         0.114 * (b * b));
     
-    // see just how light or dark it is...
-    //if(hsp > 127.5) {
-    // may require adjustment, store in a config
-
     consolelog('adaptColor() - color = '+bgcolor);
     consolelog(' hsp = '+hsp);
 
+    // see just how light or dark it is...
+    //if(hsp > 127.5) {
+    // may require adjustment, store in a config
 //    if(hsp > 129) {
     if(hsp > 131) {
         color = '000000';
@@ -102,7 +106,8 @@ function adaptColor(bgcolor) {
 };
 
 /*
-    Start a timed shaking of the specified target element
+    Start a timed shaking of the specified target element, this is
+    useful for elements that contain modal or dialog boxes.
 */
 function startShake(target, focusTarget) {
     if((target != undefined) && (target != '')) {
@@ -117,7 +122,7 @@ function startShake(target, focusTarget) {
     } else {
         consolelog('startShake() - ERROR - bad argument');
     }
-}
+};
 
 /*
     Stop the shaking of the specified target element
@@ -132,7 +137,7 @@ function stopShake(target, focusTarget) {
     } else {
         consolelog('stopShake() - ERROR - bad argument');
     }
-}
+};
 
 /*
     Return the current date and time as a string - 

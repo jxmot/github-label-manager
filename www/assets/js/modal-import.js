@@ -4,7 +4,7 @@
     Label Import Modal - Select a label file and import them into the 
     primary list.
 
-    2018 (c) Jim Motyl
+    (c) 2018 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 
     modal-import.js
 
@@ -79,7 +79,18 @@ $('#labelImportModal').on('show.bs.modal', function (event) {
 });
 
 /*
-    Pre-fill the label-file list before showing the modal.
+    Pre-fill the label-file list before showing the modal. The 
+    files will be passed in as - 
+
+    {
+        error":false, 
+        "ret":3, 
+        "msg":[
+            "github-labels.json",
+            "standard-labels.json",
+            "_export-labels-20180402-135830.json"
+        ]
+    }
 */
 function fillImport(files) {
     $('#filelist').empty();
@@ -103,6 +114,20 @@ function fillImport(files) {
     }
 };
 
+/*
+    Preview a list of labels, prior to being imported. The labels
+    will be passed in as - 
+    {
+        error":false, 
+        "ret":0, 
+        "msg":[
+            {"name":"bug","color":"ee0701","description":null},
+            {"name":"duplicate","color":"cccccc","description":null},
+            {"name":"enhancement","color":"84b6eb","description":null},
+            {"name":"good first issue","color":"7057ff","description":null}
+        ]
+    }
+*/
 function showImportLabels(labels) {
     $('#import-labels-list-body').empty();
     currimport = {};
@@ -112,6 +137,7 @@ function showImportLabels(labels) {
         else if(labels.msg.length > 0) $('#import-label-col').text(labels.msg.length + ' Label');
         else $('#import-label-col').text('Label');
 
+        // all currently imported labels (for debugging)
         currimport = JSON.parse(JSON.stringify(labels.msg));
 
         for(var ix = 0;ix < labels.msg.length;ix += 1) {
