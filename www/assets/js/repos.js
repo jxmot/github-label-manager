@@ -4,7 +4,7 @@
     Manage all GUI elements related to repository 
     information and selection.
 
-    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager
+    (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 */
 
 // Retrieve the list of repositories and populate the
@@ -104,6 +104,7 @@ function listRepos(repolist) {
 */
 function clearRepoInfo() {
     $('#full_name').val('');
+    $('#full_name').data('reponame', 'none');
     $('#description').val('');
     $('#topics').val('');
     $('#open-issues').html(0);
