@@ -1,9 +1,15 @@
+/*
+    GUI Label Action Handler
 
-//function labelRowOver(id) {
-//    consolelog('id = '+id);
-//    consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
-//};
+    Manage label actions and resulting state changes
 
+    (c) 2018 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
+*/
+
+/*
+    This event handler is attached to a label's action icons and 
+    handles edit, delete, and undo.
+*/
 function labelAction(id) {
     var rowid;
     var elem = document.getElementById(id);
@@ -17,29 +23,38 @@ function labelAction(id) {
     }
 };
 
+/*
+    Initiate an action (edit, delete, and undo) on a label
+*/
 function actOnLabel(id, rowid, action) {
+    // mark for deletion?
     if(action === 'delete') {
+        // update the label state
         actionStateResult(rowid, TODEL);
-
+        // update the state of the action icons, since
+        // this label is deleted the only possible action
+        // can be undo.
         var editid = id.replace(/\-del/g, '-edit');
         var undoid = id.replace(/\-del/g, '-undo');
         $('#'+editid).addClass('icon-disabled');
         $('#'+id).addClass('icon-disabled');
         $('#'+undoid).removeClass('icon-disabled');
 
-    } else if(action === 'edit') {
+    } else if(action === 'edit') { // edit?
         // load up the modal with the current label
         fillEdit(rowid);
         // show the modal
         $('#labelEditModal').modal('show');
-    } else if(action === 'undo') {
+    } else if(action === 'undo') { // undo ?
+        // update the label state
         var state = actionStateResult(rowid, UNDO);
-
+        // restore previously disabled actions
         var deleid = id.replace(/\-undo/g, '-del');
         var editid = id.replace(/\-undo/g, '-edit');
         $('#'+deleid).removeClass('icon-disabled');
         $('#'+editid).removeClass('icon-disabled');
-
+        // if the resulting state is "unmodified" then copy
+        // the read-only label data in the the read-write data
         if(state === NOMOD) {
             document.getElementById(rowid).dataset.label_rw = document.getElementById(rowid).dataset.label_ro;
             $('#'+id).addClass('icon-disabled');
@@ -88,3 +103,9 @@ function actionStateResult(rowid, statechg) {
 
     return curr.state;
 };
+
+//function labelRowOver(id) {
+//    consolelog('id = '+id);
+//    consolelog('label_rw = '+document.getElementById(id).dataset.label_rw);
+//};
+
