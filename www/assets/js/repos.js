@@ -20,9 +20,7 @@ $('#loadrepo-btn').on('click', loadrepos);
     Handle a repository choice in the selection list.
 */
 function reposelect(idx, repo) {
-    consolelog('reposelect');
-    consolelog('idx  = ' + idx);
-    consolelog('repo = ' + repo);
+    consolelog(`reposelect() -  idx = ${idx}  repo = ${repo}`);
     if(idx != -1) getrepoinfo(repo, showRepoInfo);
     else clearRepoInfo();
 };
