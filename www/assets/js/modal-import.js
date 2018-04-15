@@ -137,7 +137,8 @@ function showImportLabels(labels) {
         else if(labels.msg.length > 0) $('#import-label-col').text(labels.msg.length + ' Label');
         else $('#import-label-col').text('Label');
 
-        // all currently imported labels (for debugging)
+        // all currently imported labels, will be added to the label 
+        // table when the modal is dismissed with a confirmation
         currimport = JSON.parse(JSON.stringify(labels.msg));
 
         for(var ix = 0;ix < labels.msg.length;ix += 1) {

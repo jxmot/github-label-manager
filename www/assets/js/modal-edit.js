@@ -155,6 +155,7 @@ function fillEdit(rowid) {
     var edit = JSON.parse(document.getElementById(rowid).dataset.label_rw);
     // clear out the label edit elements
     $('#labeledit').empty();
+    // retain a reference to the label row that we're editing
     $('#labeledit').data('rowid', rowid);
     // create the label with its text
     var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
