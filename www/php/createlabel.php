@@ -4,7 +4,7 @@ require_once "ghlabelmgr.php";
 require_once "patch-post.php";
 
 /*
-    POST crelabel.php
+    POST createlabel.php
     body: {"repo":"repo name", "label":{"name":"labelName", "color":"7f7fff", "description":"test label, CREATED"}}
 */
 $resp = null;
