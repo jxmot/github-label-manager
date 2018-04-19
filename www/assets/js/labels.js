@@ -114,17 +114,21 @@ function _listLabels(labels, labelimport = false) {
         // build the label button cell
         var cell = $('<td>').addClass('table-cell-center');
         var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
+        // create the label's text from its name and add emojis if present in 
+        // the label name
         var imgtag = undefined;
         if((imgtag = emojitag(lbldata.name)) === undefined) {
             $(label).text(lbldata.name);
         } else {
+            // remove emoji text from the name
             var lblname = lbldata.name.replace(/\:(.*?)\:/g, '');
             $(label).text(lblname);
+            // append each <img> tag with an emoji to the label
             while((img = imgtag.shift()) !== undefined) {
                 $(label).append(img);
             }
         }
-
+        // set the label's background color
         $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
         $(cell).append($('<h3>').addClass('label-header').append(label));
         $(row).append(cell);
