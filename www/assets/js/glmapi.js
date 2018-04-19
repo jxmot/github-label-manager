@@ -7,11 +7,21 @@
 */
 
 /*
-    
+    Create a label, all fields present in 'label'
+    will be written to the repo.
 */
 function createlabel(label, callback) {
-    // create the new label in the repository
-    _post('crelabel', label, callback);
+    // upload a label to the repository
+    _post('createlabel', label, callback);
+};
+
+/*
+    Update a label, all fields in 'label' will
+    be written to the repo.
+*/
+function updatelabel(label, callback) {
+    // upload a label to the repository
+    _post('updatelabel', label, callback);
 };
 
 /*
@@ -60,6 +70,13 @@ function getrepos(callback) {
 */
 function getrepoinfo(repo, callback) {
     _get('getrepoinfo', `?r=${repo}`, callback);
+};
+
+/*
+    Get the entire list of emoji's from Git
+*/
+function getemojilist(callback) {
+    _get('getemojilist', undefined, callback);
 };
 
 /*
