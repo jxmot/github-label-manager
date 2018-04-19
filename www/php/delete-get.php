@@ -27,7 +27,7 @@ function request_dg($url, $method, $acc, $cfg)
         'http' => array(
             'method' => $method,
             'header' => "Accept: $acc\r\n" .
-            "Authorization: $cfg->token\r\n" .
+            ($cfg === null ? "" : "Authorization: $cfg->token\r\n") .
             "user-agent: custom\r\n" .
             "Content-Type: application/json; charset=utf-8\r\n" .
             "Content-Encoding: text\r\n"

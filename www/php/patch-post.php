@@ -27,7 +27,7 @@ function request_pp($url, $method, $acc, $cfg, $payload)
         'http' => array(
             'method' => $method,
             'header' => "Accept: $acc\r\n" .
-            "Authorization: $cfg->token\r\n" .
+            ($cfg === null ? "" : "Authorization: $cfg->token\r\n") .
             "user-agent: custom\r\n" .
             "Content-Type: application/json; charset=utf-8\r\n" .
             "Content-Encoding: text\r\n",
