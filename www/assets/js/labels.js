@@ -16,13 +16,16 @@ $('#export-labels-btn').on('click', exportlabels);
 // import labels from a selected file and add them to the table
 $('#label-import-btn').on('click', importfiles);
 // TEST - uploads a canned label to the selected repository
-$('#uploadlabel-btn').on('click', test_uploadlabel);
+$('#uploadlabel-btn').on('click', test_createonelabel);
 
-function test_uploadlabel() {
+function test_createonelabel() {
     if($('#full_name').data('reponame') != "none") {
         var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":{"name": "test1234","description":"test label, ignore","color": "cfd2d4"}}';
         createlabel(data, uploadDone);
-    } else consolelog('ERROR uploadlabel - no repo selected');
+    } else {
+        consolelog('ERROR uploadlabel - no repo selected');
+        errorDlg('ERROR Label Upload', 'Select a repository');
+    }
 };
 
 /*
@@ -38,8 +41,11 @@ function readlabels(clrtable = true) {
 /*
     Clear the label table
 */
+var lastlabelcount = 0;
+
 function cleartable() {
     $('#repo-labels-list-body').empty();
+    lastlabelcount = 0;
     $('#table-label-col').text('Label');
 };
 
@@ -60,18 +66,20 @@ function listLabels(labels) {
     Append the labels to the table
 */
 function _listLabels(labels, labelimport = false) {
+    // save the quantity of labels, in case imports are appended.
+    lastlabelcount += labels.length;
+
     // Change the column heading depending on the quantity
     // of labels in the table
-    if(labels.length > 1) $('#table-label-col').text(labels.length + ' Labels');
-    else if(labels.length > 0) $('#table-label-col').text(labels.length + ' Label');
+    if(lastlabelcount > 1) $('#table-label-col').text(lastlabelcount + ' Labels');
+    else if(lastlabelcount > 0) $('#table-label-col').text(lastlabelcount + ' Label');
     else $('#table-label-col').text('Label');
 
-// TODO: save a separate ix for only element IDs across reads, imports, 
-// etc and manage largest allowed value
-
     for(var ix = 0;ix < labels.length;ix += 1) {
-        // replace spaces in the name with an underscore
-        var name = labels[ix].name.replace(/ /g, '_');
+        // remove any emoji (:???:) and then replace spaces in 
+        // the name with an underscore
+        var name = labels[ix].name.replace(/ \:(.*?)\:/g, '');
+        name = name.replace(/ /g, '_');
         // append the current index to the name
         var nameix = name+'-'+ix;
         // copy the label data, break any references
@@ -100,11 +108,23 @@ function _listLabels(labels, labelimport = false) {
         //      2 + 4 = modified and marked for deletion
         // 
         // unmarking a deleted label will subtract 4 from the state
-        $(row).attr('data-state', '{"state":1}');
+        //$(row).attr('data-state', '{"state":1}');
+        var source = (labelimport === true ? 'import' : 'repo');
+        $(row).attr('data-state', `{"state":1,"source":"${source}"}`);
         // build the label button cell
         var cell = $('<td>').addClass('table-cell-center');
         var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
-        $(label).text(lbldata.name);
+        var imgtag = undefined;
+        if((imgtag = emojitag(lbldata.name)) === undefined) {
+            $(label).text(lbldata.name);
+        } else {
+            var lblname = lbldata.name.replace(/\:(.*?)\:/g, '');
+            $(label).text(lblname);
+            while((img = imgtag.shift()) !== undefined) {
+                $(label).append(img);
+            }
+        }
+
         $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
         $(cell).append($('<h3>').addClass('label-header').append(label));
         $(row).append(cell);
@@ -138,7 +158,7 @@ function _listLabels(labels, labelimport = false) {
         if(labelimport === true) {
             $(notmod).addClass('fas fa-info-circle fa-lg label-notmod-icon');
         } else {
-            $(notmod).addClass('fas fa-check-circle fa-lg label-notmod-icon');
+            $(notmod).addClass('fab fa-github fa-lg label-notmod-icon');
         }
         var tomod = $('<span>').addClass('fas fa-exclamation-triangle fa-lg label-ismod-icon hidden');
         var todel = $('<span>').addClass('hidden');
@@ -243,25 +263,29 @@ function filesdone(resp) {
 /*
 
 */
-function uploadlabel(label, callback) {
+function uploadonelabel(label, callback) {
     if($('#full_name').data('reponame') != "none") {
         if(typeof label === "string") {
             //var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":' + label + '}';
             var data = `{"repo":"${$('#full_name').data('reponame')},"label":${label}}`;
+            // if label is new...
             createlabel(data, uploadDone);
-        } else consolelog('ERROR uploadlabel - label is not a string');
-    } else consolelog('ERROR uploadlabel - no repo selected');
+            // else
+            // updatelabel(data, uploadDone);
+        } else consolelog('ERROR uploadonelabel - label is not a string');
+    } else consolelog('ERROR uploadonelabel - no repo selected');
 };
 
 /*
-
+    Label upload complete
 */
 function uploadDone(newlabel) {
     consolelog('uploadDone - ' + JSON.stringify(newlabel.msg));
 };
 
 /*
-
+    Render a label & color, and its description to a specific
+    row ID in the table.
 */
 function renderLabel(rowid) {
     var lbldata = JSON.parse(document.getElementById(rowid).dataset.label_rw).label;
