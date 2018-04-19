@@ -94,7 +94,7 @@ Although it would be possible to attach events to the *dynamic element IDs*, it 
   <div onclick="func(this.id)"></div>
 ```
 
-### Dynamic Data Storage
+### Dynamic Element Data Storage
 
 #### Label Data
 
@@ -106,7 +106,7 @@ Although it would be possible to attach events to the *dynamic element IDs*, it 
 
 #### Notes
 
-* When storing JSON formatted *strings* in `data-????` attributes you need to be conisistent in regards to the method used for saving **and** retrieving the JSON string. I have found that everything works best when using `document.getElementById('someID').dataset.item` *instead of* the JQuery form `$('#someID').data('item')`. That's because JQuery will parse the JSON string and `$('#someID').data('item')` will actually return an object. 
+* When storing JSON formatted *strings* in `data-????` attributes you need to be consistent in regards to the method used for saving **and** retrieving the JSON string. I have found that everything works best when using `document.getElementById('someID').dataset.item` *instead of* the JQuery form `$('#someID').data('item')`. That's because JQuery will parse the JSON string and `$('#someID').data('item')` will actually return an object. 
 
 ## Label Editing
 
