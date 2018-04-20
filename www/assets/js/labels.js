@@ -76,16 +76,17 @@ function _listLabels(labels, labelimport = false) {
     else $('#table-label-col').text('Label');
 
     for(var ix = 0;ix < labels.length;ix += 1) {
-        // remove any emoji (:???:) and then replace spaces in 
-        // the name with an underscore
-        var name = labels[ix].name.replace(/ \:(.*?)\:/g, '');
-        name = name.replace(/ /g, '_');
-        // append the current index to the name
-        var nameix = name+'-'+ix;
         // copy the label data, break any references
         const lbldata = JSON.parse(JSON.stringify(labels[ix]));
         // needed for correct determination if a label has been edited
         if(lbldata.description === '') lbldata.description = null;
+        // remove any emoji (:???:) and then replace spaces in 
+        // the name with an underscore
+        var name = lbldata.name.replace(/\:(.*?)\:/g, '');
+        name = name.trim().replace(/ /g, '_');
+        // append the current index to the name
+        var nameix = name+'-'+ix;
+
         // build the table's row element from the label data
         var row = $('<tr>');
         $(row).attr('id', nameix);
@@ -114,6 +115,7 @@ function _listLabels(labels, labelimport = false) {
         // build the label button cell
         var cell = $('<td>').addClass('table-cell-center');
         var label = $('<span>').attr('id', nameix+'-color').addClass('label label-default');
+// RENDER LABEL
         // create the label's text from its name and add emojis if present in 
         // the label name
         var imgtag = undefined;
@@ -131,6 +133,8 @@ function _listLabels(labels, labelimport = false) {
         // set the label's background color
         $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
         $(cell).append($('<h3>').addClass('label-header').append(label));
+// ^RENDER LABEL
+
         $(row).append(cell);
         // build the label description cell
         cell = $('<td>').attr('id', nameix+'-desc').text((lbldata.description === null ? '' : lbldata.description));
@@ -293,8 +297,25 @@ function uploadDone(newlabel) {
 */
 function renderLabel(rowid) {
     var lbldata = JSON.parse(document.getElementById(rowid).dataset.label_rw).label;
-    $('#'+rowid+'-color').text(lbldata.name);
+// RENDER LABEL
+    // create the label's text from its name and add emojis if present in 
+    // the label name
+    var imgtag = undefined;
+    if((imgtag = emojitag(lbldata.name)) === undefined) {
+        $('#'+rowid+'-color').text(lbldata.name);
+    } else {
+        // remove emoji text from the name
+        var lblname = lbldata.name.replace(/\:(.*?)\:/g, '');
+        $('#'+rowid+'-color').text(lblname);
+        // append each <img> tag with an emoji to the label
+        while((img = imgtag.shift()) !== undefined) {
+            $('#'+rowid+'-color').append(img);
+        }
+    }
+    // set the label's background color
     $('#'+rowid+'-color').attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
+// ^RENDER LABEL
+
     $('#'+rowid+'-desc').text((lbldata.description === null ? '' : lbldata.description));
 };
 

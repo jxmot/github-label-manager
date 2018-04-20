@@ -159,10 +159,27 @@ function fillEdit(rowid) {
     $('#labeledit').data('rowid', rowid);
     // create the label with its text
     var label = $('<span>').attr('id', 'templabel' ).addClass('label label-default');
-    $(label).text(edit.label.name);
+
+// RENDER LABEL
+    // create the label's text from its name and add emojis if present in 
+    // the label name
+    var imgtag = undefined;
+    if((imgtag = emojitag(edit.label.name)) === undefined) {
+        $(label).text(edit.label.name);
+    } else {
+        // remove emoji text from the name
+        var lblname = edit.label.name.replace(/\:(.*?)\:/g, '');
+        $(label).text(lblname);
+        // append each <img> tag with an emoji to the label
+        while((img = imgtag.shift()) !== undefined) {
+            $(label).append(img);
+        }
+    }
     // apply the backround color, pick a foreground color, and display it
     $(label).attr('style', 'background-color:#'+edit.label.color+';color:#'+adaptColor(edit.label.color)+';');
     $('#labeledit').append($('<h3>').addClass('label-header').append(label));
+// ^RENDER LABEL
+
     // clear the label name and copy in the label name
     $('#labelname').empty();
     $('#labelname').val(edit.label.name);
