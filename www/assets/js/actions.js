@@ -17,6 +17,7 @@ function labelAction(id) {
     {
         consolelog('id = '+id);
         consolelog('action = '+elem.dataset.action);
+        // NOTE: this will fail if the label name has a '-edit' in it
         rowid = id.replace(/\-edit|\-del|\-undo/g, '');
         consolelog('rowid = '+rowid+'  label_rw = '+document.getElementById(rowid).dataset.label_rw);
         actOnLabel(id, rowid, elem.dataset.action);
