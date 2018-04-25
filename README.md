@@ -2,10 +2,14 @@
 
 **NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
 
-**2013-04-10 : Label file export/import and row marking (as imported) is working, needs additional testing and
+**2018-04-20 : Added a verticle scroll and max height to the label table. And I've working on some custom fonts(icons) for indicating the origin of the label (GitHub vs imported) and for indicating the origin-related states.**
+
+**2018-04-17 : Added emoji rendering to labels, but the code needs some refactoring due to duplication. Also need to investigate some of the error handling so that the messages and/or actions are appropraite ("Read Labels" w/o a selected repo)**
+
+**2018-04-10 : Label file export/import and row marking (as imported) is working, needs additional testing and
 integration of imported labels into other operations.**
 
-**2013-03-31 : Basic label retrieval from a repo, label edit, undo, and mark for deletion are working.**
+**2018-03-31 : Basic label retrieval from a repo, label edit, undo, and mark for deletion are working.**
 
 **Major To Do's : label deletion from repo, label upload to repo, new label creation**
 
