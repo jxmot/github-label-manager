@@ -113,6 +113,11 @@ td, tr {
     min-height:60px;
 }
 
+.table-scroll {  
+    max-height: 450px !important;
+    overflow: scroll;
+}
+
 .label-undo-icon {
     padding-left:2%;
     color:green;
