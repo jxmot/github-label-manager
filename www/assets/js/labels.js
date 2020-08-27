@@ -133,9 +133,9 @@ function _listLabels(labels, labelimport = false) {
         // set the label's background color
         $(label).attr('style', 'background-color:#'+lbldata.color+';color:#'+adaptColor(lbldata.color)+';');
         $(cell).append($('<h3>').addClass('label-header').append(label));
+        $(row).append(cell);
 // ^RENDER LABEL
 
-        $(row).append(cell);
         // build the label description cell
         cell = $('<td>').attr('id', nameix+'-desc').text((lbldata.description === null ? '' : lbldata.description));
         $(row).append(cell);
