@@ -8,7 +8,7 @@ require_once "delete-get.php";
 
     for command line testing :
 
-        php-cgi dellabel.php r=repo_name l=labelName
+        php-cgi ./dellabel.php r=repo_name l=labelName
 */
 $resp = null;
 $repofile = null;

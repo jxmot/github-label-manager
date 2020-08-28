@@ -6,7 +6,7 @@ require_once "delete-get.php";
 
     for command line testing :
 
-        php-cgi getemojilist.php
+        php-cgi ./getemojilist.php
 */
 $resp = null;
 

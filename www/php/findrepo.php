@@ -4,7 +4,7 @@
 
     for command line testing :
 
-        php-cgi findrepo.php r=repo_name f=../data/_owner-repos.json
+        php-cgi ./findrepo.php r=repo_name f=../data/_owner-repos.json
 */
 $reporeq  = $_REQUEST["r"];
 $repofile = $_REQUEST["f"];
