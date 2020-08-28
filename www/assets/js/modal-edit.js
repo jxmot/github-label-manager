@@ -62,6 +62,10 @@ $('#labelEditModal').on('hide.bs.modal', function (event) {
                 newlabel.label.color = newlabel.label.color.substring(1);
             }
             // get the name
+// TODO: handle "new_name" vs "name" here. 
+//            newlabel.label.new_name = $('#labelname').val();
+//            newlabel.label.name = document.getElementById(rowid).dataset.label_ro.name;
+//  instead of....
             newlabel.label.name = $('#labelname').val();
 
 // NOTE: An empty `description` will be written as `null`. I've tested label 
