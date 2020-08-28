@@ -21,6 +21,9 @@ $label = json_encode($body['label']);
 if((isset($labelrepo)) && (isset($label))) {
     if(file_exists($cfgfile)) {
         $cfg = json_decode(file_get_contents($cfgfile));
+// https://docs.github.com/en/rest/reference/issues#update-a-label
+// TODO: per the docs, need to manage "name" vs "new_name". will be done
+// upstream in the GUI.
         $url = "https://api.github.com/repos/$cfg->owner/$labelrepo/labels/".$body['label']['name'];
         $acc = $accept['symmetra'];
         $resp = patch($url, $acc, $cfg, $label);
