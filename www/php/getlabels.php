@@ -8,7 +8,7 @@ require_once "delete-get.php";
 
     for command line testing :
 
-        php-cgi getlabels.php r=repo_name
+        php-cgi ./getlabels.php r=repo_name
 */
 $reporeq = $_REQUEST["r"];
 $resp = null;
@@ -27,6 +27,8 @@ if(isset($reporeq)) {
                 if($tmp->error === false) {
                     $fname = "../data/repolabels/_$cfg->owner-$reporeq-labels.json";
                     file_put_contents($fname, json_encode($tmp->msg));
+                } else {
+                    $resp = "{\"error\":true, \"ret\":-1, \"msg\":\"error returned by git for $reporeq\"}";
                 }
             } else {
                 $resp = "{\"error\":true, \"ret\":-2, \"msg\":\"$reporeq not found in ../data/_$cfg->owner-repos.json\"}";
