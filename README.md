@@ -2,6 +2,8 @@
 
 **NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
 
+**2020-08-27 : Revisited project, fixed some minor bugs. Had to update the git token(not visible in repo).**
+
 **2018-04-20 : Added a verticle scroll and max height to the label table. And I've working on some custom fonts(icons) for indicating the origin of the label (GitHub vs imported) and for indicating the origin-related states.**
 
 **2018-04-17 : Added emoji rendering to labels, but the code needs some refactoring due to duplication. Also need to investigate some of the error handling so that the messages and/or actions are appropraite ("Read Labels" w/o a selected repo)**
@@ -35,6 +37,36 @@ This application is not intended to be deployed for *multi-user* scenarios. It i
 Label data files can be shared between users. Those files do not contain and GitHub user or repository information. However in situations where label data files are automatically saved the file names will contain a repository name.
 
 All data files are kept on the server where the application is ran from. They will be found in the `./data` folder.
+
+## Running the Application
+
+**Do not host this application on a web server. Since it can make changes to a repository labels without "logging in" it should be ran in a protected environment.**
+
+A local web server like XAMPP or MAMP is required. Run this application in a browser and direct it to where the application is hosted.
+
+Another requirement is that you obtain a GitHub *personal access token*. This can be done by visiting your profile and accessing *Developer Settings*. From there choose *Personal Access Tokens* and generate a new token. 
+
+Follow these steps:
+
+1) Obtain and install a local web server application. You must have PHP installed!
+2) Rename `www/data/config/example_gitlabels.json` TO `www/data/config/`**`_gitlabels.json`**
+3) Edit **`_gitlabels.json`** :
+
+```
+{
+    "owner": "repo_owner",
+    "token": "token ????????????????????????????????????"
+}
+```
+
+Replace:
+  `"repo_owner"` with your GitHub user *name*.
+  `????????????????????????????????????` with **your** *personal access token*
+  
+4) Save the file.
+5) Copy the **contents** including all sub-folders of the `www` folder in to the location where your web server expects to find its files. It is possible to contain the application within its own sub-folder.
+6) Run the application in your browser - `http://localhost/` or `http://localhost/test` if for example, you placed the application in a sub-folder named `test`.
+
     
 ## Initial GUI Design
 
@@ -51,7 +83,6 @@ Then after some thought and making adjustments I ended up with this -
 <p align="center">
   <img src="./mdimg/wireframe-2-660x489.jpg" alt="Sort-of Wireframe" txt="Sort-of Wireframe" width="50%">
 </p>
-
 
 
 Changes included - 
