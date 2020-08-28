@@ -8,15 +8,16 @@ require_once "delete-get.php";
 
     for command line testing :
 
-        php-cgi getrepos.php
+        php-cgi ./getrepos.php
 */
 $resp = null;
 //if(true === false) {
 if(file_exists($cfgfile)) {
     $cfg = json_decode(file_get_contents($cfgfile));
     // https://developer.github.com/v3/guides/traversing-with-pagination/
-    $url = "https://api.github.com/users/$cfg->owner/repos?per_page=100";
-    $acc = $accept['mercy'];
+    //$url = "https://api.github.com/users/$cfg->owner/repos?per_page=100";
+    $url = "https://api.github.com/users/$cfg->owner/repos";
+    $acc = $accept['v3'];
     $resp = get($url, $acc, $cfg);
     $tmp = json_decode($resp);
     if($tmp->error === false) {
