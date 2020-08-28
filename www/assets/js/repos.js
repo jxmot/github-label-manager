@@ -13,7 +13,6 @@ $(function () {
     loadrepos();
 });
 
-// same as above
 $('#loadrepo-btn').on('click', loadrepos);
 
 /*

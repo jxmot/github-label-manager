@@ -278,6 +278,7 @@ function uploadonelabel(label, callback) {
         if(typeof label === "string") {
             //var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":' + label + '}';
             var data = `{"repo":"${$('#full_name').data('reponame')},"label":${label}}`;
+// TODO: add req'd flag to label to indicate "new"
             // if label is new...
             createlabel(data, uploadDone);
             // else

@@ -7,6 +7,9 @@
     (c) 2017 Jim Motyl - https://github.com/jxmot/github-label-manager/LICENSE.md
 */
 
+// an emoji cheat sheet - 
+// https://www.webfx.com/tools/emoji-cheat-sheet/
+
 // Retrieve the list of repositories and populate the
 // selection list.
 $(function () {
