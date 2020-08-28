@@ -8,7 +8,7 @@ require_once "delete-get.php";
 
     for command line testing :
 
-        php-cgi getlabelfiles.php
+        php-cgi ./getlabelfiles.php
 */
 $resp = null;
 $filelist = array();

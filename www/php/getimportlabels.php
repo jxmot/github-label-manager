@@ -7,7 +7,7 @@ require_once "ghlabelmgr.php";
 
     for command line testing :
 
-        php-cgi getimportlabels.php f=label_file_name
+        php-cgi ./getimportlabels.php f=label_file_name
 */
 $labelfile = $_REQUEST["f"];
 

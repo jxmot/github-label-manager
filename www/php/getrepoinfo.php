@@ -8,7 +8,7 @@ require_once "parseHeaders.php";
 
     for command line testing :
 
-        php-cgi getrepoinfo.php r=repo_name
+        php-cgi ./getrepoinfo.php r=repo_name
 */
 $reporeq = $_REQUEST["r"];
 $repofile = null;
