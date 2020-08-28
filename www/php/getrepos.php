@@ -17,7 +17,10 @@ if(file_exists($cfgfile)) {
     // https://developer.github.com/v3/guides/traversing-with-pagination/
     //$url = "https://api.github.com/users/$cfg->owner/repos?per_page=100";
     $url = "https://api.github.com/users/$cfg->owner/repos";
-    $acc = $accept['v3'];
+// NOTE: subtle difference Accept 'mercy' Vs. 'v3', with 'v3' all of the
+// repo's topics are missing.
+//    $acc = $accept['v3'];
+    $acc = $accept['mercy'];
     $resp = get($url, $acc, $cfg);
     $tmp = json_decode($resp);
     if($tmp->error === false) {
