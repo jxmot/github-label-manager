@@ -60,10 +60,10 @@ function adaptElementColor(selector, parent) {
         // see just how light or dark it is...
         if(hsp > 127.5) {
             // and choose the opposite
-            $(selector).addClass('sensornet_label-dark-color');
+            $(selector).addClass('dark-color');
         } else {
             // and choose the opposite
-            $(selector).addClass('sensornet_label-light-color');
+            $(selector).addClass('light-color');
         }
     } else consolelog('adaptElementColor() - selector not found : ' + selector);
 };
