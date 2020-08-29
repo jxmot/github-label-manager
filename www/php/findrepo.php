@@ -16,10 +16,10 @@ $repojson = null;
 if(isset($reporeq) && isset($repofile)) {
     if(file_exists($repofile)) {
         $allrepos = json_decode(file_get_contents($repofile));
-        $repolen = count($allrepos);
+        $repolen = $allrepos->total_count;
         for($ix = 0; $ix < $repolen; $ix += 1) {
-            if(strtolower($allrepos[$ix]->name) === strtolower($reporeq)) {
-                $repojson = json_encode($allrepos[$ix]);
+            if(strtolower($allrepos->items[$ix]->name) === strtolower($reporeq)) {
+                $repojson = json_encode($allrepos->items[$ix]);
                 $resp = "{\"error\":false, \"ret\":0, \"msg\":$repojson}";
                 break;
             }

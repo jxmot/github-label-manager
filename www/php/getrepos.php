@@ -14,9 +14,9 @@ $resp = null;
 //if(true === false) {
 if(file_exists($cfgfile)) {
     $cfg = json_decode(file_get_contents($cfgfile));
-    // https://developer.github.com/v3/guides/traversing-with-pagination/
-    //$url = "https://api.github.com/users/$cfg->owner/repos?per_page=100";
-    $url = "https://api.github.com/users/$cfg->owner/repos";
+    // https://docs.github.com/en/rest/reference/search
+    // https://docs.github.com/en/github/searching-for-information-on-github/searching-for-repositories
+    $url = "https://api.github.com/search/repositories?q=user:$cfg->owner&per_page=100";
 // NOTE: subtle difference Accept 'mercy' Vs. 'v3', with 'v3' all of the
 // repo's topics are missing.
 //    $acc = $accept['v3'];
@@ -27,7 +27,7 @@ if(file_exists($cfgfile)) {
         $fname = "../data/_$cfg->owner-repos.json";
         file_put_contents($fname, json_encode($tmp->msg));
         $repodisp = array();
-        $allrepos = $tmp->msg;
+        $allrepos = $tmp->msg->items;
         for($ix = 0;$ix < count($allrepos);$ix += 1) {
             $tmp = "{\"name\":\"".$allrepos[$ix]->name."\",\"full_name\":\"".$allrepos[$ix]->full_name."\"}";
             $repodisp[$ix] = json_decode($tmp);
