@@ -276,9 +276,8 @@ function filesdone(resp) {
 function uploadonelabel(label, callback) {
     if($('#full_name').data('reponame') != "none") {
         if(typeof label === "string") {
-            //var data = '{"repo":"' + $('#full_name').data('reponame') + '","label":' + label + '}';
-            var data = `{"repo":"${$('#full_name').data('reponame')},"label":${label}}`;
 // TODO: add req'd flag to label to indicate "new"
+            var data = `{"repo":"${$('#full_name').data('reponame')},"label":${label}}`;
             // if label is new...
             createlabel(data, uploadDone);
             // else
@@ -323,6 +322,7 @@ function renderLabel(rowid) {
 };
 
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sort_table
+// modified to take an id of a table as an argument.
 function sortTable(target) {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById(target);
