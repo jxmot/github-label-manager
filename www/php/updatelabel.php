@@ -5,7 +5,14 @@ require_once "patch-post.php";
 
 /*
     POST updatelabel.php
-    body: {"repo":"repo name", "label":{"name":"labelName", "color":"7f7fff", "description":"test label, PATCHED"}}
+    body: {
+            "repo":"repo name", 
+            "label":{
+                "name":"labelName", 
+                "color":"7f7fff", 
+                "description":"test label, PATCHED"
+            }
+    }
 */
 $resp = null;
 
