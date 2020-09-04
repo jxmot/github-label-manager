@@ -1,4 +1,4 @@
-# github-label-manager
+# github-label-manager [WORK IN PROGRESS!]
 
 **NOTE: This project is currently a "work-in-progress". And will be in various states between "working" and "not working". The master branch will not necessarily be the most current.**
 
@@ -21,6 +21,17 @@ A web based utility to manage GitHub labels.
 
 GitHub is a great tool, and I appreciate all the work that has gone into it. But lately I've been using *issues* on my repositories to note bugs, enhancements, etc. And I like the fact that I can use *labels*. However, it would have been *really nice* to make the labels global in respect to the repositories. For example there is a group of 4 or 5 labels that I would like to use *everywhere*. And getting them to each of the desired repositories is no effortless task! So, this is what I came up with....
 
+# Goals
+
+In addition to having a convenient tool the following goals are planned:
+
+* Get practical experience with a REST API.
+* Become more proficient with PHP.
+* Become more proficient with HTML, CSS, and JavaScript.
+* Create an API in PHP that insulates the client(JavaScript) from the specifics of the GitHub API.
+* Trouble shoot from end to end, from the client through the PHP API and to the GitHub API and back.
+* *TBD*
+
 # Overview
 
 This utility will provide - 
@@ -34,13 +45,13 @@ This utility will provide -
     
 This application is not intended to be deployed for *multi-user* scenarios. It is intended to assist an *individual* in the task of managing GitHub issue labels across a number of repositories. Each user(*repository owner/collaborator*) will require their own separate installation of this application. This application can be hosted either locally or on an Internet accessible web server. However the latter is *not recommended* unless sufficient security has been implemented.
 
-Label data files can be shared between users. Those files do not contain and GitHub user or repository information. However in situations where label data files are automatically saved the file names will contain a repository name.
+Label data files can be shared between users. Those files do not contain any GitHub user or repository information. However in situations where label data files are automatically saved the file names will contain a repository name.
 
 All data files are kept on the server where the application is ran from. They will be found in the `./data` folder.
 
 ## Running the Application
 
-**Do not host this application on a web server. Since it can make changes to a repository labels without "logging in" it should be ran in a protected environment.**
+**Do not host this application on an internet accessible web server. Since it can make changes to a repository labels without "logging in" it should be ran from a protected environment.**
 
 A local web server like XAMPP or MAMP is required. Run this application in a browser and direct it to where the application is hosted.
 
@@ -67,7 +78,27 @@ Replace:
 5) Copy the **contents** including all sub-folders of the `www` folder in to the location where your web server expects to find its files. It is possible to contain the application within its own sub-folder.
 6) Run the application in your browser - `http://localhost/` or `http://localhost/test` if for example, you placed the application in a sub-folder named `test`.
 
-    
+
+## Work Flow
+
+### Choosing s Repository
+
+### Loading Labels
+
+### Editing s Label
+
+### Deleting a Label
+
+### Creating a Label
+
+### Undo Changes
+
+### Uploading Changes
+
+### Export Labels
+
+### Import Labels
+
 ## Initial GUI Design
 
 *A wireframe is your friend....* and time is well spent making one. And *Mock ups* are a good alternative.
