@@ -25,7 +25,7 @@ GitHub is a great tool, and I appreciate all the work that has gone into it. But
 
 In addition to having a convenient tool the following goals are planned:
 
-* Get practical experience with a REST API.
+* Get practical experience with an existing REST API.
 * Become more proficient with PHP.
 * Become more proficient with HTML, CSS, and JavaScript.
 * Create an API in PHP that insulates the client(JavaScript) from the specifics of the GitHub API.
