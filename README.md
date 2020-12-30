@@ -262,4 +262,5 @@ Other things to do along the way -
         - [ ] Restrict label actions based on use count. **Run a test with current code and labels that are attached to issues**
     - [ ] Add "stars" to repo info box
 
-
+---
+<img src="http://webexperiment.info/extcounter/mdcount.php?id=github-label-manager">
